@@ -1,14 +1,32 @@
-const projects = [
+import Image from 'next/image'
+
+type Project = {
+  id: string
+  name: string
+  description: string
+  tags: string[]
+  type: string
+  accentColor: string
+  bgColor: string
+  url: string
+  screenshot?: string  // /public path, e.g. '/marcovich-preview.jpg'
+  wip?: boolean        // true → shows blur overlay + "En desarrollo" indicator
+  priority?: boolean   // true → LCP candidate, loads eagerly
+}
+
+const projects: Project[] = [
   {
     id: 'marcovich',
     name: 'Marcovich Barbería',
     description:
       'Plataforma completa para barbería premium: sistema de reservas online en 5 pasos, autenticación de clientes, panel de administración y notificaciones por email y WhatsApp.',
-    tags: ['Next.js 14', 'Supabase', 'TypeScript'],
-    type: 'L3 — Dashboard + Auth',
+    tags: ['Next.js 14', 'Supabase', 'TypeScript', 'n8n', 'Docker'],
+    type: '',
     accentColor: '#C8A97E',
     bgColor: '#1a1a1a',
-    url: 'https://github.com/codetlon/marcovich-barberia',
+    url: 'https://marcovichbarber.com.ar/',
+    screenshot: '/marcovich-preview.png',
+    priority: true,
   },
   {
     id: 'coming-soon',
@@ -16,10 +34,13 @@ const projects = [
     description:
       'Continuamente construyendo nuevos productos. Si tenés un proyecto en mente, hablemos.',
     tags: ['En desarrollo'],
-    type: 'Próximamente',
-    accentColor: '#39b8fd',
+    type: '',
+    accentColor: '#2563eb',
     bgColor: '#f0edef',
     url: '#contacto',
+    screenshot: '/vimet-desarollo.png',
+    wip: true,
+    priority: true,
   },
 ]
 
@@ -30,7 +51,7 @@ export default function ProjectsGrid() {
         className="text-xs font-bold uppercase tracking-widest text-outline mb-4"
         style={{ fontFamily: 'var(--font-space-grotesk)' }}
       >
-        // Proyectos
+        {"// Proyectos"} 
       </h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -41,32 +62,71 @@ export default function ProjectsGrid() {
           >
             {/* Thumbnail */}
             <div
-              className="h-40 w-full relative overflow-hidden flex items-center justify-center"
+              className="aspect-video w-full relative overflow-hidden"
               style={{ background: project.bgColor }}
             >
-              <div className="flex flex-col items-center gap-2 opacity-70 group-hover:opacity-100 transition-opacity">
-                <div
-                  className="w-12 h-12 rounded border-2 flex items-center justify-center"
-                  style={{ borderColor: project.accentColor }}
-                >
-                  <span
-                    className="text-xl font-bold"
-                    style={{ color: project.accentColor, fontFamily: 'var(--font-space-grotesk)' }}
-                  >
-                    {project.name.charAt(0)}
-                  </span>
-                </div>
-                <span
-                  className="text-xs uppercase tracking-widest"
-                  style={{ color: project.accentColor, fontFamily: 'var(--font-space-grotesk)' }}
-                >
-                  {project.type}
-                </span>
-              </div>
+              {project.screenshot ? (
+                <>
+                  <Image
+                    src={project.screenshot as string}
+                    alt={`Captura de ${project.name}`}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    priority={project.priority}
+                    className={`object-cover object-top transition-transform duration-500 group-hover:scale-105 ${
+                      project.wip ? 'blur-[4px] opacity-70' : ''
+                    }`}
+                  />
 
-              {/* Overlay on hover */}
-              <div className="absolute inset-0 opacity-20 group-hover:opacity-0 transition-opacity duration-500"
-                   style={{ background: project.bgColor === '#1a1a1a' ? '#000' : '#fbf8fa' }} />
+                  {/* Gradient overlay for polish */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+
+                  {/* Type badge — only when non-empty */}
+                  {project.type && (
+                    <span
+                      className="absolute bottom-3 left-3 text-xs font-bold uppercase tracking-widest px-2 py-0.5 rounded"
+                      style={{
+                        color: project.accentColor,
+                        background: 'rgba(0,0,0,0.55)',
+                        fontFamily: 'var(--font-space-grotesk)',
+                      }}
+                    >
+                      {project.type}
+                    </span>
+                  )}
+                </>
+              ) : (
+                /* Fallback placeholder when no screenshot */
+                <div className="w-full h-full flex flex-col items-center justify-center gap-2 opacity-70 group-hover:opacity-100 transition-opacity relative">
+                  <div
+                    className="w-12 h-12 rounded border-2 flex items-center justify-center"
+                    style={{ borderColor: project.accentColor }}
+                  >
+                    <span
+                      className="text-xl font-bold"
+                      style={{ color: project.accentColor, fontFamily: 'var(--font-space-grotesk)' }}
+                    >
+                      {project.name.charAt(0)}
+                    </span>
+                  </div>
+                  {project.type && (
+                    <span
+                      className="text-xs uppercase tracking-widest"
+                      style={{ color: project.accentColor, fontFamily: 'var(--font-space-grotesk)' }}
+                    >
+                      {project.type}
+                    </span>
+                  )}
+                  {project.wip && (
+                    <span
+                      className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest mt-1"
+                      style={{ color: project.accentColor, fontFamily: 'var(--font-space-grotesk)' }}
+                    >
+                      <span className="w-1.5 h-1.5 rounded-full bg-secondary-container animate-pulse inline-block" />
+                    </span>
+                  )}
+                </div>
+              )}
             </div>
 
             <div className="p-6 flex flex-col grow">
