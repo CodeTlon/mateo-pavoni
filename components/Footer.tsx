@@ -1,3 +1,7 @@
+import type { Dictionary } from '@/app/[lang]/dictionaries'
+
+type FooterDict = Dictionary['footer']
+
 export function CodeTlonBadge() {
   return (
     <a
@@ -12,15 +16,15 @@ export function CodeTlonBadge() {
   )
 }
 
-export default function Footer() {
+export default function Footer({ dict }: { dict: FooterDict }) {
   return (
-    <footer className="border-t border-primary/5 w-full py-12 bg-surface-container-lowest">
-      <div className="max-w-7xl mx-auto px-6 md:px-8 flex flex-col md:flex-row justify-between items-center gap-4">
+    <footer className="border-t border-primary/5 w-full py-10 md:py-12 bg-surface-container-lowest">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
         <span
           className="text-xs uppercase tracking-widest text-outline"
           style={{ fontFamily: 'var(--font-space-grotesk)' }}
         >
-          Hecho con dedicación por Mateo Pavoni
+          {dict.copy}
         </span>
 
         <CodeTlonBadge />

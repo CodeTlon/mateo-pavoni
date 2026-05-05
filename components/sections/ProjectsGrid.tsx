@@ -1,27 +1,25 @@
 import Image from 'next/image'
+import type { Dictionary } from '@/app/[lang]/dictionaries'
 
-type Project = {
+type ProjectsDict = Dictionary['projects']
+
+type ProjectBase = {
   id: string
-  name: string
-  description: string
+  name?: string
   tags: string[]
-  type: string
   accentColor: string
   bgColor: string
   url: string
-  screenshot?: string  // /public path, e.g. '/marcovich-preview.jpg'
-  wip?: boolean        // true → shows blur overlay + "En desarrollo" indicator
-  priority?: boolean   // true → LCP candidate, loads eagerly
+  screenshot?: string
+  wip?: boolean
+  priority?: boolean
 }
 
-const projects: Project[] = [
+const projectBases: ProjectBase[] = [
   {
     id: 'marcovich',
     name: 'Marcovich Barbería',
-    description:
-      'Plataforma completa para barbería premium: sistema de reservas online en 5 pasos, autenticación de clientes, panel de administración y notificaciones por email y WhatsApp.',
     tags: ['Next.js 14', 'Supabase', 'TypeScript', 'n8n', 'Docker'],
-    type: '',
     accentColor: '#C8A97E',
     bgColor: '#1a1a1a',
     url: 'https://marcovichbarber.com.ar/',
@@ -30,11 +28,7 @@ const projects: Project[] = [
   },
   {
     id: 'coming-soon',
-    name: 'Próximo proyecto',
-    description:
-      'Continuamente construyendo nuevos productos. Si tenés un proyecto en mente, hablemos.',
     tags: ['En desarrollo'],
-    type: '',
     accentColor: '#2563eb',
     bgColor: '#f0edef',
     url: '#contacto',
@@ -44,14 +38,21 @@ const projects: Project[] = [
   },
 ]
 
-export default function ProjectsGrid() {
+export default function ProjectsGrid({ dict }: { dict: ProjectsDict }) {
+  const projects = projectBases.map((base) => {
+    if (base.id === 'marcovich') {
+      return { ...base, name: base.name ?? 'Marcovich Barbería', description: dict.items.marcovich.description }
+    }
+    return { ...base, name: dict.items.coming_soon.name, description: dict.items.coming_soon.description }
+  })
+
   return (
     <section id="proyectos" className="col-span-1 md:col-span-12">
       <h2
         className="text-xs font-bold uppercase tracking-widest text-outline mb-4"
         style={{ fontFamily: 'var(--font-space-grotesk)' }}
       >
-        {"// Proyectos"} 
+        {dict.heading}
       </h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -68,7 +69,7 @@ export default function ProjectsGrid() {
               {project.screenshot ? (
                 <>
                   <Image
-                    src={project.screenshot as string}
+                    src={project.screenshot}
                     alt={`Captura de ${project.name}`}
                     fill
                     sizes="(max-width: 768px) 100vw, 50vw"
@@ -77,27 +78,10 @@ export default function ProjectsGrid() {
                       project.wip ? 'blur-[4px] opacity-70' : ''
                     }`}
                   />
-
-                  {/* Gradient overlay for polish */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
-
-                  {/* Type badge — only when non-empty */}
-                  {project.type && (
-                    <span
-                      className="absolute bottom-3 left-3 text-xs font-bold uppercase tracking-widest px-2 py-0.5 rounded"
-                      style={{
-                        color: project.accentColor,
-                        background: 'rgba(0,0,0,0.55)',
-                        fontFamily: 'var(--font-space-grotesk)',
-                      }}
-                    >
-                      {project.type}
-                    </span>
-                  )}
                 </>
               ) : (
-                /* Fallback placeholder when no screenshot */
-                <div className="w-full h-full flex flex-col items-center justify-center gap-2 opacity-70 group-hover:opacity-100 transition-opacity relative">
+                <div className="w-full h-full flex flex-col items-center justify-center gap-2 opacity-70 group-hover:opacity-100 transition-opacity">
                   <div
                     className="w-12 h-12 rounded border-2 flex items-center justify-center"
                     style={{ borderColor: project.accentColor }}
@@ -109,27 +93,11 @@ export default function ProjectsGrid() {
                       {project.name.charAt(0)}
                     </span>
                   </div>
-                  {project.type && (
-                    <span
-                      className="text-xs uppercase tracking-widest"
-                      style={{ color: project.accentColor, fontFamily: 'var(--font-space-grotesk)' }}
-                    >
-                      {project.type}
-                    </span>
-                  )}
-                  {project.wip && (
-                    <span
-                      className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest mt-1"
-                      style={{ color: project.accentColor, fontFamily: 'var(--font-space-grotesk)' }}
-                    >
-                      <span className="w-1.5 h-1.5 rounded-full bg-secondary-container animate-pulse inline-block" />
-                    </span>
-                  )}
                 </div>
               )}
             </div>
 
-            <div className="p-6 flex flex-col grow">
+            <div className="p-5 sm:p-6 flex flex-col grow">
               <div className="flex justify-between items-start mb-2">
                 <h3
                   className="text-lg font-semibold text-primary"
@@ -142,7 +110,7 @@ export default function ProjectsGrid() {
                   target={project.url.startsWith('http') ? '_blank' : undefined}
                   rel={project.url.startsWith('http') ? 'noopener noreferrer' : undefined}
                   aria-label={`Ver ${project.name}`}
-                  className="text-outline group-hover:text-secondary-container transition-colors"
+                  className="text-outline group-hover:text-secondary-container transition-colors shrink-0 ml-2"
                 >
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <path d="M7 17L17 7M17 7H7M17 7v10" />
