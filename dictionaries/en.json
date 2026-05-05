@@ -1,0 +1,95 @@
+{
+  "nav": {
+    "about": "About",
+    "projects": "Projects",
+    "experience": "Experience",
+    "contact": "Contact",
+    "cta": "Contact me"
+  },
+  "hero": {
+    "badge": "Full Stack Developer",
+    "bio_pre": "Full Stack Developer specialized in building scalable end-to-end products. Experienced in the ",
+    "bio_highlight": "Next.js, Supabase, and n8n",
+    "bio_post": " ecosystem, with solid knowledge of cloud infrastructure and deployment.",
+    "cta_projects": "View projects",
+    "cta_contact": "Contact me"
+  },
+  "tech": {
+    "heading": "Tech_Stack"
+  },
+  "projects": {
+    "heading": "// Projects",
+    "items": {
+      "marcovich": {
+        "description": "Full platform for a premium barbershop: 5-step online booking system, client authentication, admin panel, and email + WhatsApp notifications."
+      },
+      "coming_soon": {
+        "name": "Next project",
+        "description": "Continuously building new products. If you have a project in mind, let's talk."
+      }
+    }
+  },
+  "experience": {
+    "heading": "Operational_History",
+    "edu_label": "// Education",
+    "work": [
+      {
+        "period": "Apr 2025 — Dec 2025",
+        "role": ".NET Trainee Developer",
+        "place": "Encode S.A. · Córdoba, Argentina",
+        "bullets": [
+          "Business logic development in C# and .NET 8, ensuring corporate scalability and performance.",
+          "Optimization of relational databases (SQL Server / MySQL) with efficient schemas and complex queries.",
+          "Application of SOLID principles and design patterns in code refactoring.",
+          "Collaboration in agile methodologies with shadowing and code review alongside senior developers."
+        ]
+      },
+      {
+        "period": "Nov 2025 — Present",
+        "role": "Full Stack Developer & Automation",
+        "place": "Freelance",
+        "bullets": [
+          "Marcovich Barbería (Production): Full platform with Next.js/Supabase, automated booking via WhatsApp API & n8n, VPS deployment (Docker/Coolify) with Cloudflare and Google Calendar.",
+          "Automation & QA: n8n workflows for B2B prospecting, testing with Playwright and Lighthouse (Performance/SEO).",
+          "Active projects: E-commerce with payment gateway, Health-Tech nutrition system, and optimized Marketing Sites."
+        ]
+      }
+    ],
+    "education": [
+      {
+        "period": "2026 — Present",
+        "degree": "Information Systems Engineering",
+        "institution": "UTN - FRC",
+        "note": null
+      },
+      {
+        "period": "2024 — 2026 (Est.)",
+        "degree": "Higher Technician in Software Development",
+        "institution": "Inst. Superior Cura Gabriel Brochero",
+        "note": "100% academic merit scholarship — Fundación Encode."
+      }
+    ]
+  },
+  "contact": {
+    "heading": "Contact",
+    "subtitle": "Open to interesting projects, collaborations, and inquiries.",
+    "name_label": "Name",
+    "name_placeholder": "Your name",
+    "email_label": "Email",
+    "email_placeholder": "you@email.com",
+    "message_label": "Message",
+    "message_placeholder": "How can I help you?",
+    "submit": "Send message",
+    "sending": "Sending...",
+    "success": "Message received! Thanks for reaching out, I'll get back to you shortly.",
+    "error": "Failed to send. Please try again."
+  },
+  "footer": {
+    "copy": "Crafted with dedication by Mateo Pavoni"
+  },
+  "meta": {
+    "title": "Mateo Pavoni - Full Stack Developer",
+    "description": "Portfolio of Mateo Pavoni - full stack developer and founder of CodeTlon. Specialized in Next.js, TypeScript, and Supabase.",
+    "og_description": "Full stack developer specialized in Next.js, TypeScript, and Supabase. Founder of CodeTlon Software Factory."
+  }
+}
