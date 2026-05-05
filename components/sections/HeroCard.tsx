@@ -1,18 +1,12 @@
+import Avatar from '@/components/Avatar'
+
 export default function HeroCard() {
   return (
     <section
       id="about"
       className="bento-card col-span-1 md:col-span-8 bg-surface-container-lowest rounded-lg p-6 md:p-8 flex flex-col md:flex-row gap-6 md:gap-8 items-start md:items-center relative overflow-hidden"
     >
-      {/* Avatar — initials */}
-      <div className="w-24 h-24 md:w-36 md:h-36 rounded-full bg-primary-container border-2 border-surface-container-high flex items-center justify-center shrink-0 relative z-10">
-        <span
-          className="text-2xl md:text-3xl font-bold text-secondary-container"
-          style={{ fontFamily: 'var(--font-space-grotesk)' }}
-        >
-          MP
-        </span>
-      </div>
+      <Avatar />
 
       <div className="flex flex-col gap-3 relative z-10">
         <span
@@ -29,13 +23,10 @@ export default function HeroCard() {
           Mateo Pavoni
         </h1>
 
-        <p
-          className="text-base md:text-lg text-on-surface-variant leading-relaxed max-w-xl"
-          style={{ fontFamily: 'var(--font-inter)' }}
-        >
-          Construyo productos digitales con foco en el producto final. Fundador de{' '}
-          <span className="text-secondary-container font-medium">CodeTlon</span> — una software factory
-          que entrega web apps reales, listas para producción.
+        <p className="text-lg md:text-xl text-on-surface-variant leading-relaxed max-w-2xl" style={{ fontFamily: 'var(--font-inter)' }}>
+          Desarrollador Full Stack especializado en construir productos escalables de punta a punta. 
+          Experimentado en el ecosistema <span className="text-on-surface font-medium">Next.js, Supabase y n8n</span>, 
+          con conocimientos sólidos sobre la infraestructura y el despliegue en la nube.
         </p>
 
         <div className="flex gap-3 mt-1">
