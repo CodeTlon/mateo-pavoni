@@ -2,6 +2,7 @@
 
 import { z } from 'zod'
 import { Resend } from 'resend'
+import { render } from '@react-email/render'
 import ContactTemplate from '@/emails/ContactTemplate'
 
 const schema = z.object({
@@ -29,16 +30,20 @@ export async function sendContact(prevState: ContactState, formData: FormData): 
   const { name, email, message } = result.data
   const resend = new Resend(process.env.RESEND_API_KEY)
 
-  try {
-    await resend.emails.send({
-      from: process.env.RESEND_FROM_EMAIL ?? 'onboarding@resend.dev',
-      to: process.env.COMPANY_EMAIL ?? 'mateopavonint905@gmail.com',
-      subject: `Nuevo mensaje de ${name} — Portfolio`,
-      react: ContactTemplate({ name, email, message }),
-    })
+  const html = await render(ContactTemplate({ name, email, message }))
 
-    return { success: true }
-  } catch {
-    return { success: false, error: 'Error al enviar. Intentá de nuevo.' }
+  const { data, error } = await resend.emails.send({
+    from: process.env.RESEND_FROM_EMAIL ?? 'onboarding@resend.dev',
+    to: process.env.COMPANY_EMAIL ?? 'mateopavonint905@gmail.com',
+    subject: `Nuevo mensaje de ${name} — Portfolio`,
+    html,
+  })
+
+  if (error) {
+    console.error('[Resend]', error)
+    return { success: false, error: `Error: ${error.message}` }
   }
+
+  console.log('[Resend] Email enviado:', data?.id)
+  return { success: true }
 }

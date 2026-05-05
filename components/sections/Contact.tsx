@@ -42,7 +42,7 @@ export default function Contact() {
             <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
             <polyline points="22,6 12,13 2,6" />
           </svg>
-          Transmisión
+          Contacto
         </h2>
         <p
           className="text-sm text-on-surface-variant leading-relaxed mb-6"
@@ -55,12 +55,12 @@ export default function Contact() {
       {state?.success ? (
         <div className="flex flex-col items-center gap-3 py-6 text-center">
           <div className="w-10 h-10 rounded-full bg-secondary-container/20 flex items-center justify-center">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#39b8fd" strokeWidth="2">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2563eb" strokeWidth="2">
               <polyline points="20 6 9 17 4 12" />
             </svg>
           </div>
           <p className="text-sm text-on-surface-variant" style={{ fontFamily: 'var(--font-inter)' }}>
-            Mensaje enviado. Te respondo pronto.
+            ¡Mensaje recibido! Gracias por escribirme, me pongo en contacto con vos a la brevedad.
           </p>
         </div>
       ) : (
