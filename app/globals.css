@@ -22,7 +22,7 @@
   --color-on-primary-container: #8590a6;
   --color-secondary: #006591;
   --color-on-secondary: #ffffff;
-  --color-secondary-container: #39b8fd;
+  --color-secondary-container: #2563eb;
   --color-on-secondary-container: #004666;
   --color-background: #fbf8fa;
   --color-on-background: #1b1b1d;
@@ -59,14 +59,14 @@
   border: 1px solid rgba(30, 41, 59, 0.05);
 }
 .bento-card:hover {
-  border-color: #39b8fd;
-  box-shadow: 0 0 20px rgba(57, 184, 253, 0.15);
+  border-color: #2563eb;
+  box-shadow: 0 0 20px rgba(37, 99, 235, 0.15);
   transform: translateY(-2px);
 }
 
 /* Tech chip hover */
 .tech-item:hover .tech-icon {
-  color: #39b8fd;
+  color: #2563eb;
 }
 
 /* Link scanline hover */
@@ -75,8 +75,8 @@
   transition: color 0.15s ease-out;
 }
 .nav-link.active {
-  color: #39b8fd;
+  color: #2563eb;
 }
 .nav-link:hover {
-  color: #39b8fd;
+  color: #2563eb;
 }
