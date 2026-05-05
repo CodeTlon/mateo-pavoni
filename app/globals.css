@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* Class-based dark mode for next-themes */
+@variant dark (&:where(.dark, .dark *));
+
 @theme {
   /* Glacial Logic — Color System */
   --color-surface: #fbf8fa;
@@ -40,6 +43,35 @@
   --radius-xl: 0.75rem;
 }
 
+/* ── Dark mode — CSS variable overrides ───────────────────────────────────── */
+.dark {
+  --color-surface: #0b1628;
+  --color-surface-dim: #060f1a;
+  --color-surface-bright: #0f1e35;
+  --color-surface-container-lowest: #102035;
+  --color-surface-container-low: #122237;
+  --color-surface-container: #14273e;
+  --color-surface-container-high: #182c44;
+  --color-surface-container-highest: #1c324c;
+  --color-on-surface: #dce8f8;
+  --color-on-surface-variant: #8da8cc;
+  --color-inverse-surface: #dce8f8;
+  --color-inverse-on-surface: #0b1628;
+  --color-outline: #4a6080;
+  --color-outline-variant: #1e3452;
+  --color-primary: #dce8f8;
+  --color-on-primary: #0b1628;
+  --color-primary-container: #1a3055;
+  --color-on-primary-container: #7a99bb;
+  --color-secondary: #60bdff;
+  --color-on-secondary: #003553;
+  --color-secondary-container: #3b82f6;
+  --color-on-secondary-container: #b8d8ff;
+  --color-background: #0b1628;
+  --color-on-background: #dce8f8;
+  --color-surface-variant: #162540;
+}
+
 /* Grain Texture */
 .bg-grain {
   position: relative;
@@ -57,6 +89,9 @@
 .bento-card {
   transition: border-color 0.2s ease-out, box-shadow 0.2s ease-out, transform 0.2s ease-out;
   border: 1px solid rgba(30, 41, 59, 0.05);
+}
+.dark .bento-card {
+  border-color: rgba(220, 232, 248, 0.06);
 }
 .bento-card:hover {
   border-color: #2563eb;
