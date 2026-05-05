@@ -1,16 +1,13 @@
 export function CodeTlonBadge() {
   return (
     <a
-      href="https://github.com/codetlon"
+      href="https://codetlon.com.ar"
       target="_blank"
       rel="noopener noreferrer"
       className="inline-flex items-center gap-2 bg-primary text-on-primary text-xs font-bold uppercase tracking-widest px-3 py-1.5 rounded"
       style={{ fontFamily: 'var(--font-space-grotesk)' }}
     >
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M13 3L4 14h7l-2 7 9-11h-7l2-7z" />
-      </svg>
-      Built by CodeTlon
+      CodeTlon Labs
     </a>
   )
 }
@@ -23,14 +20,14 @@ export default function Footer() {
           className="text-xs uppercase tracking-widest text-outline"
           style={{ fontFamily: 'var(--font-space-grotesk)' }}
         >
-          © 2026 Mateo Pavoni
+          Hecho con dedicación por Mateo Pavoni
         </span>
 
         <CodeTlonBadge />
 
         <div className="flex gap-6">
           <a
-            href="https://github.com/codetlon"
+            href="https://github.com/mateopavoni"
             target="_blank"
             rel="noopener noreferrer"
             className="text-xs uppercase tracking-widest text-outline hover:text-secondary-container transition-colors"
@@ -39,7 +36,7 @@ export default function Footer() {
             GitHub
           </a>
           <a
-            href="https://www.linkedin.com/in/mateopavoni"
+            href="https://www.linkedin.com/in/mateopavonidev"
             target="_blank"
             rel="noopener noreferrer"
             className="text-xs uppercase tracking-widest text-outline hover:text-secondary-container transition-colors"
@@ -48,7 +45,9 @@ export default function Footer() {
             LinkedIn
           </a>
           <a
-            href="mailto:mateopavonint905@gmail.com"
+            href="https://mail.google.com/mail/?view=cm&fs=1&to=mateopavonint905@gmail.com"
+            target="_blank"
+            rel="noopener noreferrer"
             className="text-xs uppercase tracking-widest text-outline hover:text-secondary-container transition-colors"
             style={{ fontFamily: 'var(--font-space-grotesk)' }}
           >

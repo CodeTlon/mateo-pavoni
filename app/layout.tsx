@@ -24,12 +24,12 @@ export const viewport: Viewport = {
 }
 
 export const metadata: Metadata = {
-  title: 'Mateo Pavoni — Full Stack Developer',
+  title: 'Mateo Pavoni - Full Stack Developer',
   description:
-    'Portfolio de Mateo Pavoni — desarrollador full stack y fundador de CodeTlon. Especializado en Next.js, TypeScript y Supabase.',
+    'Portfolio de Mateo Pavoni - desarrollador full stack y fundador de CodeTlon. Especializado en Next.js, TypeScript y Supabase.',
   icons: { icon: '/favicon.ico' },
   openGraph: {
-    title: 'Mateo Pavoni — Full Stack Developer',
+    title: 'Mateo Pavoni - Full Stack Developer',
     description:
       'Desarrollador full stack especializado en Next.js, TypeScript y Supabase. Fundador de CodeTlon Software Factory.',
     type: 'website',
