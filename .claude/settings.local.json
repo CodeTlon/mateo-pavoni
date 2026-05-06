@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx tsc *)",
+      "Bash(Remove-Item -Recurse -Force \"C:\\\\Users\\\\mateo\\\\Desktop\\\\CODETLON FACTORY\\\\output\\\\mateo-pavoni\\\\.next\\\\cache\\\\images\" -ErrorAction SilentlyContinue)",
+      "Bash(Write-Output \"Cache borrado\")",
+      "Bash(git rm *)"
+    ]
+  }
+}
