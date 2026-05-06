@@ -89,7 +89,7 @@
   },
   "meta": {
     "title": "Mateo Pavoni - Full Stack Developer",
-    "description": "Portfolio de Mateo Pavoni - desarrollador full stack y fundador de CodeTlon. Especializado en Next.js, TypeScript y Supabase.",
-    "og_description": "Desarrollador full stack especializado en Next.js, TypeScript y Supabase. Fundador de CodeTlon Software Factory."
+    "description": "Portfolio de Mateo Pavoni - desarrollador full stack. Especializado en Next.js, TypeScript y Supabase.",
+    "og_description": "Desarrollador full stack especializado en Next.js, TypeScript y Supabase."
   }
 }
