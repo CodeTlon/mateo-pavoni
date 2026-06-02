@@ -5,6 +5,7 @@ type ProjectsDict = Dictionary['projects']
 
 type ProjectBase = {
   id: string
+  dictKey: keyof ProjectsDict['items']
   name?: string
   tags: string[]
   accentColor: string
@@ -13,11 +14,13 @@ type ProjectBase = {
   screenshot?: string
   wip?: boolean
   priority?: boolean
+  wide?: boolean
 }
 
 const projectBases: ProjectBase[] = [
   {
     id: 'marcovich',
+    dictKey: 'marcovich',
     name: 'Marcovich Barbería',
     tags: ['Next.js 14', 'Supabase', 'TypeScript', 'n8n', 'Docker'],
     accentColor: '#C8A97E',
@@ -27,7 +30,39 @@ const projectBases: ProjectBase[] = [
     priority: true,
   },
   {
+    id: 'codetlon',
+    dictKey: 'codetlon',
+    name: 'CodeTlon',
+    tags: ['Next.js 14', 'TypeScript', 'Tailwind', 'Resend'],
+    accentColor: '#ffb690',
+    bgColor: '#0e1516',
+    url: 'https://codetlon.com',
+    screenshot: '/codetlon.png',
+    priority: true,
+  },
+  {
+    id: 'gc2',
+    dictKey: 'gc2',
+    name: 'GC² Entrenamiento',
+    tags: ['Next.js 16', 'Supabase', 'CMS', 'TypeScript'],
+    accentColor: '#38bdf8',
+    bgColor: '#0a1628',
+    url: 'https://gc2entrenamientoderesistencia.com.ar',
+    screenshot: '/gc2.png',
+  },
+  {
+    id: 'masiphone',
+    dictKey: 'masiphone',
+    name: 'MasiPhone v2',
+    tags: ['Next.js 14', 'Nest.js', 'Supabase', 'MercadoPago'],
+    accentColor: '#2563eb',
+    bgColor: '#0b0b0c',
+    url: 'https://masiphone.com.ar',
+    screenshot: '/masiphone.png',
+  },
+  {
     id: 'coming-soon',
+    dictKey: 'coming_soon',
     tags: ['En desarrollo'],
     accentColor: '#2563eb',
     bgColor: '#f0edef',
@@ -35,15 +70,18 @@ const projectBases: ProjectBase[] = [
     screenshot: '/vimet-desarollo.png',
     wip: true,
     priority: true,
+    wide: true,
   },
 ]
 
 export default function ProjectsGrid({ dict }: { dict: ProjectsDict }) {
   const projects = projectBases.map((base) => {
-    if (base.id === 'marcovich') {
-      return { ...base, name: base.name ?? 'Marcovich Barbería', description: dict.items.marcovich.description }
+    const item = dict.items[base.dictKey]
+    return {
+      ...base,
+      name: base.name ?? ('name' in item ? item.name : base.id),
+      description: item.description,
     }
-    return { ...base, name: dict.items.coming_soon.name, description: dict.items.coming_soon.description }
   })
 
   return (
@@ -59,11 +97,15 @@ export default function ProjectsGrid({ dict }: { dict: ProjectsDict }) {
         {projects.map((project) => (
           <article
             key={project.id}
-            className="bento-card bg-surface-container-lowest rounded-lg overflow-hidden group flex flex-col"
+            className={`bento-card bg-surface-container-lowest rounded-lg overflow-hidden group flex flex-col ${
+              project.wide ? 'md:col-span-2' : ''
+            }`}
           >
             {/* Thumbnail */}
             <div
-              className="aspect-video w-full relative overflow-hidden"
+              className={`w-full relative overflow-hidden ${
+                project.wide ? 'aspect-video md:aspect-[16/5]' : 'aspect-video'
+              }`}
               style={{ background: project.bgColor }}
             >
               {project.screenshot ? (

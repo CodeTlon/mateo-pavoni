@@ -87,4 +87,5 @@ npx playwright test  # Tests E2E
 | 2026-05-05 | main | chore: initial setup — Next.js + git + deps |
 | 2026 | main | feat: i18n es/en (`app/[lang]` + `proxy.ts` + dictionaries) + dark mode |
 | 2026 | main | fix: meta de la página + descripción en inglés |
+| 2026-06-02 | main | feat: nuevos proyectos en la grilla (CodeTlon, GC², MasiPhone v2) + "Próximo proyecto" full-width; ProjectsGrid mapea descripción por `dictKey` |
 <!-- Agregar fila al finalizar cada sesión de mantenimiento -->

@@ -23,6 +23,15 @@
       "marcovich": {
         "description": "Full platform for a premium barbershop: 5-step online booking system, client authentication, admin panel, and email + WhatsApp notifications."
       },
+      "codetlon": {
+        "description": "Institutional site for CodeTlon, an autonomous software factory. Multi-page marketing site (services, process, contact) on Next.js 14 with a Resend-powered form and GA4 analytics."
+      },
+      "gc2": {
+        "description": "Public site + CMS dashboard for GC² Entrenamiento (running, duathlon and triathlon coaching). Plans, blog and contact management on Next.js 16 and Supabase, with auth and an admin panel."
+      },
+      "masiphone": {
+        "description": "iPhone and accessories e-commerce in Córdoba. Migration from a legacy PHP/.NET stack to a Next.js 14 + Nest.js + Supabase monorepo, with checkout and payments via MercadoPago. Currently in active development."
+      },
       "coming_soon": {
         "name": "Next project",
         "description": "Continuously building new products. If you have a project in mind, let's talk."
