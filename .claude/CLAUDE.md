@@ -63,7 +63,7 @@ Ver `.env.example` para el listado completo.
 - **Bento logic:** hero spans 8 cols, tech stack 4 cols, projects full 12 cols, experience 8 + contact 4
 
 ## Quirks y Advertencias
-- ⚠️ **Hay dos config de Next:** `next.config.ts` (stub vacío) y `next.config.mjs` (el real, con images/formats/deviceSizes). En Next 16 el `.ts` puede tener prioridad — si tocás config de imágenes, verificá cuál se está aplicando; lo ideal es consolidar en uno solo (el `.mjs` tiene la config buena).
+- **Config de Next consolidada en `next.config.mjs`** (images/formats/deviceSizes). Se eliminó el `next.config.ts` (era un stub vacío que en Next 16 podía ganar prioridad y dejar sin efecto la config de imágenes). Hay un único archivo de config.
 - i18n: las rutas viven bajo `app/[lang]/`. Todo texto nuevo va en `dictionaries/es.json` + `en.json`, nunca hardcodeado en el componente.
 - `proxy.ts` es el middleware de Next 16 (no `middleware.ts`). Maneja el redirect de locale.
 - Grain texture via CSS `::before` con SVG data-uri — no usar imagen externa.
