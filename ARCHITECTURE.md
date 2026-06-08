@@ -16,11 +16,11 @@ Mapa para mantenimiento. **No releas el repo entero**: buscá tu tipo de cambio 
 | Lógica de redirect de idioma | `proxy.ts` (Accept-Language → `/es` o `/en`) |
 | Formulario de contacto (envío) | `app/actions/contact.ts` (Resend) + `components/sections/Contact.tsx` |
 | Metadata / SEO | `metadata` export en `app/[lang]/layout.tsx` + `app/sitemap.ts` / `app/robots.ts` |
-| Config de imágenes / dominios remotos | `next.config.mjs` (⚠️ ver abajo) |
+| Config de imágenes / dominios remotos | `next.config.mjs` (único archivo de config) |
 | Paleta / fuentes / grain | `tailwind.config.*` + `globals.css` + `app/[lang]/layout.tsx` (`next/font`) |
 
 ## Dónde NO meterse sin pensar
-- ⚠️ **Dos archivos de config de Next:** `next.config.ts` (stub vacío) y `next.config.mjs` (el real). En Next 16 el `.ts` puede ganar prioridad y dejar sin efecto la config de imágenes del `.mjs`. Antes de tocar config, confirmá cuál aplica; idealmente consolidar en uno.
+- **Config de Next:** un único archivo, `next.config.mjs`. (Se eliminó el `next.config.ts` vacío que en Next 16 podía pisar la config de imágenes del `.mjs`.)
 - `proxy.ts` — es el middleware de locale. Romperlo deja el sitio sin idioma por defecto.
 - `app/[lang]/` — toda ruta cuelga del segmento dinámico `[lang]`. Agregar páginas adentro, no en `app/` raíz.
 - `globals.css` — sin `@apply group`/`peer`; grain via `::before` SVG data-uri.
