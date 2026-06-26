@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import SectionKicker from '@/components/SectionKicker'
 import type { Dictionary } from '@/app/[lang]/dictionaries'
 
 type ProjectsDict = Dictionary['projects']
@@ -85,102 +86,99 @@ export default function ProjectsGrid({ dict }: { dict: ProjectsDict }) {
   })
 
   return (
-    <section id="proyectos" className="col-span-1 md:col-span-12">
-      <h2
-        className="text-xs font-bold uppercase tracking-widest text-outline mb-4"
-        style={{ fontFamily: 'var(--font-space-grotesk)' }}
-      >
-        {dict.heading}
-      </h2>
+    <section id="proyectos" className="reveal py-20 md:py-28">
+      <SectionKicker index="02" label={dict.heading} />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {projects.map((project) => (
-          <article
-            key={project.id}
-            className={`bento-card bg-surface-container-lowest rounded-lg overflow-hidden group flex flex-col ${
-              project.wide ? 'md:col-span-2' : ''
-            }`}
-          >
-            {/* Thumbnail */}
-            <div
-              className={`w-full relative overflow-hidden ${
-                project.wide ? 'aspect-video md:aspect-[16/5]' : 'aspect-video'
-              }`}
-              style={{ background: project.bgColor }}
+      <div className="flex flex-col">
+        {projects.map((project, i) => {
+          const external = project.url.startsWith('http')
+          return (
+            <article
+              key={project.id}
+              className="group grid md:grid-cols-12 gap-6 md:gap-12 items-center py-12 md:py-16 border-t hairline first:border-t-0"
             >
-              {project.screenshot ? (
-                <>
-                  <Image
-                    src={project.screenshot}
-                    alt={`Captura de ${project.name}`}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                    priority={project.priority}
-                    className={`object-cover object-top transition-transform duration-500 group-hover:scale-105 ${
-                      project.wip ? 'blur-[4px] opacity-70' : ''
-                    }`}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
-                </>
-              ) : (
-                <div className="w-full h-full flex flex-col items-center justify-center gap-2 opacity-70 group-hover:opacity-100 transition-opacity">
-                  <div
-                    className="w-12 h-12 rounded border-2 flex items-center justify-center"
-                    style={{ borderColor: project.accentColor }}
-                  >
-                    <span
-                      className="text-xl font-bold"
-                      style={{ color: project.accentColor, fontFamily: 'var(--font-space-grotesk)' }}
-                    >
-                      {project.name.charAt(0)}
-                    </span>
-                  </div>
-                </div>
-              )}
-            </div>
-
-            <div className="p-5 sm:p-6 flex flex-col grow">
-              <div className="flex justify-between items-start mb-2">
-                <h3
-                  className="text-lg font-semibold text-primary"
-                  style={{ fontFamily: 'var(--font-space-grotesk)' }}
+              {/* Screenshot */}
+              <a
+                href={project.url}
+                target={external ? '_blank' : undefined}
+                rel={external ? 'noopener noreferrer' : undefined}
+                aria-label={`Ver ${project.name}`}
+                className={`md:col-span-7 ${i % 2 === 1 ? 'md:order-2' : ''}`}
+              >
+                <div
+                  className="panel relative aspect-[16/10] rounded overflow-hidden"
+                  style={{ background: project.bgColor }}
                 >
+                  {project.screenshot ? (
+                    <Image
+                      src={project.screenshot}
+                      alt={`Captura de ${project.name}`}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 58vw"
+                      priority={project.priority}
+                      className={`object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.04] ${
+                        project.wip ? 'blur-[4px] opacity-70' : ''
+                      }`}
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center">
+                      <span
+                        className="serif text-5xl"
+                        style={{ color: project.accentColor }}
+                      >
+                        {project.name.charAt(0)}
+                      </span>
+                    </div>
+                  )}
+                </div>
+              </a>
+
+              {/* Text */}
+              <div className={`md:col-span-5 flex flex-col gap-4 ${i % 2 === 1 ? 'md:order-1' : ''}`}>
+                <span className="micro text-[0.7rem] text-secondary-container">
+                  {String(i + 1).padStart(2, '0')}
+                  {project.wip ? ` · ${project.tags[0]}` : ''}
+                </span>
+
+                <h3 className="serif text-3xl md:text-4xl text-primary leading-tight">
                   {project.name}
                 </h3>
+
+                <p
+                  className="text-base text-on-surface-variant leading-relaxed"
+                  style={{ fontFamily: 'var(--font-inter)' }}
+                >
+                  {project.description}
+                </p>
+
+                {!project.wip && (
+                  <div className="flex gap-2 flex-wrap">
+                    {project.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="micro text-[0.6rem] border hairline text-on-surface-variant rounded px-2 py-1"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                )}
+
                 <a
                   href={project.url}
-                  target={project.url.startsWith('http') ? '_blank' : undefined}
-                  rel={project.url.startsWith('http') ? 'noopener noreferrer' : undefined}
-                  aria-label={`Ver ${project.name}`}
-                  className="text-outline group-hover:text-secondary-container transition-colors shrink-0 ml-2"
+                  target={external ? '_blank' : undefined}
+                  rel={external ? 'noopener noreferrer' : undefined}
+                  className="micro text-xs edit-link text-primary hover:text-secondary-container inline-flex items-center gap-2 w-max mt-1"
                 >
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M7 17L17 7M17 7H7M17 7v10" />
+                  {external ? 'Ver proyecto' : 'Hablemos'}
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="transition-transform duration-200 group-hover:translate-x-1">
+                    <path d="M5 12h14M13 6l6 6-6 6" />
                   </svg>
                 </a>
               </div>
-
-              <p
-                className="text-sm text-on-surface-variant leading-relaxed mb-4"
-                style={{ fontFamily: 'var(--font-inter)' }}
-              >
-                {project.description}
-              </p>
-
-              <div className="flex gap-2 mt-auto flex-wrap">
-                {project.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="text-xs font-bold uppercase tracking-widest border border-outline-variant text-on-surface-variant rounded px-2 py-1"
-                    style={{ fontFamily: 'var(--font-space-grotesk)' }}
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </article>
-        ))}
+            </article>
+          )
+        })}
       </div>
     </section>
   )

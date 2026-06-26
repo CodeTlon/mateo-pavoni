@@ -1,7 +1,5 @@
-'use client'
-
-import { useState } from 'react'
 import type { Dictionary } from '@/app/[lang]/dictionaries'
+import SectionKicker from '@/components/SectionKicker'
 
 type TechDict = Dictionary['tech']
 
@@ -19,16 +17,17 @@ type Category = {
 const cdn = (slug: string, color: string) =>
   `https://cdn.simpleicons.org/${slug}/${color}`
 
+// ponytail: ink (#091426) for marks that are white-by-default, so they survive on the light bg
 const categories: Category[] = [
   {
     label: 'Frontend',
     items: [
-      { name: 'Next.js',    src: cdn('nextdotjs',   'ffffff') },
+      { name: 'Next.js',    src: cdn('nextdotjs',   '091426') },
       { name: 'TypeScript', src: cdn('typescript',  '3178c6') },
       { name: 'Tailwind',   src: cdn('tailwindcss', '06b6d4') },
       { name: 'Sass',       src: cdn('sass',        'cc6699') },
       { name: 'Bootstrap',  src: cdn('bootstrap',   '7952b3') },
-      { name: 'Vercel',     src: cdn('vercel',      'ffffff') },
+      { name: 'Vercel',     src: cdn('vercel',      '091426') },
     ],
   },
   {
@@ -65,65 +64,42 @@ const categories: Category[] = [
 ]
 
 export default function TechStack({ dict }: { dict: TechDict }) {
-  const [active, setActive] = useState(0)
-  const current = categories[active]
-
   return (
-    <aside className="bento-card col-span-1 md:col-span-4 bg-primary-container rounded-lg p-5 sm:p-6 md:p-8 flex flex-col">
-      <h2
-        className="text-xl font-semibold text-surface-container-lowest flex items-center gap-2 mb-4"
-        style={{ fontFamily: 'var(--font-space-grotesk)' }}
-      >
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-secondary-container shrink-0">
-          <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
-        </svg>
-        {dict.heading}
-      </h2>
+    <section className="reveal py-20 md:py-28">
+      <SectionKicker index="01" label={dict.heading} />
 
-      {/* Category tabs */}
-      <div className="flex gap-1 mb-5 flex-wrap border-b border-white/10 pb-3">
-        {categories.map((cat, i) => (
-          <button
+      <div className="flex flex-col">
+        {categories.map((cat) => (
+          <div
             key={cat.label}
-            onClick={() => setActive(i)}
-            className={`text-xs font-bold uppercase tracking-widest px-2.5 py-1 rounded transition-all duration-150 ${
-              i === active
-                ? 'text-secondary-container bg-white/10'
-                : 'text-on-primary-container hover:text-secondary-container'
-            }`}
-            style={{ fontFamily: 'var(--font-space-grotesk)' }}
+            className="grid md:grid-cols-12 gap-4 md:gap-8 py-7 border-t hairline first:border-t-0"
           >
-            {cat.label}
-          </button>
-        ))}
-      </div>
-
-      {/* Icons grid */}
-      <div className="grid grid-cols-3 gap-3 flex-1 content-start">
-        {current.items.map(({ name, src, abbr }) => (
-          <div key={name} className="tech-item flex flex-col items-center gap-1.5 group cursor-default">
-            <div className="w-10 h-10 rounded bg-white/5 flex items-center justify-center group-hover:bg-white/10 transition-colors">
-              {src ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img src={src} alt={name} width={24} height={24} className="w-6 h-6 object-contain" />
-              ) : (
-                <span
-                  className="text-xs font-bold text-secondary-container"
-                  style={{ fontFamily: 'var(--font-space-grotesk)' }}
+            <h3 className="md:col-span-3 serif text-2xl md:text-3xl text-primary">
+              {cat.label}
+            </h3>
+            <div className="md:col-span-9 flex flex-wrap gap-x-7 gap-y-4">
+              {cat.items.map(({ name, src, abbr }) => (
+                <div
+                  key={name}
+                  className="tech-item flex items-center gap-2.5 text-on-surface-variant hover:text-secondary-container transition-colors"
                 >
-                  {abbr}
-                </span>
-              )}
+                  <span className="w-6 h-6 flex items-center justify-center shrink-0">
+                    {src ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img src={src} alt={name} width={22} height={22} className="w-[22px] h-[22px] object-contain" />
+                    ) : (
+                      <span className="micro text-[0.65rem] text-secondary-container">{abbr}</span>
+                    )}
+                  </span>
+                  <span className="text-sm" style={{ fontFamily: 'var(--font-space-grotesk)' }}>
+                    {name}
+                  </span>
+                </div>
+              ))}
             </div>
-            <span
-              className="text-xs text-on-primary-container text-center leading-tight"
-              style={{ fontFamily: 'var(--font-space-grotesk)' }}
-            >
-              {name}
-            </span>
           </div>
         ))}
       </div>
-    </aside>
+    </section>
   )
 }

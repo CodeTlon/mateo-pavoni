@@ -7,57 +7,59 @@ export default function HeroCard({ dict }: { dict: HeroDict }) {
   return (
     <section
       id="about"
-      className="bento-card col-span-1 md:col-span-8 bg-surface-container-lowest rounded-lg p-5 sm:p-6 md:p-8 flex flex-col md:flex-row gap-5 md:gap-8 items-start md:items-center relative overflow-hidden"
+      className="hatch full-bleed relative min-h-screen flex flex-col justify-center overflow-hidden"
     >
-      <Avatar />
+      <div className="w-full max-w-5xl mx-auto px-5 sm:px-8 md:px-10 pt-28 md:pt-32 pb-16">
+      <div className="grid md:grid-cols-12 gap-12 md:gap-8 items-center">
+        {/* Text */}
+        <div className="md:col-span-7 flex flex-col gap-6 order-2 md:order-1">
+          <span className="rise rise-1 micro text-[0.7rem] text-secondary-container">{dict.badge}</span>
 
-      <div className="flex flex-col gap-3 relative z-10 min-w-0">
-        <span
-          className="text-xs font-bold uppercase tracking-widest text-secondary-container border border-secondary-container rounded px-2 py-1 w-max"
-          style={{ fontFamily: 'var(--font-space-grotesk)' }}
-        >
-          {dict.badge}
-        </span>
+          <h1 className="rise rise-2 serif font-medium text-primary text-6xl sm:text-7xl md:text-8xl leading-[0.92]">
+            Mateo
+            <br />
+            Pavoni<span className="text-secondary-container">.</span>
+          </h1>
 
-        <h1
-          className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter text-primary leading-tight"
-          style={{ fontFamily: 'var(--font-space-grotesk)', letterSpacing: '-0.04em' }}
-        >
-          Mateo Pavoni
-        </h1>
-
-        <p
-          className="text-base md:text-lg text-on-surface-variant leading-relaxed max-w-xl"
-          style={{ fontFamily: 'var(--font-inter)' }}
-        >
-          {dict.bio_pre}
-          <span className="text-on-surface font-medium">{dict.bio_highlight}</span>
-          {dict.bio_post}
-        </p>
-
-        <div className="flex flex-wrap gap-3 mt-1">
-          <a
-            href="#proyectos"
-            className="bg-primary-container text-on-primary text-xs font-bold uppercase tracking-widest px-4 py-2.5 rounded hover:bg-secondary-container transition-all duration-150"
-            style={{ fontFamily: 'var(--font-space-grotesk)' }}
+          <p
+            className="rise rise-3 text-lg md:text-xl text-on-surface-variant leading-relaxed max-w-xl"
+            style={{ fontFamily: 'var(--font-inter)' }}
           >
-            {dict.cta_projects}
-          </a>
-          <a
-            href="#contacto"
-            className="border border-outline-variant text-on-surface-variant text-xs font-bold uppercase tracking-widest px-4 py-2.5 rounded hover:border-secondary-container hover:text-secondary-container transition-all duration-150"
-            style={{ fontFamily: 'var(--font-space-grotesk)' }}
-          >
-            {dict.cta_contact}
-          </a>
+            {dict.bio_pre}
+            <span className="text-on-surface font-medium">{dict.bio_highlight}</span>
+            {dict.bio_post}
+          </p>
+
+          <div className="rise rise-4 flex flex-wrap items-center gap-7 mt-2">
+            <a
+              href="#proyectos"
+              className="group micro text-xs inline-flex items-center gap-2 bg-primary text-on-primary px-5 py-3 rounded hover:bg-secondary-container transition-colors duration-150"
+            >
+              {dict.cta_projects}
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="transition-transform duration-200 group-hover:translate-x-1">
+                <path d="M5 12h14M13 6l6 6-6 6" />
+              </svg>
+            </a>
+            <a
+              href="#contacto"
+              className="micro text-xs edit-link text-on-surface-variant hover:text-secondary-container"
+            >
+              {dict.cta_contact}
+            </a>
+          </div>
+        </div>
+
+        {/* Avatar */}
+        <div className="rise rise-2 md:col-span-5 order-1 md:order-2 flex justify-center md:justify-end">
+          <Avatar />
         </div>
       </div>
 
-      {/* Decorative terminal icon */}
-      <div className="absolute right-4 bottom-4 opacity-[0.04] select-none pointer-events-none">
-        <svg width="160" height="160" viewBox="0 0 24 24" fill="currentColor" className="text-primary">
-          <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V6h16v12zM6 10l1.5 1.5L6 13l1 1 2.5-2.5L7 9l-1 1zm5 4h6v-1.5h-6V14z" />
-        </svg>
+      {/* Scroll cue */}
+      <div className="rise rise-5 hidden md:flex items-center gap-4 mt-20">
+        <span className="micro text-[0.6rem] text-outline tracking-[0.4em]">SCROLL</span>
+        <span className="hairline w-28 border-t" />
+      </div>
       </div>
     </section>
   )

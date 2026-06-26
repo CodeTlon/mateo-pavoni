@@ -1,20 +1,12 @@
+import SectionKicker from '@/components/SectionKicker'
 import type { Dictionary } from '@/app/[lang]/dictionaries'
 
 type ExperienceDict = Dictionary['experience']
 
 export default function Experience({ dict }: { dict: ExperienceDict }) {
   return (
-    <section id="experiencia" className="bento-card col-span-1 md:col-span-8 bg-surface-container-lowest rounded-lg p-5 sm:p-6 md:p-8">
-      <h2
-        className="text-lg font-semibold text-primary flex items-center gap-2 border-b border-surface-container-high pb-4 mb-6"
-        style={{ fontFamily: 'var(--font-space-grotesk)' }}
-      >
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-outline shrink-0">
-          <circle cx="12" cy="12" r="10" />
-          <path d="M12 6v6l4 2" />
-        </svg>
-        {dict.heading}
-      </h2>
+    <section id="experiencia" className="reveal py-20 md:py-28">
+      <SectionKicker index="03" label={dict.heading} />
 
       {/* Work experience */}
       <div className="flex flex-col gap-8 mb-8">
@@ -27,10 +19,7 @@ export default function Experience({ dict }: { dict: ExperienceDict }) {
               {period}
             </div>
             <div className="flex-1 min-w-0">
-              <h3
-                className="text-base font-semibold text-primary group-hover:text-secondary-container transition-colors"
-                style={{ fontFamily: 'var(--font-space-grotesk)' }}
-              >
+              <h3 className="serif text-xl text-primary group-hover:text-secondary-container transition-colors">
                 {role}
               </h3>
               <p
@@ -57,11 +46,8 @@ export default function Experience({ dict }: { dict: ExperienceDict }) {
       </div>
 
       {/* Education */}
-      <div className="border-t border-surface-container-high pt-6">
-        <p
-          className="text-xs font-bold uppercase tracking-widest text-outline mb-4"
-          style={{ fontFamily: 'var(--font-space-grotesk)' }}
-        >
+      <div className="border-t hairline pt-6">
+        <p className="micro text-[0.7rem] text-outline mb-4">
           {dict.edu_label}
         </p>
         <div className="flex flex-col gap-4">

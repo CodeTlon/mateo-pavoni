@@ -2,6 +2,7 @@
 
 import { useActionState } from 'react'
 import { useFormStatus } from 'react-dom'
+import SectionKicker from '@/components/SectionKicker'
 import { sendContact, type ContactState } from '@/app/actions/contact'
 import type { Dictionary } from '@/app/[lang]/dictionaries'
 
@@ -13,8 +14,7 @@ function SubmitButton({ dict }: { dict: ContactDict }) {
     <button
       type="submit"
       disabled={pending}
-      className="w-full bg-primary-container text-on-primary text-xs font-bold uppercase tracking-widest py-3.5 rounded hover:bg-secondary-container hover:shadow-[0_0_20px_rgba(37,99,235,0.3)] transition-all duration-150 flex justify-center items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
-      style={{ fontFamily: 'var(--font-space-grotesk)' }}
+      className="micro text-xs w-full bg-primary text-on-primary py-4 rounded hover:bg-secondary-container transition-colors duration-150 flex justify-center items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
     >
       {pending ? dict.sending : (
         <>
@@ -32,29 +32,19 @@ export default function Contact({ dict }: { dict: ContactDict }) {
   const [state, action] = useActionState<ContactState, FormData>(sendContact, null)
 
   return (
-    <section
-      id="contacto"
-      className="bento-card col-span-1 md:col-span-4 bg-surface-container-lowest rounded-lg p-5 sm:p-6 md:p-8 flex flex-col justify-between"
-    >
-      <div>
-        <h2
-          className="text-lg font-semibold text-primary flex items-center gap-2 mb-2"
-          style={{ fontFamily: 'var(--font-space-grotesk)' }}
-        >
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-outline shrink-0">
-            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-            <polyline points="22,6 12,13 2,6" />
-          </svg>
-          {dict.heading}
-        </h2>
-        <p
-          className="text-sm text-on-surface-variant leading-relaxed mb-6"
-          style={{ fontFamily: 'var(--font-inter)' }}
-        >
-          {dict.subtitle}
-        </p>
-      </div>
+    <section id="contacto" className="reveal py-20 md:py-32">
+      <SectionKicker index="04" label={dict.heading} />
 
+      <div className="grid md:grid-cols-12 gap-10 md:gap-12 items-start">
+        <div className="md:col-span-5">
+          <p
+            className="serif text-3xl md:text-4xl text-primary leading-snug"
+          >
+            {dict.subtitle}
+          </p>
+        </div>
+
+        <div className="md:col-span-7">
       {state?.success ? (
         <div className="flex flex-col items-center gap-3 py-6 text-center">
           <div className="w-10 h-10 rounded-full bg-secondary-container/20 flex items-center justify-center">
@@ -77,8 +67,7 @@ export default function Contact({ dict }: { dict: ContactDict }) {
           <div className="flex flex-col gap-1">
             <label
               htmlFor="name"
-              className="text-xs font-bold uppercase tracking-widest text-outline"
-              style={{ fontFamily: 'var(--font-space-grotesk)' }}
+              className="micro text-[0.7rem] text-outline"
             >
               {dict.name_label}
             </label>
@@ -96,8 +85,7 @@ export default function Contact({ dict }: { dict: ContactDict }) {
           <div className="flex flex-col gap-1">
             <label
               htmlFor="email"
-              className="text-xs font-bold uppercase tracking-widest text-outline"
-              style={{ fontFamily: 'var(--font-space-grotesk)' }}
+              className="micro text-[0.7rem] text-outline"
             >
               {dict.email_label}
             </label>
@@ -115,8 +103,7 @@ export default function Contact({ dict }: { dict: ContactDict }) {
           <div className="flex flex-col gap-1">
             <label
               htmlFor="message"
-              className="text-xs font-bold uppercase tracking-widest text-outline"
-              style={{ fontFamily: 'var(--font-space-grotesk)' }}
+              className="micro text-[0.7rem] text-outline"
             >
               {dict.message_label}
             </label>
@@ -136,6 +123,8 @@ export default function Contact({ dict }: { dict: ContactDict }) {
           </div>
         </form>
       )}
+        </div>
+      </div>
     </section>
   )
 }
