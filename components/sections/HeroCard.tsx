@@ -1,4 +1,5 @@
 import Avatar from '@/components/Avatar'
+import ScrambleText from '@/components/ScrambleText'
 import type { Dictionary } from '@/app/[lang]/dictionaries'
 
 type HeroDict = Dictionary['hero']
@@ -7,7 +8,7 @@ export default function HeroCard({ dict }: { dict: HeroDict }) {
   return (
     <section
       id="about"
-      className="hatch full-bleed relative min-h-screen flex flex-col justify-center overflow-hidden"
+      className="full-bleed relative min-h-screen flex flex-col justify-center overflow-hidden"
     >
       <div className="w-full max-w-5xl mx-auto px-5 sm:px-8 md:px-10 pt-28 md:pt-32 pb-16">
       <div className="grid md:grid-cols-12 gap-12 md:gap-8 items-center">
@@ -16,9 +17,11 @@ export default function HeroCard({ dict }: { dict: HeroDict }) {
           <span className="rise rise-1 micro text-[0.7rem] text-secondary-container">{dict.badge}</span>
 
           <h1 className="rise rise-2 serif font-medium text-primary text-6xl sm:text-7xl md:text-8xl leading-[0.92]">
-            Mateo
-            <br />
-            Pavoni<span className="text-secondary-container">.</span>
+            <ScrambleText text="Mateo" className="block" />
+            <span className="block">
+              <ScrambleText text="Pavoni" />
+              <span className="text-secondary-container">.</span>
+            </span>
           </h1>
 
           <p

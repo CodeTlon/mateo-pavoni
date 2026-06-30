@@ -73,6 +73,25 @@
   --color-surface-variant: #162540;
 }
 
+/* ── Raining-letters backdrop + scramble decode (theme-aware) ─────────────── */
+/* Idle glyphs: faint outline colour. Active flicker + scramble dud: accent blue.
+   Both reference --color-* tokens, so they flip on .dark automatically. */
+.rain-idle {
+  color: var(--color-outline);
+  opacity: 0.14;
+  font-weight: 300;
+}
+.rain-active {
+  color: var(--color-secondary-container);
+  opacity: 0.85;
+  font-weight: 700;
+  text-shadow: 0 0 8px rgba(59, 130, 246, 0.5), 0 0 12px rgba(59, 130, 246, 0.3);
+}
+.dud {
+  color: var(--color-secondary-container);
+  opacity: 0.8;
+}
+
 /* Editorial serif headline — mixed weight, tight tracking (robbowen vibe) */
 .serif {
   font-family: var(--font-serif);

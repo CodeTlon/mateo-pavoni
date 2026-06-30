@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
+import RainingLetters from '@/components/RainingLetters'
 import { getDictionary, hasLocale, locales } from './dictionaries'
 
 export async function generateStaticParams() {
@@ -36,6 +37,7 @@ export default async function LangLayout({
 
   return (
     <>
+      <RainingLetters />
       <Navbar dict={dict.nav} lang={lang} />
       {children}
       <Footer dict={dict.footer} />
