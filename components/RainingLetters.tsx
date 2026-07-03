@@ -10,7 +10,6 @@ interface Character {
 }
 
 const CHARSET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+-=[]{}|;:,.<>?"
-const COUNT = 160
 
 // Site-wide raining-letters backdrop. Fixed behind all content, transparent so the
 // surface colour + section chrome show through. Colours come from theme tokens, so it
@@ -23,8 +22,11 @@ export default function RainingLetters() {
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return
     setEnabled(true)
+    // ponytail: fewer glyphs on narrow viewports — same 160 on a phone-width
+    // screen reads far denser than on desktop and drowns out the real text.
+    const count = window.innerWidth < 640 ? 50 : 160
     const chars: Character[] = []
-    for (let i = 0; i < COUNT; i++) {
+    for (let i = 0; i < count; i++) {
       chars.push({
         char: CHARSET[Math.floor(Math.random() * CHARSET.length)],
         x: Math.random() * 100,
@@ -37,15 +39,15 @@ export default function RainingLetters() {
 
   // Flicker a few random glyphs into the accent colour.
   useEffect(() => {
-    if (!enabled) return
+    if (!enabled || characters.length === 0) return
     const id = setInterval(() => {
       const next = new Set<number>()
       const n = Math.floor(Math.random() * 3) + 3
-      for (let i = 0; i < n; i++) next.add(Math.floor(Math.random() * COUNT))
+      for (let i = 0; i < n; i++) next.add(Math.floor(Math.random() * characters.length))
       setActive(next)
     }, 90)
     return () => clearInterval(id)
-  }, [enabled])
+  }, [enabled, characters.length])
 
   // Fall + recycle at the bottom.
   useEffect(() => {

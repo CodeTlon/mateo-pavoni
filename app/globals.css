@@ -91,6 +91,9 @@
   color: var(--color-secondary-container);
   opacity: 0.8;
 }
+@media (max-width: 640px) {
+  .rain-idle { opacity: 0.08; }
+}
 
 /* Editorial serif headline — mixed weight, tight tracking (robbowen vibe) */
 .serif {
