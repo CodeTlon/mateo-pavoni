@@ -83,9 +83,9 @@
 }
 .rain-active {
   color: var(--color-secondary-container);
-  opacity: 0.85;
-  font-weight: 700;
-  text-shadow: 0 0 8px rgba(59, 130, 246, 0.5), 0 0 12px rgba(59, 130, 246, 0.3);
+  opacity: 0.35;
+  font-weight: 500;
+  text-shadow: 0 0 4px rgba(59, 130, 246, 0.25);
 }
 .dud {
   color: var(--color-secondary-container);
@@ -93,6 +93,7 @@
 }
 @media (max-width: 640px) {
   .rain-idle { opacity: 0.08; }
+  .rain-active { opacity: 0.22; }
 }
 
 /* Editorial serif headline — mixed weight, tight tracking (robbowen vibe) */

@@ -18,13 +18,16 @@ export default function RainingLetters() {
   const [characters, setCharacters] = useState<Character[]>([])
   const [active, setActive] = useState<Set<number>>(new Set())
   const [enabled, setEnabled] = useState(false)
+  const [narrow, setNarrow] = useState(false)
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return
     setEnabled(true)
     // ponytail: fewer glyphs on narrow viewports — same 160 on a phone-width
     // screen reads far denser than on desktop and drowns out the real text.
-    const count = window.innerWidth < 640 ? 50 : 160
+    const isNarrow = window.innerWidth < 640
+    setNarrow(isNarrow)
+    const count = isNarrow ? 50 : 160
     const chars: Character[] = []
     for (let i = 0; i < count; i++) {
       chars.push({
@@ -42,12 +45,12 @@ export default function RainingLetters() {
     if (!enabled || characters.length === 0) return
     const id = setInterval(() => {
       const next = new Set<number>()
-      const n = Math.floor(Math.random() * 3) + 3
+      const n = narrow ? Math.floor(Math.random() * 2) + 1 : Math.floor(Math.random() * 3) + 3
       for (let i = 0; i < n; i++) next.add(Math.floor(Math.random() * characters.length))
       setActive(next)
     }, 90)
     return () => clearInterval(id)
-  }, [enabled, characters.length])
+  }, [enabled, characters.length, narrow])
 
   // Fall + recycle at the bottom.
   useEffect(() => {
