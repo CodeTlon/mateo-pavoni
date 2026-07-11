@@ -40,3 +40,4 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 | Fecha | Cambio |
 |-------|--------|
 | 2026-06-02 | feat: agrego proyectos al portfolio (CodeTlon, GC², MasiPhone v2) + "Próximo proyecto" como banner full-width; descripciones es/en |
+| 2026-07-11 | chore: headers de seguridad (HSTS, X-Frame-Options, nosniff, Referrer-Policy, Permissions-Policy) + feat: loading/error states progresivos (skeleton bento + fallback branded es/en) |

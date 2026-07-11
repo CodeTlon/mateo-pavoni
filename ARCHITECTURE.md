@@ -16,11 +16,15 @@ Mapa para mantenimiento. **No releas el repo entero**: buscá tu tipo de cambio 
 | Lógica de redirect de idioma | `proxy.ts` (Accept-Language → `/es` o `/en`) |
 | Formulario de contacto (envío) | `app/actions/contact.ts` (Resend) + `components/sections/Contact.tsx` |
 | Metadata / SEO | `metadata` export en `app/[lang]/layout.tsx` + `app/sitemap.ts` / `app/robots.ts` |
-| Config de imágenes / dominios remotos | `next.config.mjs` (único archivo de config) |
+| Config de imágenes / dominios remotos / headers de seguridad | `next.config.mjs` (único archivo de config) |
 | Paleta / fuentes / grain | `tailwind.config.*` + `globals.css` + `app/[lang]/layout.tsx` (`next/font`) |
+| Estado de carga de la página | `app/[lang]/loading.tsx` (skeleton bento-shaped, usa `components/ui/skeleton.tsx`) |
+| Fallback de error de la ruta | `app/[lang]/error.tsx` (branded, bilingüe) · `app/global-error.tsx` (solo si falla `app/layout.tsx`) |
+| Nuevo componente shadcn | `components/ui/` + `cn()` de `lib/utils.ts` (patrón sembrado con `skeleton.tsx`) |
 
 ## Dónde NO meterse sin pensar
-- **Config de Next:** un único archivo, `next.config.mjs`. (Se eliminó el `next.config.ts` vacío que en Next 16 podía pisar la config de imágenes del `.mjs`.)
+- **Config de Next:** un único archivo, `next.config.mjs` (incluye headers de seguridad: HSTS, nosniff, X-Frame-Options, Referrer-Policy, Permissions-Policy). (Se eliminó el `next.config.ts` vacío que en Next 16 podía pisar la config de imágenes del `.mjs`.)
+- **Sin `app/api/**/route.ts` ni Supabase:** no hay CORS ni RLS que mantener. Si se agrega alguno, correr `security-owasp.md` §2/§5 de codetlon-cloud antes de mergear.
 - `proxy.ts` — es el middleware de locale. Romperlo deja el sitio sin idioma por defecto.
 - `app/[lang]/` — toda ruta cuelga del segmento dinámico `[lang]`. Agregar páginas adentro, no en `app/` raíz.
 - `globals.css` — sin `@apply group`/`peer`; grain via `::before` SVG data-uri.
