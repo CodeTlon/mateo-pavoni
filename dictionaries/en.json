@@ -29,8 +29,14 @@
       "gc2": {
         "description": "Public site + CMS dashboard for GC² Entrenamiento (running, duathlon and triathlon coaching). Plans, blog and contact management on Next.js 16 and Supabase, with auth and an admin panel."
       },
-      "masiphone": {
-        "description": "iPhone and accessories e-commerce in Córdoba. Migration from a legacy PHP/.NET stack to a Next.js 14 + Nest.js + Supabase monorepo, with checkout and payments via MercadoPago. Currently in active development."
+      "chronoflow": {
+        "description": "DAG-based workflow engine with real async parallelism and Time-Travel Debugging: every node keeps an immutable snapshot so runs can be rewound. FastAPI + async SQLAlchemy backend on PostgreSQL, React + React Flow frontend, WebSockets for live tracking."
+      },
+      "tutienda": {
+        "description": "Multi-store e-commerce SaaS in the Tienda Nube/Shopify style. No-oversell guarantee under concurrency via atomic MongoDB operations, 5 Go microservices, expiring reservations, and checkout as a saga. SvelteKit storefront with a visual editor and i18n."
+      },
+      "inglobal": {
+        "description": "Institutional site for Grúas InGlobal (crane rental and industrial rigging). Rewrite of a legacy PHP site into Next.js with a CMS dashboard to edit schedule, projects, clients and content with no code changes."
       },
       "coming_soon": {
         "name": "Next project",
