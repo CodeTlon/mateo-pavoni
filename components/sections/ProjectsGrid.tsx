@@ -52,14 +52,34 @@ const projectBases: ProjectBase[] = [
     screenshot: '/gc2.png',
   },
   {
-    id: 'masiphone',
-    dictKey: 'masiphone',
-    name: 'MasiPhone v2',
-    tags: ['Next.js 14', 'Nest.js', 'Supabase', 'MercadoPago'],
-    accentColor: '#2563eb',
-    bgColor: '#0b0b0c',
-    url: 'https://masiphone.com.ar',
-    screenshot: '/masiphone.png',
+    id: 'chronoflow',
+    dictKey: 'chronoflow',
+    name: 'ChronoFlow',
+    tags: ['React Flow', 'FastAPI', 'SQLAlchemy', 'PostgreSQL', 'WebSockets'],
+    accentColor: '#8b5cf6',
+    bgColor: '#0f0a1a',
+    url: 'https://chronoflow.mateopavoni.com.ar',
+    screenshot: '/chronoflow.png',
+  },
+  {
+    id: 'tutienda',
+    dictKey: 'tutienda',
+    name: 'TuTienda',
+    tags: ['Go', 'MongoDB', 'Redis', 'SvelteKit', 'Microservicios'],
+    accentColor: '#1B03EA',
+    bgColor: '#111111',
+    url: 'https://tutienda.mateopavoni.com.ar',
+    screenshot: '/tutienda.png',
+  },
+  {
+    id: 'inglobal',
+    dictKey: 'inglobal',
+    name: 'Grúas InGlobal',
+    tags: ['Next.js 15', 'Supabase', 'CMS', 'Resend'],
+    accentColor: '#f5a524',
+    bgColor: '#18181b',
+    url: 'https://gruasinglobal.com',
+    screenshot: '/inglobal.png',
   },
   {
     id: 'coming-soon',
@@ -68,7 +88,6 @@ const projectBases: ProjectBase[] = [
     accentColor: '#2563eb',
     bgColor: '#f0edef',
     url: '#contacto',
-    screenshot: '/vimet-desarollo.png',
     wip: true,
     priority: true,
     wide: true,
@@ -106,7 +125,7 @@ export default function ProjectsGrid({ dict }: { dict: ProjectsDict }) {
                 className={`md:col-span-7 ${i % 2 === 1 ? 'md:order-2' : ''}`}
               >
                 <div
-                  className="panel relative aspect-[16/10] rounded overflow-hidden"
+                  className="panel relative aspect-[1920/1040] rounded overflow-hidden"
                   style={{ background: project.bgColor }}
                 >
                   {project.screenshot ? (
@@ -116,7 +135,7 @@ export default function ProjectsGrid({ dict }: { dict: ProjectsDict }) {
                       fill
                       sizes="(max-width: 768px) 100vw, 58vw"
                       priority={project.priority}
-                      className={`object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.04] ${
+                      className={`object-contain transition-transform duration-700 ease-out group-hover:scale-[1.04] ${
                         project.wip ? 'blur-[4px] opacity-70' : ''
                       }`}
                     />

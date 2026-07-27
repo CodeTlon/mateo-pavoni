@@ -97,4 +97,5 @@ npx playwright test  # Tests E2E
 | 2026 | main | fix: meta de la página + descripción en inglés |
 | 2026-06-02 | main | feat: nuevos proyectos en la grilla (CodeTlon, GC², MasiPhone v2) + "Próximo proyecto" full-width; ProjectsGrid mapea descripción por `dictKey` |
 | 2026-07-11 | chore/security-headers-loading-states | chore: headers de seguridad (HSTS/nosniff/X-Frame-Options/Referrer-Policy/Permissions-Policy) en `next.config.mjs`; CORS y RLS auditados y sin cambios (no hay route handlers ni Supabase); feat: loading.tsx + error.tsx (`app/[lang]`) + global-error.tsx con skeleton `components/ui/skeleton.tsx` (primer componente shadcn del repo) |
+| 2026-07-27 | feat/portfolio-projects-update | feat: `ProjectsGrid.tsx` reemplaza MasiPhone por ChronoFlow, TuTienda e InGlobal (+ dictionaries es/en); `TechStack.tsx` suma Svelte, Go, FastAPI, PostgreSQL, Redis; chore: screenshots actualizados (CodeTlon, GC², Marcovich); banner "próximo proyecto" (`coming_soon`) vuelve a avatar-letra sin screenshot (se sacó `vimet-desarollo.png`, ya no representa un proyecto activo) |
 <!-- Agregar fila al finalizar cada sesión de mantenimiento -->
