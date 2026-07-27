@@ -7,6 +7,7 @@ type Tech = {
   name: string
   src?: string
   abbr?: string
+  invert?: boolean
 }
 
 type Category = {
@@ -17,18 +18,18 @@ type Category = {
 const cdn = (slug: string, color: string) =>
   `https://cdn.simpleicons.org/${slug}/${color}`
 
-// ponytail: ink (#091426) for marks that are white-by-default, so they survive on the light bg
+// ponytail: ink (#091426) for marks that are white-by-default, so they survive on the light bg; `invert: true` flips them back to white in dark mode
 const categories: Category[] = [
   {
     label: 'Frontend',
     items: [
-      { name: 'Next.js',    src: cdn('nextdotjs',   '091426') },
+      { name: 'Next.js',    src: cdn('nextdotjs',   '091426'), invert: true },
       { name: 'TypeScript', src: cdn('typescript',  '3178c6') },
       { name: 'Tailwind',   src: cdn('tailwindcss', '06b6d4') },
       { name: 'Svelte',     src: cdn('svelte',      'ff3e00') },
       { name: 'Sass',       src: cdn('sass',        'cc6699') },
       { name: 'Bootstrap',  src: cdn('bootstrap',   '7952b3') },
-      { name: 'Vercel',     src: cdn('vercel',      '091426') },
+      { name: 'Vercel',     src: cdn('vercel',      '091426'), invert: true },
     ],
   },
   {
@@ -45,7 +46,7 @@ const categories: Category[] = [
       { name: 'MongoDB',    src: cdn('mongodb',   '47a248') },
       { name: 'Redis',      src: cdn('redis',     'ff4438') },
       { name: 'SQL Server', src: '/sql-server.svg' },
-      { name: 'Resend',     src: '/resend.svg' },
+      { name: 'Resend',     src: '/resend.svg', invert: true },
     ],
   },
   {
@@ -83,7 +84,7 @@ export default function TechStack({ dict }: { dict: TechDict }) {
               {cat.label}
             </h3>
             <div className="md:col-span-9 flex flex-wrap gap-x-7 gap-y-4">
-              {cat.items.map(({ name, src, abbr }) => (
+              {cat.items.map(({ name, src, abbr, invert }) => (
                 <div
                   key={name}
                   className="tech-item flex items-center gap-2.5 text-on-surface-variant hover:text-secondary-container transition-colors"
@@ -91,7 +92,13 @@ export default function TechStack({ dict }: { dict: TechDict }) {
                   <span className="w-6 h-6 flex items-center justify-center shrink-0">
                     {src ? (
                       // eslint-disable-next-line @next/next/no-img-element
-                      <img src={src} alt={name} width={22} height={22} className="w-[22px] h-[22px] object-contain" />
+                      <img
+                        src={src}
+                        alt={name}
+                        width={22}
+                        height={22}
+                        className={`w-[22px] h-[22px] object-contain ${invert ? 'dark:invert' : ''}`}
+                      />
                     ) : (
                       <span className="micro text-[0.65rem] text-secondary-container">{abbr}</span>
                     )}

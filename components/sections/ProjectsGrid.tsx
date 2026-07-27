@@ -88,6 +88,7 @@ const projectBases: ProjectBase[] = [
     accentColor: '#2563eb',
     bgColor: '#f0edef',
     url: '#contacto',
+    screenshot: '/vimet-desarollo.png',
     wip: true,
     priority: true,
     wide: true,

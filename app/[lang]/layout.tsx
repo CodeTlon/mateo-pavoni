@@ -16,7 +16,12 @@ export async function generateMetadata({ params }: LayoutProps<'/[lang]'>): Prom
   return {
     title: dict.meta.title,
     description: dict.meta.description,
-    icons: { icon: '/favicon.ico' },
+    icons: {
+      icon: [
+        { url: '/favicon.ico', media: '(prefers-color-scheme: light)' },
+        { url: '/favicon-dark.png', type: 'image/png', media: '(prefers-color-scheme: dark)' },
+      ],
+    },
     openGraph: {
       title: dict.meta.title,
       description: dict.meta.og_description,
