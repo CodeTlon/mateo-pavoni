@@ -7,7 +7,6 @@
     "cta": "Contact me"
   },
   "hero": {
-    "badge": "Full Stack Developer",
     "bio_pre": "Full Stack Developer specialized in building scalable end-to-end products. Experienced in the ",
     "bio_highlight": "Next.js, Supabase, and n8n",
     "bio_post": " ecosystem, with solid knowledge of cloud infrastructure and deployment.",

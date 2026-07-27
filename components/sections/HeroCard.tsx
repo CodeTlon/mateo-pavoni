@@ -14,9 +14,7 @@ export default function HeroCard({ dict }: { dict: HeroDict }) {
       <div className="grid md:grid-cols-12 gap-12 md:gap-8 items-center">
         {/* Text */}
         <div className="md:col-span-7 flex flex-col gap-6 order-2 md:order-1">
-          <span className="rise rise-1 micro text-[0.7rem] text-secondary-container">{dict.badge}</span>
-
-          <h1 className="rise rise-2 serif font-medium text-primary text-6xl sm:text-7xl md:text-8xl leading-[0.92]">
+          <h1 className="rise rise-1 serif font-medium text-primary text-6xl sm:text-7xl md:text-8xl leading-[0.92]">
             <ScrambleText text="Mateo" className="block" />
             <span className="block">
               <ScrambleText text="Pavoni" />
