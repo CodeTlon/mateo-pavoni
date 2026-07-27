@@ -73,6 +73,26 @@
   --color-surface-variant: #162540;
 }
 
+/* ── Custom scrollbar (theme-aware — reads --color-* tokens, flips on .dark) ── */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-outline) var(--color-surface-container-low);
+}
+html::-webkit-scrollbar {
+  width: 10px;
+}
+html::-webkit-scrollbar-track {
+  background: var(--color-surface-container-low);
+}
+html::-webkit-scrollbar-thumb {
+  background-color: var(--color-outline);
+  border-radius: 9999px;
+  border: 2px solid var(--color-surface-container-low);
+}
+html::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-secondary);
+}
+
 /* ── Raining-letters backdrop + scramble decode (theme-aware) ─────────────── */
 /* Idle glyphs: faint outline colour. Active flicker + scramble dud: accent blue.
    Both reference --color-* tokens, so they flip on .dark automatically. */
