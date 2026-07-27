@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { flushSync } from 'react-dom'
 import { useTheme } from 'next-themes'
 import { useRouter } from 'next/navigation'
 import type { Dictionary } from '@/app/[lang]/dictionaries'
@@ -9,14 +10,32 @@ type NavDict = Dictionary['nav']
 
 const sectionIds = ['about', 'proyectos', 'experiencia', 'contacto'] as const
 
+// ponytail: 4 CSS-only wipe styles ported from theme-toggle.rdsx.dev; skipped the
+// gif/custom-asset ones (off-brand, extra weight). Picked at random per click.
+const VT_ANIMATIONS = ['circle', 'circle-blur', 'circle-blur-tl', 'polygon']
+
 function ThemeToggle() {
   const { theme, setTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
   useEffect(() => setMounted(true), [])
   if (!mounted) return <div className="w-6 h-6" />
+
+  const toggle = () => {
+    const next = theme === 'dark' ? 'light' : 'dark'
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (reduceMotion || !document.startViewTransition) {
+      setTheme(next)
+      return
+    }
+    const html = document.documentElement
+    html.dataset.vt = VT_ANIMATIONS[Math.floor(Math.random() * VT_ANIMATIONS.length)]
+    const transition = document.startViewTransition(() => flushSync(() => setTheme(next)))
+    transition.finished.finally(() => delete html.dataset.vt)
+  }
+
   return (
     <button
-      onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+      onClick={toggle}
       aria-label="Toggle theme"
       className="text-on-surface-variant hover:text-secondary-container transition-colors"
     >
