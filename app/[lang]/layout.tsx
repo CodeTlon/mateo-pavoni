@@ -28,6 +28,13 @@ export async function generateMetadata({ params }: LayoutProps<'/[lang]'>): Prom
       description: dict.meta.og_description,
       type: 'website',
       locale: lang === 'es' ? 'es_AR' : 'en_US',
+      images: [{ url: '/mateo.jpg', width: 1200, height: 1200, alt: dict.meta.title }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: dict.meta.title,
+      description: dict.meta.og_description,
+      images: ['/mateo.jpg'],
     },
     robots: { index: true, follow: true },
   }
