@@ -52,7 +52,7 @@
         "role": ".NET Trainee Developer",
         "place": "Encode S.A. · Córdoba, Argentina",
         "bullets": [
-          "Business logic development in C# and .NET 8, ensuring corporate scalability and performance.",
+          "Business logic development in C# and .NET 8, applying scalability and performance best practices in a corporate environment.",
           "Optimization of relational databases (SQL Server / MySQL) with efficient schemas and complex queries.",
           "Application of SOLID principles and design patterns in code refactoring.",
           "Collaboration in agile methodologies with shadowing and code review alongside senior developers."
@@ -81,6 +81,12 @@
         "degree": "Higher Technician in Software Development",
         "institution": "Inst. Superior Cura Gabriel Brochero",
         "note": "100% academic merit scholarship — Fundación Encode."
+      },
+      {
+        "period": "2025 — 2026",
+        "degree": "Full Stack Development Program",
+        "institution": "Coderhouse",
+        "note": null
       }
     ]
   },
@@ -97,6 +103,16 @@
     "sending": "Sending...",
     "success": "Message received! Thanks for reaching out, I'll get back to you shortly.",
     "error": "Failed to send. Please try again."
+  },
+  "chat": {
+    "trigger": "Chat with Nova",
+    "heading": "Nova",
+    "subtitle": "Ask me about Mateo's profile",
+    "placeholder": "Type your question...",
+    "send": "Send",
+    "suggestions": ["What's your stack?", "Can you share your CV?", "I want to schedule an interview"],
+    "error": "Couldn't reply right now, try again.",
+    "close": "Close chat"
   },
   "footer": {
     "copy": "Crafted with dedication by Mateo Pavoni"

@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import RainingLetters from '@/components/RainingLetters'
+import NovaChat from '@/components/NovaChat'
 import { getDictionary, hasLocale, locales } from './dictionaries'
 
 export async function generateStaticParams() {
@@ -46,6 +47,7 @@ export default async function LangLayout({
       <Navbar dict={dict.nav} lang={lang} />
       {children}
       <Footer dict={dict.footer} />
+      <NovaChat dict={dict.chat} lang={lang} />
     </>
   )
 }

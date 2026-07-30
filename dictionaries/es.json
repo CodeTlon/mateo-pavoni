@@ -52,7 +52,7 @@
         "role": "Desarrollador Trainee (.NET)",
         "place": "Encode S.A. · Córdoba, Argentina",
         "bullets": [
-          "Desarrollo de lógica de negocio en C# y .NET 8, asegurando escalabilidad y rendimiento corporativo.",
+          "Desarrollo de lógica de negocio en C# y .NET 8, aplicando buenas prácticas de escalabilidad y rendimiento en un entorno corporativo.",
           "Optimización de bases de datos relacionales (SQL Server / MySQL) con esquemas eficientes y consultas complejas.",
           "Aplicación de principios SOLID y patrones de diseño en refactorización de código.",
           "Colaboración en metodologías ágiles con shadowing y code review junto a desarrolladores senior."
@@ -81,6 +81,12 @@
         "degree": "Tecnicatura Superior en Desarrollo de Software",
         "institution": "Inst. Superior Cura Gabriel Brochero",
         "note": "Beca del 100% al mérito académico — Fundación Encode."
+      },
+      {
+        "period": "2025 — 2026",
+        "degree": "Carrera de Desarrollo Full Stack",
+        "institution": "Coderhouse",
+        "note": null
       }
     ]
   },
@@ -97,6 +103,16 @@
     "sending": "Enviando...",
     "success": "¡Mensaje recibido! Gracias por escribirme, me pongo en contacto con vos a la brevedad.",
     "error": "Error al enviar. Intentá de nuevo."
+  },
+  "chat": {
+    "trigger": "Conversá con Nova",
+    "heading": "Nova",
+    "subtitle": "Preguntame sobre el perfil de Mateo",
+    "placeholder": "Escribí tu pregunta...",
+    "send": "Enviar",
+    "suggestions": ["¿Cuál es tu stack?", "¿Me compartís tu CV?", "Quiero agendar una entrevista"],
+    "error": "No pude responder ahora, probá de nuevo.",
+    "close": "Cerrar chat"
   },
   "footer": {
     "copy": "Hecho con dedicación por Mateo Pavoni"

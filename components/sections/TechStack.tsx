@@ -24,6 +24,7 @@ const categories: Category[] = [
     label: 'Frontend',
     items: [
       { name: 'Next.js',    src: cdn('nextdotjs',   '091426'), invert: true },
+      { name: 'React',      src: cdn('react',       '61dafb') },
       { name: 'TypeScript', src: cdn('typescript',  '3178c6') },
       { name: 'Tailwind',   src: cdn('tailwindcss', '06b6d4') },
       { name: 'Svelte',     src: cdn('svelte',      'ff3e00') },

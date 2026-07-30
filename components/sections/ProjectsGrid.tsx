@@ -136,7 +136,7 @@ export default function ProjectsGrid({ dict }: { dict: ProjectsDict }) {
                       fill
                       sizes="(max-width: 768px) 100vw, 58vw"
                       priority={project.priority}
-                      className={`object-contain transition-transform duration-700 ease-out group-hover:scale-[1.04] ${
+                      className={`object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04] ${
                         project.wip ? 'blur-[4px] opacity-70' : ''
                       }`}
                     />
