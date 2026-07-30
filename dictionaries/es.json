@@ -113,6 +113,7 @@
     "suggestions": ["¿Cuál es tu stack?", "¿Me compartís tu CV?", "Quiero agendar una entrevista"],
     "error": "No pude responder ahora, probá de nuevo.",
     "close": "Cerrar chat",
+    "clear": "Borrar conversación",
     "scheduled_ok": "¡Listo! Le avisé a Mateo por mail, te va a contactar pronto.",
     "scheduled_error": "No pude enviar el aviso, escribile directo por la sección Contacto."
   },

@@ -113,6 +113,7 @@
     "suggestions": ["What's your stack?", "Can you share your CV?", "I want to schedule an interview"],
     "error": "Couldn't reply right now, try again.",
     "close": "Close chat",
+    "clear": "Clear conversation",
     "scheduled_ok": "Done! I let Mateo know by email, he'll reach out soon.",
     "scheduled_error": "Couldn't send the notice, reach out directly through the Contact section."
   },
