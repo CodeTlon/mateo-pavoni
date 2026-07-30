@@ -79,7 +79,7 @@ Ver `.env.example` para el listado completo.
 - i18n: las rutas viven bajo `app/[lang]/`. Todo texto nuevo va en `dictionaries/es.json` + `en.json`, nunca hardcodeado en el componente.
 - `proxy.ts` es el middleware de Next 16 (no `middleware.ts`). Maneja el redirect de locale.
 - Grain texture via CSS `::before` con SVG data-uri — no usar imagen externa.
-- Bento cards: `border: 1px solid rgba(30, 41, 59, 0.05)` + hover glow `0 0 20px rgba(57, 184, 253, 0.15)`.
+- Bento cards: `border: 1px solid rgba(30, 41, 59, 0.05)` + hover glow `0 0 20px rgba(57, 184, 253, 0.15)`. Ese hairline de `.panel` es el que se veía como "borde negro" en los screenshots de proyectos con fondo claro (InGlobal/TuTienda/ChronoFlow) — invisible en los de fondo oscuro solo por casualidad de color, no por ningún bug de aspect ratio. Fix: `.panel.shot { border-color: transparent }` en `globals.css`, clase `shot` agregada al contenedor de imagen en `ProjectsGrid.tsx` — el hover glow (`.panel:hover`) sigue andando igual.
 - Navbar usa `backdrop-blur-lg + bg-white/80` — glassmorphism.
 - No usar `@apply group` o `@apply peer` en CSS (Bug 3 del FOS).
 - Formulario usa `useFormState` de `react-dom` (NO `useActionState`).

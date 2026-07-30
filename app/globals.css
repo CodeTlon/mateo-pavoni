@@ -185,6 +185,10 @@ html::-webkit-scrollbar-thumb:hover {
 .dark .panel {
   border-color: rgba(220, 232, 248, 0.1);
 }
+/* Screenshot frames: idle hairline reads as a stray border against light-background captures — keep it hover-only */
+.panel.shot {
+  border-color: transparent;
+}
 .panel:hover {
   border-color: #2563eb;
   transform: translateY(-2px);

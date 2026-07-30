@@ -126,7 +126,7 @@ export default function ProjectsGrid({ dict }: { dict: ProjectsDict }) {
                 className={`md:col-span-7 ${i % 2 === 1 ? 'md:order-2' : ''}`}
               >
                 <div
-                  className="panel relative aspect-[1920/1040] rounded overflow-hidden"
+                  className="panel shot relative aspect-[1920/1040] rounded overflow-hidden"
                   style={{ background: project.bgColor }}
                 >
                   {project.screenshot ? (
