@@ -7,6 +7,7 @@ type ChatDict = Dictionary['chat']
 type ChatMessage = { role: 'user' | 'model'; text: string }
 
 const STORAGE_KEY = 'nova-chat-history'
+const TTL_MS = 6 * 60 * 60 * 1000
 
 export default function NovaChat({ dict, lang }: { dict: ChatDict; lang: Locale }) {
   const [open, setOpen] = useState(false)
@@ -19,7 +20,11 @@ export default function NovaChat({ dict, lang }: { dict: ChatDict; lang: Locale 
   useEffect(() => {
     try {
       const saved = localStorage.getItem(STORAGE_KEY)
-      if (saved) setMessages(JSON.parse(saved))
+      if (saved) {
+        const { messages: savedMessages, savedAt } = JSON.parse(saved)
+        if (Date.now() - savedAt < TTL_MS) setMessages(savedMessages)
+        else localStorage.removeItem(STORAGE_KEY)
+      }
     } catch {
       // ponytail: corrupt/blocked storage just starts fresh, not worth a UI error
     }
@@ -28,7 +33,11 @@ export default function NovaChat({ dict, lang }: { dict: ChatDict; lang: Locale 
 
   useEffect(() => {
     if (!loadedRef.current) return
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(messages))
+    if (messages.length === 0) {
+      localStorage.removeItem(STORAGE_KEY)
+      return
+    }
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ messages, savedAt: Date.now() }))
   }, [messages])
 
   useEffect(() => {
