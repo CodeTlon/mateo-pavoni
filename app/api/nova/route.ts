@@ -35,6 +35,21 @@ const SCHEDULE_TOOL = {
 
 type ChatMessage = { role: 'user' | 'model'; text: string }
 
+const RATE_LIMIT = 15
+const RATE_WINDOW_MS = 10 * 60 * 1000
+// ponytail: per-instance in-memory map — resets on cold start, doesn't share across regions/instances.
+// Good enough to stop a runaway loop or a single abuser from burning the Gemini quota on a portfolio site.
+// Upgrade to Vercel KV/Upstash if real distributed abuse shows up.
+const hits = new Map<string, number[]>()
+
+function isRateLimited(ip: string) {
+  const now = Date.now()
+  const recent = (hits.get(ip) ?? []).filter((t) => now - t < RATE_WINDOW_MS)
+  recent.push(now)
+  hits.set(ip, recent)
+  return recent.length > RATE_LIMIT
+}
+
 export async function POST(req: Request) {
   const { history, lang } = (await req.json()) as { history: ChatMessage[]; lang: Locale }
   const apiKey = process.env.GEMINI_API_KEY
@@ -43,6 +58,15 @@ export async function POST(req: Request) {
 
   if (!apiKey) {
     return sseError(encoder, errorText)
+  }
+
+  const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown'
+  if (isRateLimited(ip)) {
+    const limitText =
+      lang === 'en'
+        ? "You've reached the message limit for now, try again in a bit."
+        : 'Llegaste al límite de mensajes por ahora, probá de nuevo en un rato.'
+    return sseError(encoder, limitText)
   }
 
   const dict = await getDictionary(lang)
@@ -74,13 +98,19 @@ Si preguntan algo fuera de lo profesional, redirigí amablemente al tema.`
       role: 'model',
       parts: [{ text: lang === 'en' ? 'Got it, ready to help.' : 'Entendido, lista para ayudar.' }],
     },
-    ...history.map((m) => ({ role: m.role, parts: [{ text: m.text }] })),
+    // cap turns + per-message length: history persists in the client's localStorage and grows
+    // unbounded across visits, this keeps token cost per request predictable regardless
+    ...history.slice(-12).map((m) => ({ role: m.role, parts: [{ text: m.text.slice(0, 2000) }] })),
   ]
 
   const upstream = await fetch(`${GEMINI_STREAM_URL}?alt=sse&key=${apiKey}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ contents, tools: [SCHEDULE_TOOL] }),
+    body: JSON.stringify({
+      contents,
+      tools: [SCHEDULE_TOOL],
+      generationConfig: { maxOutputTokens: 300 },
+    }),
   })
 
   if (!upstream.ok || !upstream.body) {
