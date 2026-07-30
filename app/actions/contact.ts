@@ -16,6 +16,28 @@ export type ContactState = {
   error?: string
 } | null
 
+export async function sendContactEmail({
+  name,
+  email,
+  message,
+  subject,
+}: {
+  name: string
+  email: string
+  message: string
+  subject?: string
+}) {
+  const resend = new Resend(process.env.RESEND_API_KEY)
+  const html = await render(ContactTemplate({ name, email, message }))
+
+  return resend.emails.send({
+    from: process.env.RESEND_FROM_EMAIL ?? 'onboarding@resend.dev',
+    to: process.env.COMPANY_EMAIL ?? 'mateopavonint905@gmail.com',
+    subject: subject ?? `Nuevo mensaje de ${name} — Portfolio`,
+    html,
+  })
+}
+
 export async function sendContact(prevState: ContactState, formData: FormData): Promise<ContactState> {
   const result = schema.safeParse({
     name: formData.get('name'),
@@ -27,17 +49,7 @@ export async function sendContact(prevState: ContactState, formData: FormData): 
     return { success: false, error: result.error.issues[0].message }
   }
 
-  const { name, email, message } = result.data
-  const resend = new Resend(process.env.RESEND_API_KEY)
-
-  const html = await render(ContactTemplate({ name, email, message }))
-
-  const { data, error } = await resend.emails.send({
-    from: process.env.RESEND_FROM_EMAIL ?? 'onboarding@resend.dev',
-    to: process.env.COMPANY_EMAIL ?? 'mateopavonint905@gmail.com',
-    subject: `Nuevo mensaje de ${name} — Portfolio`,
-    html,
-  })
+  const { data, error } = await sendContactEmail(result.data)
 
   if (error) {
     console.error('[Resend]', error)

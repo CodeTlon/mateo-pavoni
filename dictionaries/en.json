@@ -112,7 +112,9 @@
     "send": "Send",
     "suggestions": ["What's your stack?", "Can you share your CV?", "I want to schedule an interview"],
     "error": "Couldn't reply right now, try again.",
-    "close": "Close chat"
+    "close": "Close chat",
+    "scheduled_ok": "Done! I let Mateo know by email, he'll reach out soon.",
+    "scheduled_error": "Couldn't send the notice, reach out directly through the Contact section."
   },
   "footer": {
     "copy": "Crafted with dedication by Mateo Pavoni"

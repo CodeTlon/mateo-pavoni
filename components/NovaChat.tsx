@@ -1,10 +1,12 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
-import { askNova, type ChatMessage } from '@/app/actions/chat'
 import type { Dictionary, Locale } from '@/app/[lang]/dictionaries'
 
 type ChatDict = Dictionary['chat']
+type ChatMessage = { role: 'user' | 'model'; text: string }
+
+const STORAGE_KEY = 'nova-chat-history'
 
 export default function NovaChat({ dict, lang }: { dict: ChatDict; lang: Locale }) {
   const [open, setOpen] = useState(false)
@@ -12,6 +14,22 @@ export default function NovaChat({ dict, lang }: { dict: ChatDict; lang: Locale 
   const [input, setInput] = useState('')
   const [pending, setPending] = useState(false)
   const endRef = useRef<HTMLDivElement>(null)
+  const loadedRef = useRef(false)
+
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY)
+      if (saved) setMessages(JSON.parse(saved))
+    } catch {
+      // ponytail: corrupt/blocked storage just starts fresh, not worth a UI error
+    }
+    loadedRef.current = true
+  }, [])
+
+  useEffect(() => {
+    if (!loadedRef.current) return
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(messages))
+  }, [messages])
 
   useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -20,15 +38,59 @@ export default function NovaChat({ dict, lang }: { dict: ChatDict; lang: Locale 
   async function send(text: string) {
     if (!text.trim() || pending) return
     const next: ChatMessage[] = [...messages, { role: 'user', text }]
-    setMessages(next)
+    setMessages([...next, { role: 'model', text: '' }])
     setInput('')
     setPending(true)
-    const result = await askNova(next, lang)
-    setMessages([
-      ...next,
-      { role: 'model', text: 'reply' in result ? result.reply : dict.error },
-    ])
-    setPending(false)
+
+    try {
+      const res = await fetch('/api/nova', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ history: next, lang }),
+      })
+      if (!res.body) throw new Error('no body')
+
+      const reader = res.body.getReader()
+      const decoder = new TextDecoder()
+      let buffer = ''
+      let scheduledOk: boolean | null = null
+
+      while (true) {
+        const { done, value } = await reader.read()
+        if (done) break
+        buffer += decoder.decode(value, { stream: true })
+        const lines = buffer.split('\n')
+        buffer = lines.pop() ?? ''
+
+        for (const line of lines) {
+          if (!line.startsWith('data: ')) continue
+          const evt = JSON.parse(line.slice(6))
+          if (evt.type === 'text') {
+            setMessages((prev) => {
+              const copy = [...prev]
+              const last = copy[copy.length - 1]
+              copy[copy.length - 1] = { ...last, text: last.text + evt.value }
+              return copy
+            })
+          } else if (evt.type === 'scheduled') {
+            scheduledOk = evt.ok
+          }
+        }
+      }
+
+      if (scheduledOk !== null) {
+        const ok = scheduledOk
+        setMessages((prev) => [...prev, { role: 'model', text: ok ? dict.scheduled_ok : dict.scheduled_error }])
+      }
+    } catch {
+      setMessages((prev) => {
+        const copy = [...prev]
+        copy[copy.length - 1] = { role: 'model', text: dict.error }
+        return copy
+      })
+    } finally {
+      setPending(false)
+    }
   }
 
   return (
@@ -80,14 +142,9 @@ export default function NovaChat({ dict, lang }: { dict: ChatDict; lang: Locale 
                 }`}
                 style={{ fontFamily: 'var(--font-inter)' }}
               >
-                {m.text}
+                {m.text || (pending && i === messages.length - 1 ? '…' : '')}
               </div>
             ))}
-            {pending && (
-              <div className="self-start text-xs text-on-surface-variant" style={{ fontFamily: 'var(--font-inter)' }}>
-                …
-              </div>
-            )}
             <div ref={endRef} />
           </div>
 
