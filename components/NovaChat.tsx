@@ -16,6 +16,7 @@ export default function NovaChat({ dict, lang }: { dict: ChatDict; lang: Locale 
   const [pending, setPending] = useState(false)
   const endRef = useRef<HTMLDivElement>(null)
   const loadedRef = useRef(false)
+  const [everOpened, setEverOpened] = useState(false)
 
   useEffect(() => {
     try {
@@ -105,7 +106,7 @@ export default function NovaChat({ dict, lang }: { dict: ChatDict; lang: Locale 
   return (
     <div className="fixed bottom-5 right-5 z-50 flex flex-col items-end gap-3">
       {open && (
-        <div className="panel bg-surface-container-lowest w-[min(90vw,340px)] h-[min(70vh,460px)] rounded-lg shadow-xl flex flex-col overflow-hidden">
+        <div className="rise panel bg-surface-container-lowest w-[min(90vw,340px)] h-[min(70vh,460px)] rounded-lg shadow-xl flex flex-col overflow-hidden">
           <div className="flex items-center justify-between px-4 py-3 border-b hairline">
             <div>
               <p className="serif text-lg text-primary leading-none">{dict.heading}</p>
@@ -158,14 +159,20 @@ export default function NovaChat({ dict, lang }: { dict: ChatDict; lang: Locale 
             {messages.map((m, i) => (
               <div
                 key={i}
-                className={`text-sm px-3 py-2 rounded max-w-[85%] ${
+                className={`chat-bubble-in text-sm px-3 py-2 rounded max-w-[85%] ${
                   m.role === 'user'
                     ? 'self-end bg-primary text-on-primary'
                     : 'self-start bg-surface-container text-on-surface'
                 }`}
                 style={{ fontFamily: 'var(--font-inter)' }}
               >
-                {m.text || (pending && i === messages.length - 1 ? '…' : '')}
+                {m.text || (pending && i === messages.length - 1 ? (
+                  <span className="inline-flex gap-1 py-1">
+                    <span className="chat-dot h-1.5 w-1.5 rounded-full bg-current opacity-60" />
+                    <span className="chat-dot h-1.5 w-1.5 rounded-full bg-current opacity-60" />
+                    <span className="chat-dot h-1.5 w-1.5 rounded-full bg-current opacity-60" />
+                  </span>
+                ) : '')}
               </div>
             ))}
             <div ref={endRef} />
@@ -199,10 +206,16 @@ export default function NovaChat({ dict, lang }: { dict: ChatDict; lang: Locale 
 
       <button
         type="button"
-        onClick={() => setOpen((v) => !v)}
-        className="micro text-xs bg-primary text-on-primary px-4 py-3 rounded-full shadow-lg hover:bg-secondary-container transition-colors"
+        onClick={() => {
+          setOpen((v) => !v)
+          setEverOpened(true)
+        }}
+        className="micro relative text-xs bg-primary text-on-primary px-4 py-3 rounded-full shadow-lg hover:bg-secondary-container hover:scale-105 transition-[background-color,transform] duration-200"
       >
-        {dict.trigger}
+        {!everOpened && (
+          <span className="chat-ping absolute inset-0 rounded-full bg-primary" aria-hidden="true" />
+        )}
+        <span className="relative">{dict.trigger}</span>
       </button>
     </div>
   )
