@@ -46,3 +46,4 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 | 2026-07-27 | fix: saco etiqueta "Full Stack Developer" del hero + favicon dark mode de Electric Blue a blanco |
 | 2026-07-29 | fix: bullet Encode (C#/.NET) + agrego React al tech stack + Coderhouse a educación + feat: widget de chat "Nova" (Gemini 2.5 Flash) |
 | 2026-07-29 | fix: borde negro real en screenshots de proyectos (era el hairline del panel, no un tema de aspect ratio) + feat: Nova ahora responde en streaming, agenda entrevistas de verdad (manda mail real) y recuerda la charla entre visitas |
+| 2026-07-31 | feat: agrego Chaos Playground y ClubCore al grid de proyectos (descripciones es/en, tags de stack) |

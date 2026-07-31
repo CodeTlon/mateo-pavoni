@@ -37,6 +37,12 @@
       "inglobal": {
         "description": "Sitio institucional de Grúas InGlobal (alquiler de grúas y montajes industriales). Reescritura de un legacy PHP a Next.js con dashboard CMS para editar agenda, montajes, clientes y contenido sin tocar código."
       },
+      "chaos_playground": {
+        "description": "Playground de Chaos Engineering estilo Gremlin/Chaos Monkey: cada nodo del canvas (load balancer, API, DB, cache, queue) es un GenServer real de Erlang/OTP bajo un DynamicSupervisor — matar un nodo desde la UI es literalmente Process.exit(pid, :kill), no una animación. Motor de tráfico configurable, Chaos Monkey automático y canvas compartido en vivo entre visitantes vía Phoenix LiveView."
+      },
+      "clubcore": {
+        "description": "API REST para la gestión de un instituto de salud/complejo deportivo: motor de estados de membresía on-demand (nunca cacheado), cupo mensual de reservas cerrado bajo concurrencia real con lock por cliente (verificado con 10 requests paralelas), JWT + RBAC de punta a punta y webhooks resilientes con retry + circuit breaker hacia n8n."
+      },
       "coming_soon": {
         "name": "Próximo proyecto",
         "description": "Continuamente construyendo nuevos productos. Si tenés un proyecto en mente, hablemos."
