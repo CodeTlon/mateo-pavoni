@@ -6,7 +6,20 @@ const GEMINI_STREAM_URL =
   'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:streamGenerateContent'
 
 const STACK =
-  'Next.js, React, TypeScript, Tailwind, Svelte, Sass, Bootstrap, Node.js, Go, FastAPI, Supabase, .NET Core, PHP, PostgreSQL, MySQL'
+  'Next.js, React, TypeScript, Tailwind, Svelte, Sass, Bootstrap, Node.js, Go, FastAPI, Java, Spring Boot, Elixir, Phoenix LiveView, Supabase, .NET Core, PHP, PostgreSQL, MySQL'
+
+const PROJECTS = [
+  ['Marcovich Barbería', 'gestión de turnos de barbería, migración de legacy PHP/MySQL a Next.js + Supabase, turnero automatizado vía WhatsApp API + n8n'],
+  ['CodeTlon', 'sitio institucional de su software factory, Next.js + Resend + GA4'],
+  ['GC² Entrenamiento', 'sitio + dashboard CMS para un equipo de coaching deportivo, Next.js + Supabase con Row Level Security'],
+  ['ChronoFlow', 'motor de workflows tipo DAG con paralelismo asíncrono real y Time-Travel Debugging, FastAPI + PostgreSQL + React Flow'],
+  ['TuTienda', 'SaaS de e-commerce multi-tienda estilo Tienda Nube, microservicios en Go + MongoDB + Redis, frontend en SvelteKit'],
+  ['Grúas InGlobal', 'sitio institucional con dashboard CMS, reescritura de legacy PHP a Next.js + Supabase'],
+  ['Chaos Playground', 'playground de Chaos Engineering estilo Gremlin/Chaos Monkey en Elixir + Phoenix LiveView; cada nodo del canvas es un GenServer real de OTP, matarlo desde la UI mata el proceso de verdad'],
+  ['ClubCore', 'API REST en Java + Spring Boot para gestión de un club/instituto de salud, motor de estados de membresía on-demand, cupo de reservas cerrado bajo concurrencia real, resiliencia con Resilience4j'],
+]
+  .map(([name, blurb]) => `${name}: ${blurb}`)
+  .join('\n')
 
 const scheduleArgsSchema = z.object({
   name: z.string().min(2),
@@ -89,6 +102,9 @@ ${work}
 
 Educación:
 ${education}
+
+Proyectos:
+${PROJECTS}
 
 Si piden el CV, decí que pueden descargarlo en /cv.pdf.
 Si piden agendar una entrevista o contacto real, pedile nombre, email y motivo (de a uno si hace falta) y cuando tengas los tres llamá a la función schedule_interview — no la llames sin datos confirmados.

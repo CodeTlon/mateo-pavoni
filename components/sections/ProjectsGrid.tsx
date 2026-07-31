@@ -87,7 +87,7 @@ const projectBases: ProjectBase[] = [
     name: 'Chaos Playground',
     tags: ['Elixir', 'Phoenix LiveView', 'OTP', 'PostgreSQL', 'Docker'],
     accentColor: '#ff5c5c',
-    bgColor: '#0d1117',
+    bgColor: '#f5f5f7',
     url: 'https://chaos-playground.mateopavoni.com.ar/',
     screenshot: '/chaos-playground.png',
   },
