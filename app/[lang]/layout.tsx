@@ -4,6 +4,7 @@ import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import RainingLetters from '@/components/RainingLetters'
 import NovaChat from '@/components/NovaChat'
+import HtmlLang from '@/components/HtmlLang'
 import { getDictionary, hasLocale, locales } from './dictionaries'
 
 export async function generateStaticParams() {
@@ -15,26 +16,31 @@ export async function generateMetadata({ params }: LayoutProps<'/[lang]'>): Prom
   if (!hasLocale(lang)) return {}
   const dict = await getDictionary(lang)
   return {
+    metadataBase: new URL('https://mateopavoni.com.ar'),
     title: dict.meta.title,
     description: dict.meta.description,
+    alternates: { canonical: `/${lang}` },
     icons: {
       icon: [
         { url: '/favicon.ico', media: '(prefers-color-scheme: light)' },
         { url: '/favicon-dark.png', type: 'image/png', media: '(prefers-color-scheme: dark)' },
       ],
+      apple: '/apple-touch-icon.png',
     },
     openGraph: {
       title: dict.meta.title,
       description: dict.meta.og_description,
+      url: `/${lang}`,
+      siteName: 'Mateo Pavoni',
       type: 'website',
       locale: lang === 'es' ? 'es_AR' : 'en_US',
-      images: [{ url: '/mateo.jpg', width: 1200, height: 1200, alt: dict.meta.title }],
+      images: [{ url: '/og-image.jpg', width: 1200, height: 630, alt: dict.meta.title }],
     },
     twitter: {
       card: 'summary_large_image',
       title: dict.meta.title,
       description: dict.meta.og_description,
-      images: ['/mateo.jpg'],
+      images: ['/og-image.jpg'],
     },
     robots: { index: true, follow: true },
   }
@@ -50,6 +56,8 @@ export default async function LangLayout({
 
   return (
     <>
+      {/* ponytail: root <html> vive en app/layout.tsx (no ve el param lang) — se setea client-side, no en el SSR inicial */}
+      <HtmlLang lang={lang} />
       <RainingLetters />
       <Navbar dict={dict.nav} lang={lang} />
       {children}
