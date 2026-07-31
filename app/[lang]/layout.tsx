@@ -4,6 +4,7 @@ import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import RainingLetters from '@/components/RainingLetters'
 import NovaChat from '@/components/NovaChat'
+import HtmlLang from '@/components/HtmlLang'
 import { getDictionary, hasLocale, locales } from './dictionaries'
 
 export async function generateStaticParams() {
@@ -55,6 +56,10 @@ export default async function LangLayout({
 
   return (
     <>
+      {/* ponytail: root <html> vive en app/layout.tsx, arriba del segmento [lang] — no ve params.lang.
+          Setearlo via headers() forzaba render dinamico en TODO el sitio (TTFB 1.3s -> ~2s). Se
+          setea client-side; el SSR inicial queda sin lang hasta hidratar, ceiling conocido. */}
+      <HtmlLang lang={lang} />
       <RainingLetters />
       <Navbar dict={dict.nav} lang={lang} />
       {children}
