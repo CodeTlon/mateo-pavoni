@@ -131,26 +131,27 @@ export default function ProjectsGrid({ dict }: { dict: ProjectsDict }) {
       <div className="flex flex-col">
         {projects.map((project, i) => {
           const external = project.url.startsWith('http')
+          const hasScreenshot = Boolean(project.screenshot)
           return (
             <article
               key={project.id}
               className="group grid md:grid-cols-12 gap-6 md:gap-12 items-center py-12 md:py-16 border-t hairline first:border-t-0"
             >
               {/* Screenshot */}
-              <a
-                href={project.url}
-                target={external ? '_blank' : undefined}
-                rel={external ? 'noopener noreferrer' : undefined}
-                aria-label={`Ver ${project.name}`}
-                className={`md:col-span-7 ${i % 2 === 1 ? 'md:order-2' : ''}`}
-              >
-                <div
-                  className="panel shot relative aspect-[1920/1040] rounded overflow-hidden"
-                  style={{ background: project.bgColor }}
+              {hasScreenshot && (
+                <a
+                  href={project.url}
+                  target={external ? '_blank' : undefined}
+                  rel={external ? 'noopener noreferrer' : undefined}
+                  aria-label={`Ver ${project.name}`}
+                  className={`md:col-span-7 ${i % 2 === 1 ? 'md:order-2' : ''}`}
                 >
-                  {project.screenshot ? (
+                  <div
+                    className="panel shot relative aspect-[1920/1040] rounded overflow-hidden"
+                    style={{ background: project.bgColor }}
+                  >
                     <Image
-                      src={project.screenshot}
+                      src={project.screenshot as string}
                       alt={`Captura de ${project.name}`}
                       fill
                       sizes="(max-width: 768px) 100vw, 58vw"
@@ -159,21 +160,16 @@ export default function ProjectsGrid({ dict }: { dict: ProjectsDict }) {
                         project.wip ? 'blur-[4px] opacity-70' : ''
                       }`}
                     />
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center">
-                      <span
-                        className="serif text-5xl"
-                        style={{ color: project.accentColor }}
-                      >
-                        {project.name.charAt(0)}
-                      </span>
-                    </div>
-                  )}
-                </div>
-              </a>
+                  </div>
+                </a>
+              )}
 
               {/* Text */}
-              <div className={`md:col-span-5 flex flex-col gap-4 ${i % 2 === 1 ? 'md:order-1' : ''}`}>
+              <div
+                className={`flex flex-col gap-4 ${hasScreenshot ? 'md:col-span-5' : 'md:col-span-12'} ${
+                  hasScreenshot && i % 2 === 1 ? 'md:order-1' : ''
+                }`}
+              >
                 <span className="micro text-[0.7rem] text-secondary-container">
                   {String(i + 1).padStart(2, '0')}
                   {project.wip ? ` · ${project.tags[0]}` : ''}
