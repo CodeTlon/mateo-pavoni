@@ -1,4 +1,5 @@
 import type { Viewport } from 'next'
+import { headers } from 'next/headers'
 import { Space_Grotesk, Inter, Fraunces } from 'next/font/google'
 import './globals.css'
 import ThemeProvider from '@/components/ThemeProvider'
@@ -32,9 +33,11 @@ export const viewport: Viewport = {
   initialScale: 1,
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const lang = (await headers()).get('x-locale') ?? 'es'
   return (
     <html
+      lang={lang}
       className={`${spaceGrotesk.variable} ${inter.variable} ${fraunces.variable}`}
       suppressHydrationWarning
     >

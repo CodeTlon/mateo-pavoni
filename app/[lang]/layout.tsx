@@ -4,7 +4,6 @@ import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import RainingLetters from '@/components/RainingLetters'
 import NovaChat from '@/components/NovaChat'
-import HtmlLang from '@/components/HtmlLang'
 import { getDictionary, hasLocale, locales } from './dictionaries'
 
 export async function generateStaticParams() {
@@ -56,8 +55,6 @@ export default async function LangLayout({
 
   return (
     <>
-      {/* ponytail: root <html> vive en app/layout.tsx (no ve el param lang) — se setea client-side, no en el SSR inicial */}
-      <HtmlLang lang={lang} />
       <RainingLetters />
       <Navbar dict={dict.nav} lang={lang} />
       {children}

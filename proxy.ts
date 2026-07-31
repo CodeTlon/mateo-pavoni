@@ -22,7 +22,14 @@ export function proxy(request: NextRequest) {
   const hasLocale = (locales as readonly string[]).some(
     (l) => pathname.startsWith(`/${l}/`) || pathname === `/${l}`
   )
-  if (hasLocale) return
+  if (hasLocale) {
+    // ponytail: root layout.tsx no ve params.lang (esta arriba del segmento [lang]) —
+    // se lo pasamos por header para poder setear <html lang> server-side.
+    const locale = pathname.split('/')[1]
+    const requestHeaders = new Headers(request.headers)
+    requestHeaders.set('x-locale', locale)
+    return NextResponse.next({ request: { headers: requestHeaders } })
+  }
   const locale = getPreferredLocale(request)
   request.nextUrl.pathname = `/${locale}${pathname}`
   return NextResponse.redirect(request.nextUrl)
