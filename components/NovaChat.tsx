@@ -9,14 +9,34 @@ type ChatMessage = { role: 'user' | 'model'; text: string }
 const STORAGE_KEY = 'nova-chat-history'
 const TTL_MS = 6 * 60 * 60 * 1000
 
+const CLOSE_ANIM_MS = 200
+
 export default function NovaChat({ dict, lang }: { dict: ChatDict; lang: Locale }) {
   const [open, setOpen] = useState(false)
+  const [rendered, setRendered] = useState(false)
   const [messages, setMessages] = useState<ChatMessage[]>([])
   const [input, setInput] = useState('')
   const [pending, setPending] = useState(false)
   const endRef = useRef<HTMLDivElement>(null)
   const loadedRef = useRef(false)
+  const closeTimerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
   const [everOpened, setEverOpened] = useState(false)
+
+  useEffect(() => () => clearTimeout(closeTimerRef.current), [])
+
+  function toggleOpen() {
+    setEverOpened(true)
+    if (open) {
+      setOpen(false)
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      if (reduced) setRendered(false)
+      else closeTimerRef.current = setTimeout(() => setRendered(false), CLOSE_ANIM_MS)
+    } else {
+      clearTimeout(closeTimerRef.current)
+      setRendered(true)
+      setOpen(true)
+    }
+  }
 
   useEffect(() => {
     try {
@@ -105,8 +125,10 @@ export default function NovaChat({ dict, lang }: { dict: ChatDict; lang: Locale 
 
   return (
     <div className="fixed bottom-5 right-5 z-50 flex flex-col items-end gap-3">
-      {open && (
-        <div className="rise panel bg-surface-container-lowest w-[min(90vw,340px)] h-[min(70vh,460px)] rounded-lg shadow-xl flex flex-col overflow-hidden">
+      {rendered && (
+        <div
+          className={`${open ? 'rise' : 'chat-panel-out'} panel bg-surface-container-lowest w-[min(90vw,340px)] h-[min(70vh,460px)] rounded-lg shadow-xl flex flex-col overflow-hidden`}
+        >
           <div className="flex items-center justify-between px-4 py-3 border-b hairline">
             <div>
               <p className="serif text-lg text-primary leading-none">{dict.heading}</p>
@@ -129,7 +151,7 @@ export default function NovaChat({ dict, lang }: { dict: ChatDict; lang: Locale 
               )}
               <button
                 type="button"
-                onClick={() => setOpen(false)}
+                onClick={toggleOpen}
                 aria-label={dict.close}
                 className="text-outline hover:text-primary transition-colors"
               >
@@ -206,10 +228,7 @@ export default function NovaChat({ dict, lang }: { dict: ChatDict; lang: Locale 
 
       <button
         type="button"
-        onClick={() => {
-          setOpen((v) => !v)
-          setEverOpened(true)
-        }}
+        onClick={toggleOpen}
         className="micro relative text-xs bg-primary text-on-primary px-4 py-3 rounded-full shadow-lg hover:bg-secondary-container hover:scale-105 transition-[background-color,transform] duration-200"
       >
         {!everOpened && (

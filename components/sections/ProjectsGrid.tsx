@@ -1,8 +1,35 @@
 import Image from 'next/image'
 import SectionKicker from '@/components/SectionKicker'
 import type { Dictionary } from '@/app/[lang]/dictionaries'
+import { simpleIcon } from '@/lib/utils'
 
 type ProjectsDict = Dictionary['projects']
+
+// ponytail: only tags with a simple-icons logo get one; rest stay text-only chips
+const TAG_ICONS: Record<string, string> = {
+  'Next.js 14': simpleIcon('nextdotjs', '091426'),
+  'Next.js 15': simpleIcon('nextdotjs', '091426'),
+  'Next.js 16': simpleIcon('nextdotjs', '091426'),
+  TypeScript: simpleIcon('typescript', '3178c6'),
+  Supabase: simpleIcon('supabase', '3fcf8e'),
+  n8n: simpleIcon('n8n', 'ea4b71'),
+  Docker: simpleIcon('docker', '2496ed'),
+  Tailwind: simpleIcon('tailwindcss', '06b6d4'),
+  Resend: '/resend.svg',
+  FastAPI: simpleIcon('fastapi', '009688'),
+  SQLAlchemy: simpleIcon('sqlalchemy', 'd71f00'),
+  PostgreSQL: simpleIcon('postgresql', '4169e1'),
+  Go: simpleIcon('go', '00add8'),
+  MongoDB: simpleIcon('mongodb', '47a248'),
+  Redis: simpleIcon('redis', 'ff4438'),
+  SvelteKit: simpleIcon('svelte', 'ff3e00'),
+  Elixir: simpleIcon('elixir', '4b275f'),
+  'Phoenix LiveView': simpleIcon('phoenixframework', 'fd4f00'),
+  'Java 21': simpleIcon('openjdk', '437291'),
+  'Spring Boot': simpleIcon('springboot', '6db33f'),
+  MySQL: simpleIcon('mysql', '4479a1'),
+}
+const INVERT_TAGS = new Set(['Next.js 14', 'Next.js 15', 'Next.js 16', 'Resend'])
 
 type ProjectBase = {
   id: string
@@ -188,14 +215,27 @@ export default function ProjectsGrid({ dict }: { dict: ProjectsDict }) {
 
                 {!project.wip && (
                   <div className="flex gap-2 flex-wrap">
-                    {project.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="micro text-[0.6rem] border hairline text-on-surface-variant rounded px-2 py-1"
-                      >
-                        {tag}
-                      </span>
-                    ))}
+                    {project.tags.map((tag) => {
+                      const icon = TAG_ICONS[tag]
+                      return (
+                        <span
+                          key={tag}
+                          className="micro text-[0.6rem] border hairline text-on-surface-variant rounded px-2 py-1 inline-flex items-center gap-1.5"
+                        >
+                          {icon && (
+                            // eslint-disable-next-line @next/next/no-img-element
+                            <img
+                              src={icon}
+                              alt=""
+                              width={12}
+                              height={12}
+                              className={`w-3 h-3 object-contain ${INVERT_TAGS.has(tag) ? 'dark:invert' : ''}`}
+                            />
+                          )}
+                          {tag}
+                        </span>
+                      )
+                    })}
                   </div>
                 )}
 

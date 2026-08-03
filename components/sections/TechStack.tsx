@@ -1,5 +1,6 @@
 import type { Dictionary } from '@/app/[lang]/dictionaries'
 import SectionKicker from '@/components/SectionKicker'
+import { simpleIcon } from '@/lib/utils'
 
 type TechDict = Dictionary['tech']
 
@@ -15,8 +16,7 @@ type Category = {
   items: Tech[]
 }
 
-const cdn = (slug: string, color: string) =>
-  `https://cdn.simpleicons.org/${slug}/${color}`
+const cdn = simpleIcon
 
 // ponytail: ink (#091426) for marks that are white-by-default, so they survive on the light bg; `invert: true` flips them back to white in dark mode
 const categories: Category[] = [

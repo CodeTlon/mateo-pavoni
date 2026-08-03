@@ -300,6 +300,13 @@ html::-webkit-scrollbar-thumb:hover {
   }
   .chat-bubble-in { animation: chat-bubble-in 0.25s var(--expo-out) both; }
 
+  /* Nova panel close — mirrors .rise's entrance, plays while unmount is delayed in JS */
+  @keyframes chat-panel-out {
+    from { opacity: 1; transform: translateY(0); }
+    to   { opacity: 0; transform: translateY(12px); }
+  }
+  .chat-panel-out { animation: chat-panel-out 0.2s var(--expo-out) both; }
+
   @keyframes chat-dot {
     0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
     30% { transform: translateY(-4px); opacity: 1; }
