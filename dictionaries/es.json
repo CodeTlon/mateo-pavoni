@@ -18,6 +18,7 @@
   },
   "projects": {
     "heading": "// Proyectos",
+    "filter_all": "Todos",
     "items": {
       "marcovich": {
         "description": "Plataforma completa para barbería premium: sistema de reservas online en 5 pasos, autenticación de clientes, panel de administración y notificaciones por email y WhatsApp."

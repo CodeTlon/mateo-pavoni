@@ -18,6 +18,7 @@
   },
   "projects": {
     "heading": "// Projects",
+    "filter_all": "All",
     "items": {
       "marcovich": {
         "description": "Full platform for a premium barbershop: 5-step online booking system, client authentication, admin panel, and email + WhatsApp notifications."

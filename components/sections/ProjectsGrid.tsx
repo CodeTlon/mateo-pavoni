@@ -1,35 +1,11 @@
+'use client'
+
+import { useMemo, useState } from 'react'
 import Image from 'next/image'
 import SectionKicker from '@/components/SectionKicker'
 import type { Dictionary } from '@/app/[lang]/dictionaries'
-import { simpleIcon } from '@/lib/utils'
 
 type ProjectsDict = Dictionary['projects']
-
-// ponytail: only tags with a simple-icons logo get one; rest stay text-only chips
-const TAG_ICONS: Record<string, string> = {
-  'Next.js 14': simpleIcon('nextdotjs', '091426'),
-  'Next.js 15': simpleIcon('nextdotjs', '091426'),
-  'Next.js 16': simpleIcon('nextdotjs', '091426'),
-  TypeScript: simpleIcon('typescript', '3178c6'),
-  Supabase: simpleIcon('supabase', '3fcf8e'),
-  n8n: simpleIcon('n8n', 'ea4b71'),
-  Docker: simpleIcon('docker', '2496ed'),
-  Tailwind: simpleIcon('tailwindcss', '06b6d4'),
-  Resend: '/resend.svg',
-  FastAPI: simpleIcon('fastapi', '009688'),
-  SQLAlchemy: simpleIcon('sqlalchemy', 'd71f00'),
-  PostgreSQL: simpleIcon('postgresql', '4169e1'),
-  Go: simpleIcon('go', '00add8'),
-  MongoDB: simpleIcon('mongodb', '47a248'),
-  Redis: simpleIcon('redis', 'ff4438'),
-  SvelteKit: simpleIcon('svelte', 'ff3e00'),
-  Elixir: simpleIcon('elixir', '4b275f'),
-  'Phoenix LiveView': simpleIcon('phoenixframework', 'fd4f00'),
-  'Java 21': simpleIcon('openjdk', '437291'),
-  'Spring Boot': simpleIcon('springboot', '6db33f'),
-  MySQL: simpleIcon('mysql', '4479a1'),
-}
-const INVERT_TAGS = new Set(['Next.js 14', 'Next.js 15', 'Next.js 16', 'Resend'])
 
 type ProjectBase = {
   id: string
@@ -42,7 +18,6 @@ type ProjectBase = {
   screenshot?: string
   wip?: boolean
   priority?: boolean
-  wide?: boolean
 }
 
 const projectBases: ProjectBase[] = [
@@ -130,128 +105,122 @@ const projectBases: ProjectBase[] = [
   {
     id: 'coming-soon',
     dictKey: 'coming_soon',
-    tags: ['En desarrollo'],
+    tags: [],
     accentColor: '#2563eb',
     bgColor: '#f0edef',
     url: '#contacto',
     screenshot: '/vimet-desarollo.png',
     wip: true,
     priority: true,
-    wide: true,
   },
 ]
 
+// tags order = first-seen across projectBases, wip project has none
+const ALL_TAGS = Array.from(new Set(projectBases.flatMap((p) => p.tags)))
+
 export default function ProjectsGrid({ dict }: { dict: ProjectsDict }) {
-  const projects = projectBases.map((base) => {
-    const item = dict.items[base.dictKey]
-    return {
-      ...base,
-      name: base.name ?? ('name' in item ? item.name : base.id),
-      description: item.description,
-    }
-  })
+  const [activeTag, setActiveTag] = useState<string | null>(null)
+
+  const projects = useMemo(
+    () =>
+      projectBases.map((base) => {
+        const item = dict.items[base.dictKey]
+        return {
+          ...base,
+          name: base.name ?? ('name' in item ? item.name : base.id),
+          description: item.description,
+        }
+      }),
+    [dict],
+  )
+
+  const filtered = activeTag ? projects.filter((p) => p.tags.includes(activeTag)) : projects
 
   return (
     <section id="proyectos" className="reveal py-20 md:py-28">
       <SectionKicker index="02" label={dict.heading} />
 
-      <div className="flex flex-col">
-        {projects.map((project, i) => {
+      <div className="flex gap-2 flex-wrap mb-10 md:mb-12">
+        <button
+          type="button"
+          onClick={() => setActiveTag(null)}
+          className={`micro text-[0.65rem] rounded-full px-3 py-1.5 border hairline transition-colors ${
+            activeTag === null
+              ? 'bg-primary text-on-primary border-transparent'
+              : 'text-on-surface-variant hover:text-primary hover:border-secondary-container'
+          }`}
+        >
+          {dict.filter_all}
+        </button>
+        {ALL_TAGS.map((tag) => (
+          <button
+            key={tag}
+            type="button"
+            onClick={() => setActiveTag(tag === activeTag ? null : tag)}
+            className={`micro text-[0.65rem] rounded-full px-3 py-1.5 border hairline transition-colors ${
+              activeTag === tag
+                ? 'bg-primary text-on-primary border-transparent'
+                : 'text-on-surface-variant hover:text-primary hover:border-secondary-container'
+            }`}
+          >
+            {tag}
+          </button>
+        ))}
+      </div>
+
+      <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-6 md:gap-8">
+        {filtered.map((project) => {
           const external = project.url.startsWith('http')
           const hasScreenshot = Boolean(project.screenshot)
           return (
-            <article
+            <a
               key={project.id}
-              className="group grid md:grid-cols-12 gap-6 md:gap-12 items-center py-12 md:py-16 border-t hairline first:border-t-0"
+              href={project.url}
+              target={external ? '_blank' : undefined}
+              rel={external ? 'noopener noreferrer' : undefined}
+              className="group panel shot rounded flex flex-col overflow-hidden"
             >
-              {/* Screenshot */}
-              {hasScreenshot && (
-                <a
-                  href={project.url}
-                  target={external ? '_blank' : undefined}
-                  rel={external ? 'noopener noreferrer' : undefined}
-                  aria-label={`Ver ${project.name}`}
-                  className={`md:col-span-7 ${i % 2 === 1 ? 'md:order-2' : ''}`}
-                >
-                  <div
-                    className="panel shot relative aspect-[1920/1040] rounded overflow-hidden"
-                    style={{ background: project.bgColor }}
-                  >
-                    <Image
-                      src={project.screenshot as string}
-                      alt={`Captura de ${project.name}`}
-                      fill
-                      sizes="(max-width: 768px) 100vw, 58vw"
-                      priority={project.priority}
-                      className={`object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04] ${
-                        project.wip ? 'blur-[4px] opacity-70' : ''
-                      }`}
-                    />
-                  </div>
-                </a>
-              )}
-
-              {/* Text */}
               <div
-                className={`flex flex-col gap-4 ${hasScreenshot ? 'md:col-span-5' : 'md:col-span-12'} ${
-                  hasScreenshot && i % 2 === 1 ? 'md:order-1' : ''
-                }`}
+                className="relative aspect-[1920/1040] overflow-hidden"
+                style={{ background: project.bgColor }}
               >
-                <span className="micro text-[0.7rem] text-secondary-container">
-                  {String(i + 1).padStart(2, '0')}
-                  {project.wip ? ` · ${project.tags[0]}` : ''}
-                </span>
+                {hasScreenshot ? (
+                  <Image
+                    src={project.screenshot as string}
+                    alt={`Captura de ${project.name}`}
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
+                    priority={project.priority}
+                    className={`object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04] ${
+                      project.wip ? 'blur-[4px] opacity-70' : ''
+                    }`}
+                  />
+                ) : (
+                  <div
+                    className="serif absolute inset-0 flex items-center justify-center text-6xl"
+                    style={{ color: project.accentColor }}
+                  >
+                    {project.name.charAt(0)}
+                  </div>
+                )}
+              </div>
 
-                <h3 className="serif text-3xl md:text-4xl text-primary leading-tight">
-                  {project.name}
-                </h3>
-
+              <div className="flex flex-col gap-2 p-5 flex-1">
+                <h3 className="serif text-2xl text-primary leading-tight">{project.name}</h3>
                 <p
-                  className="text-base text-on-surface-variant leading-relaxed"
+                  className="text-sm text-on-surface-variant leading-relaxed line-clamp-3"
                   style={{ fontFamily: 'var(--font-inter)' }}
                 >
                   {project.description}
                 </p>
-
-                {!project.wip && (
-                  <div className="flex gap-2 flex-wrap">
-                    {project.tags.map((tag) => {
-                      const icon = TAG_ICONS[tag]
-                      return (
-                        <span
-                          key={tag}
-                          className="micro text-[0.6rem] border hairline text-on-surface-variant rounded px-2 py-1 inline-flex items-center gap-1.5"
-                        >
-                          {icon && (
-                            // eslint-disable-next-line @next/next/no-img-element
-                            <img
-                              src={icon}
-                              alt=""
-                              width={12}
-                              height={12}
-                              className={`w-3 h-3 object-contain ${INVERT_TAGS.has(tag) ? 'dark:invert' : ''}`}
-                            />
-                          )}
-                          {tag}
-                        </span>
-                      )
-                    })}
-                  </div>
-                )}
-
-                <a
-                  href={project.url}
-                  target={external ? '_blank' : undefined}
-                  rel={external ? 'noopener noreferrer' : undefined}
-                  className="micro text-xs edit-link text-primary hover:text-secondary-container inline-flex items-center gap-2 w-max mt-1"
-                >
+                <span className="micro text-xs edit-link text-primary group-hover:text-secondary-container inline-flex items-center gap-2 w-max mt-2">
                   {external ? 'Ver proyecto' : 'Hablemos'}
                   <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="transition-transform duration-200 group-hover:translate-x-1">
                     <path d="M5 12h14M13 6l6 6-6 6" />
                   </svg>
-                </a>
+                </span>
               </div>
-            </article>
+            </a>
           )
         })}
       </div>
