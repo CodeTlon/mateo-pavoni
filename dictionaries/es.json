@@ -18,7 +18,9 @@
   },
   "projects": {
     "heading": "// Proyectos",
-    "filter_all": "Todos",
+    "nova_cta": "Preguntale a Nova sobre mis proyectos",
+    "nova_intro": "Estos son los proyectos en los que vengo trabajando:",
+    "wip_label": "En desarrollo",
     "items": {
       "marcovich": {
         "description": "Plataforma completa para barbería premium: sistema de reservas online en 5 pasos, autenticación de clientes, panel de administración y notificaciones por email y WhatsApp."

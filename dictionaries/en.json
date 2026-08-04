@@ -18,7 +18,9 @@
   },
   "projects": {
     "heading": "// Projects",
-    "filter_all": "All",
+    "nova_cta": "Ask Nova about my projects",
+    "nova_intro": "Here's what I've been working on:",
+    "wip_label": "In progress",
     "items": {
       "marcovich": {
         "description": "Full platform for a premium barbershop: 5-step online booking system, client authentication, admin panel, and email + WhatsApp notifications."

@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import SectionKicker from '@/components/SectionKicker'
 import type { Dictionary } from '@/app/[lang]/dictionaries'
@@ -11,7 +11,6 @@ type ProjectBase = {
   id: string
   dictKey: keyof ProjectsDict['items']
   name?: string
-  tags: string[]
   accentColor: string
   bgColor: string
   url: string
@@ -25,7 +24,6 @@ const projectBases: ProjectBase[] = [
     id: 'marcovich',
     dictKey: 'marcovich',
     name: 'Marcovich Barbería',
-    tags: ['Next.js 14', 'Supabase', 'TypeScript', 'n8n', 'Docker'],
     accentColor: '#C8A97E',
     bgColor: '#1a1a1a',
     url: 'https://marcovichbarber.com.ar/',
@@ -36,7 +34,6 @@ const projectBases: ProjectBase[] = [
     id: 'codetlon',
     dictKey: 'codetlon',
     name: 'CodeTlon',
-    tags: ['Next.js 14', 'TypeScript', 'Tailwind', 'Resend'],
     accentColor: '#ffb690',
     bgColor: '#0e1516',
     url: 'https://codetlon.com',
@@ -47,7 +44,6 @@ const projectBases: ProjectBase[] = [
     id: 'gc2',
     dictKey: 'gc2',
     name: 'GC² Entrenamiento',
-    tags: ['Next.js 16', 'Supabase', 'CMS', 'TypeScript'],
     accentColor: '#38bdf8',
     bgColor: '#0a1628',
     url: 'https://gc2entrenamientoderesistencia.com.ar',
@@ -57,7 +53,6 @@ const projectBases: ProjectBase[] = [
     id: 'chronoflow',
     dictKey: 'chronoflow',
     name: 'ChronoFlow',
-    tags: ['React Flow', 'FastAPI', 'SQLAlchemy', 'PostgreSQL', 'WebSockets'],
     accentColor: '#8b5cf6',
     bgColor: '#0f0a1a',
     url: 'https://chronoflow.mateopavoni.com.ar',
@@ -67,7 +62,6 @@ const projectBases: ProjectBase[] = [
     id: 'tutienda',
     dictKey: 'tutienda',
     name: 'TuTienda',
-    tags: ['Go', 'MongoDB', 'Redis', 'SvelteKit', 'Microservicios'],
     accentColor: '#1B03EA',
     bgColor: '#111111',
     url: 'https://tutienda.mateopavoni.com.ar',
@@ -77,7 +71,6 @@ const projectBases: ProjectBase[] = [
     id: 'inglobal',
     dictKey: 'inglobal',
     name: 'Grúas InGlobal',
-    tags: ['Next.js 15', 'Supabase', 'CMS', 'Resend'],
     accentColor: '#f5a524',
     bgColor: '#18181b',
     url: 'https://gruasinglobal.com',
@@ -87,7 +80,6 @@ const projectBases: ProjectBase[] = [
     id: 'chaos-playground',
     dictKey: 'chaos_playground',
     name: 'Chaos Playground',
-    tags: ['Elixir', 'Phoenix LiveView', 'OTP', 'PostgreSQL', 'Docker'],
     accentColor: '#ff5c5c',
     bgColor: '#f5f5f7',
     url: 'https://chaos-playground.mateopavoni.com.ar/',
@@ -97,7 +89,6 @@ const projectBases: ProjectBase[] = [
     id: 'clubcore',
     dictKey: 'clubcore',
     name: 'ClubCore',
-    tags: ['Java 21', 'Spring Boot', 'MySQL', 'Resilience4j', 'Docker'],
     accentColor: '#22c55e',
     bgColor: '#0f172a',
     url: 'https://api.clubcore.mateopavoni.com.ar/swagger-ui.html',
@@ -105,7 +96,6 @@ const projectBases: ProjectBase[] = [
   {
     id: 'coming-soon',
     dictKey: 'coming_soon',
-    tags: [],
     accentColor: '#2563eb',
     bgColor: '#f0edef',
     url: '#contacto',
@@ -115,112 +105,162 @@ const projectBases: ProjectBase[] = [
   },
 ]
 
-// tags order = first-seen across projectBases, wip project has none
-const ALL_TAGS = Array.from(new Set(projectBases.flatMap((p) => p.tags)))
+const THINKING_MS = 700
+const TYPE_SPEED_MS = 20
+const REVEAL_INTERVAL_MS = 350
+
+type Phase = 'idle' | 'thinking' | 'active'
 
 export default function ProjectsGrid({ dict }: { dict: ProjectsDict }) {
-  const [activeTag, setActiveTag] = useState<string | null>(null)
+  const [phase, setPhase] = useState<Phase>('idle')
+  const [typedLen, setTypedLen] = useState(0)
+  const [revealCount, setRevealCount] = useState(0)
 
-  const projects = useMemo(
-    () =>
-      projectBases.map((base) => {
-        const item = dict.items[base.dictKey]
-        return {
-          ...base,
-          name: base.name ?? ('name' in item ? item.name : base.id),
-          description: item.description,
-        }
-      }),
-    [dict],
-  )
+  const projects = projectBases.map((base) => {
+    const item = dict.items[base.dictKey]
+    return {
+      ...base,
+      name: base.name ?? ('name' in item ? item.name : base.id),
+      description: item.description,
+    }
+  })
 
-  const filtered = activeTag ? projects.filter((p) => p.tags.includes(activeTag)) : projects
+  const introLen = dict.nova_intro.length
+  const typingDone = typedLen >= introLen
+
+  const reducedMotion = () =>
+    typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+  function start() {
+    if (reducedMotion()) {
+      setTypedLen(introLen)
+      setRevealCount(projects.length)
+      setPhase('active')
+      return
+    }
+    setPhase('thinking')
+  }
+
+  // thinking -> active (typewriter starts)
+  useEffect(() => {
+    if (phase !== 'thinking') return
+    const t = setTimeout(() => setPhase('active'), THINKING_MS)
+    return () => clearTimeout(t)
+  }, [phase])
+
+  // active: typewriter first, then staggered project reveal
+  useEffect(() => {
+    if (phase !== 'active') return
+    if (!typingDone) {
+      const t = setTimeout(() => setTypedLen((n) => n + 1), TYPE_SPEED_MS)
+      return () => clearTimeout(t)
+    }
+    if (revealCount < projects.length) {
+      const t = setTimeout(() => setRevealCount((n) => n + 1), REVEAL_INTERVAL_MS)
+      return () => clearTimeout(t)
+    }
+  }, [phase, typingDone, typedLen, revealCount, projects.length])
 
   return (
     <section id="proyectos" className="reveal py-20 md:py-28">
       <SectionKicker index="02" label={dict.heading} />
 
-      <div className="flex gap-2 flex-wrap mb-10 md:mb-12">
+      {phase === 'idle' && (
         <button
           type="button"
-          onClick={() => setActiveTag(null)}
-          className={`micro text-[0.65rem] rounded-full px-3 py-1.5 border hairline transition-colors ${
-            activeTag === null
-              ? 'bg-primary text-on-primary border-transparent'
-              : 'text-on-surface-variant hover:text-primary hover:border-secondary-container'
-          }`}
+          onClick={start}
+          className="micro relative text-xs bg-primary text-on-primary px-5 py-3.5 rounded-full shadow-lg hover:bg-secondary-container hover:scale-105 transition-[background-color,transform] duration-200"
         >
-          {dict.filter_all}
+          {dict.nova_cta}
         </button>
-        {ALL_TAGS.map((tag) => (
-          <button
-            key={tag}
-            type="button"
-            onClick={() => setActiveTag(tag === activeTag ? null : tag)}
-            className={`micro text-[0.65rem] rounded-full px-3 py-1.5 border hairline transition-colors ${
-              activeTag === tag
-                ? 'bg-primary text-on-primary border-transparent'
-                : 'text-on-surface-variant hover:text-primary hover:border-secondary-container'
-            }`}
-          >
-            {tag}
-          </button>
-        ))}
-      </div>
+      )}
 
-      <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-6 md:gap-8">
-        {filtered.map((project) => {
+      {phase !== 'idle' && (
+        <div className="rise flex items-start gap-3 mb-12 md:mb-16">
+          <span className="serif text-lg text-secondary-container leading-none shrink-0">Nova</span>
+          <p className="text-base text-on-surface-variant leading-relaxed" style={{ fontFamily: 'var(--font-inter)' }}>
+            {phase === 'thinking' ? (
+              <span className="inline-flex gap-1 py-1">
+                <span className="chat-dot h-1.5 w-1.5 rounded-full bg-current opacity-60 inline-block" />
+                <span className="chat-dot h-1.5 w-1.5 rounded-full bg-current opacity-60 inline-block" />
+                <span className="chat-dot h-1.5 w-1.5 rounded-full bg-current opacity-60 inline-block" />
+              </span>
+            ) : (
+              dict.nova_intro.slice(0, typedLen)
+            )}
+          </p>
+        </div>
+      )}
+
+      <div className="flex flex-col">
+        {projects.slice(0, revealCount).map((project, i) => {
           const external = project.url.startsWith('http')
           const hasScreenshot = Boolean(project.screenshot)
           return (
-            <a
+            <article
               key={project.id}
-              href={project.url}
-              target={external ? '_blank' : undefined}
-              rel={external ? 'noopener noreferrer' : undefined}
-              className="group panel shot rounded flex flex-col overflow-hidden"
+              className="rise group grid md:grid-cols-12 gap-6 md:gap-12 items-center py-12 md:py-16 border-t hairline first:border-t-0"
             >
-              <div
-                className="relative aspect-[1920/1040] overflow-hidden"
-                style={{ background: project.bgColor }}
-              >
-                {hasScreenshot ? (
-                  <Image
-                    src={project.screenshot as string}
-                    alt={`Captura de ${project.name}`}
-                    fill
-                    sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
-                    priority={project.priority}
-                    className={`object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04] ${
-                      project.wip ? 'blur-[4px] opacity-70' : ''
-                    }`}
-                  />
-                ) : (
+              {hasScreenshot && (
+                <a
+                  href={project.url}
+                  target={external ? '_blank' : undefined}
+                  rel={external ? 'noopener noreferrer' : undefined}
+                  aria-label={`Ver ${project.name}`}
+                  className={`md:col-span-7 ${i % 2 === 1 ? 'md:order-2' : ''}`}
+                >
                   <div
-                    className="serif absolute inset-0 flex items-center justify-center text-6xl"
-                    style={{ color: project.accentColor }}
+                    className="panel shot relative aspect-[1920/1040] rounded overflow-hidden"
+                    style={{ background: project.bgColor }}
                   >
-                    {project.name.charAt(0)}
+                    <Image
+                      src={project.screenshot as string}
+                      alt={`Captura de ${project.name}`}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 58vw"
+                      priority={project.priority}
+                      className={`object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04] ${
+                        project.wip ? 'blur-[4px] opacity-70' : ''
+                      }`}
+                    />
                   </div>
-                )}
-              </div>
+                </a>
+              )}
 
-              <div className="flex flex-col gap-2 p-5 flex-1">
-                <h3 className="serif text-2xl text-primary leading-tight">{project.name}</h3>
+              <div
+                className={`flex flex-col gap-4 ${hasScreenshot ? 'md:col-span-5' : 'md:col-span-12'} ${
+                  hasScreenshot && i % 2 === 1 ? 'md:order-1' : ''
+                }`}
+              >
+                <span className="micro text-[0.7rem] text-secondary-container">
+                  {String(i + 1).padStart(2, '0')}
+                  {project.wip ? ` · ${dict.wip_label}` : ''}
+                </span>
+
+                <h3 className="serif text-3xl md:text-4xl text-primary leading-tight">
+                  {project.name}
+                </h3>
+
                 <p
-                  className="text-sm text-on-surface-variant leading-relaxed line-clamp-3"
+                  className="text-base text-on-surface-variant leading-relaxed"
                   style={{ fontFamily: 'var(--font-inter)' }}
                 >
                   {project.description}
                 </p>
-                <span className="micro text-xs edit-link text-primary group-hover:text-secondary-container inline-flex items-center gap-2 w-max mt-2">
+
+                <a
+                  href={project.url}
+                  target={external ? '_blank' : undefined}
+                  rel={external ? 'noopener noreferrer' : undefined}
+                  className="micro text-xs edit-link text-primary hover:text-secondary-container inline-flex items-center gap-2 w-max mt-1"
+                >
                   {external ? 'Ver proyecto' : 'Hablemos'}
                   <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="transition-transform duration-200 group-hover:translate-x-1">
                     <path d="M5 12h14M13 6l6 6-6 6" />
                   </svg>
-                </span>
+                </a>
               </div>
-            </a>
+            </article>
           )
         })}
       </div>
