@@ -20,6 +20,14 @@
     "heading": "// Projects",
     "nova_cta": "Ask Nova about my projects",
     "nova_intro": "Here's what I've been working on:",
+    "nova_project_lines": [
+      "This one's built with {stack}:",
+      "Coded in {stack}:",
+      "Runs on {stack}:",
+      "Made with {stack}:",
+      "Stack: {stack}."
+    ],
+    "nova_group_line": "These share {stack}, with a twist on each:",
     "wip_label": "In progress",
     "items": {
       "marcovich": {

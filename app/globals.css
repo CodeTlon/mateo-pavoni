@@ -300,6 +300,21 @@ html::-webkit-scrollbar-thumb:hover {
   }
   .chat-bubble-in { animation: chat-bubble-in 0.25s var(--expo-out) both; }
 
+  /* Nova narrating projects: blinking caret at the end of in-progress typed text */
+  @keyframes typing-cursor-blink {
+    0%, 45% { opacity: 1; }
+    50%, 100% { opacity: 0; }
+  }
+  .typing-cursor {
+    display: inline-block;
+    width: 0.5em;
+    height: 1em;
+    margin-left: 1px;
+    vertical-align: text-bottom;
+    background: currentColor;
+    animation: typing-cursor-blink 0.9s step-end infinite;
+  }
+
   /* Nova panel close — mirrors .rise's entrance, plays while unmount is delayed in JS */
   @keyframes chat-panel-out {
     from { opacity: 1; transform: translateY(0); }

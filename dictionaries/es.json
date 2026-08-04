@@ -20,6 +20,14 @@
     "heading": "// Proyectos",
     "nova_cta": "Preguntale a Nova sobre mis proyectos",
     "nova_intro": "Estos son los proyectos en los que vengo trabajando:",
+    "nova_project_lines": [
+      "Este lo armé con {stack}:",
+      "Programado en {stack}:",
+      "Corre sobre {stack}:",
+      "Hecho con {stack}:",
+      "Stack: {stack}."
+    ],
+    "nova_group_line": "Estos los armé con {stack}, con variantes en cada uno:",
     "wip_label": "En desarrollo",
     "items": {
       "marcovich": {

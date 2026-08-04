@@ -15,7 +15,7 @@ export default async function Home({ params }: PageProps<'/[lang]'>) {
     <main className="max-w-5xl mx-auto px-5 sm:px-8 md:px-10">
       <HeroCard dict={dict.hero} />
       <TechStack dict={dict.tech} />
-      <ProjectsGrid dict={dict.projects} />
+      <ProjectsGrid dict={dict.projects} lang={lang} />
       <Experience dict={dict.experience} />
       <Contact dict={dict.contact} />
     </main>
