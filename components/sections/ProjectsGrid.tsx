@@ -140,6 +140,7 @@ export default function ProjectsGrid({ dict, lang }: { dict: ProjectsDict; lang:
   const [stage, setStage] = useState<Stage>('thinking')
   const [current, setCurrent] = useState(0)
   const [typedLen, setTypedLen] = useState(0)
+  const [loadedImages, setLoadedImages] = useState<Record<string, boolean>>({})
 
   const projects = useMemo(
     () =>
@@ -310,7 +311,7 @@ export default function ProjectsGrid({ dict, lang }: { dict: ProjectsDict; lang:
           return (
             <div key={project.id} className="border-t hairline first:border-t-0">
               {showNovaLine && (
-                <div className="rise flex items-baseline gap-3 pt-5 md:pt-6">
+                <div className="chat-bubble-in flex items-baseline gap-3 pt-5 md:pt-6">
                   <span className="serif text-lg text-secondary-container leading-relaxed shrink-0">Nova</span>
                   <p className="text-sm text-on-surface-variant leading-relaxed" style={{ fontFamily: 'var(--font-inter)' }}>
                     {novaTyping ? novaText.slice(0, typedLen) : novaText}
@@ -320,7 +321,7 @@ export default function ProjectsGrid({ dict, lang }: { dict: ProjectsDict; lang:
               )}
 
               {showCard && (
-                <article className="rise group grid md:grid-cols-12 gap-6 md:gap-12 items-center py-12 md:py-16">
+                <article className="project-in group grid md:grid-cols-12 gap-6 md:gap-12 items-center py-12 md:py-16">
                   {hasScreenshot && (
                     <a
                       href={project.url}
@@ -339,9 +340,13 @@ export default function ProjectsGrid({ dict, lang }: { dict: ProjectsDict; lang:
                           fill
                           sizes="(max-width: 768px) 100vw, 58vw"
                           priority={project.priority}
-                          className={`object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04] ${
-                            project.wip ? 'blur-[4px] opacity-70' : ''
+                          onLoad={() =>
+                            setLoadedImages((m) => (m[project.id] ? m : { ...m, [project.id]: true }))
+                          }
+                          className={`object-cover transition-[opacity,transform] duration-700 ease-out group-hover:scale-[1.04] ${
+                            project.wip ? 'blur-[4px]' : ''
                           }`}
+                          style={{ opacity: project.wip ? 0.7 : loadedImages[project.id] ? 1 : 0 }}
                         />
                       </div>
                     </a>

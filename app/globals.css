@@ -300,6 +300,14 @@ html::-webkit-scrollbar-thumb:hover {
   }
   .chat-bubble-in { animation: chat-bubble-in 0.25s var(--expo-out) both; }
 
+  /* Nova narrating projects: the card itself — softer/slower than .rise so it
+     reads as settling into the conversation rather than popping in. */
+  @keyframes project-in {
+    from { opacity: 0; transform: translateY(20px) scale(0.985); filter: blur(6px); }
+    to   { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+  }
+  .project-in { animation: project-in 0.9s var(--expo-out) both; }
+
   /* Nova narrating projects: blinking caret at the end of in-progress typed text */
   @keyframes typing-cursor-blink {
     0%, 45% { opacity: 1; }
