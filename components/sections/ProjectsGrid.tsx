@@ -142,6 +142,7 @@ const projectBases: ProjectBase[] = [
     accentColor: '#f97316',
     bgColor: '#241511',
     url: '#contacto',
+    screenshot: '/vimet-app.png',
     wip: true,
   },
   {
@@ -152,6 +153,7 @@ const projectBases: ProjectBase[] = [
     accentColor: '#f5a524',
     bgColor: '#241a0a',
     url: '#contacto',
+    screenshot: '/inglobal-agenda.png',
     wip: true,
   },
   {
