@@ -382,21 +382,25 @@ export default function ProjectsGrid({ dict, lang }: { dict: ProjectsDict; lang:
                       className={`${project.mobile ? 'md:col-span-4' : 'md:col-span-7'} ${i % 2 === 1 ? 'md:order-2' : ''}`}
                     >
                       <div
-                        className={`panel shot relative mx-auto max-w-[280px] md:max-w-none rounded overflow-hidden ${
-                          project.mobile ? 'aspect-[742/1512]' : 'aspect-[1920/1040]'
-                        }`}
-                        style={{ background: project.bgColor }}
+                        className={
+                          project.mobile
+                            ? 'relative mx-auto w-full max-w-[260px] md:max-w-[320px] aspect-[690/1460]'
+                            : 'panel shot relative aspect-[1920/1040] rounded overflow-hidden'
+                        }
+                        style={project.mobile ? undefined : { background: project.bgColor }}
                       >
                         <Image
                           src={project.screenshot as string}
                           alt={`Captura de ${project.name}`}
                           fill
-                          sizes={project.mobile ? '(max-width: 768px) 60vw, 30vw' : '(max-width: 768px) 100vw, 58vw'}
+                          sizes={project.mobile ? '(max-width: 768px) 55vw, 28vw' : '(max-width: 768px) 100vw, 58vw'}
                           priority={project.priority}
                           onLoad={() =>
                             setLoadedImages((m) => (m[project.id] ? m : { ...m, [project.id]: true }))
                           }
-                          className="object-cover transition-[opacity,transform] duration-700 ease-out group-hover:scale-[1.04]"
+                          className={`transition-[opacity,transform] duration-700 ease-out group-hover:scale-[1.04] ${
+                            project.mobile ? 'object-contain' : 'object-cover'
+                          }`}
                           style={{ opacity: loadedImages[project.id] ? 1 : 0 }}
                         />
                       </div>
@@ -425,7 +429,7 @@ export default function ProjectsGrid({ dict, lang }: { dict: ProjectsDict; lang:
                       {descTyping && <span className="typing-cursor" />}
                     </p>
 
-                    {(settled(i) || phase === 'done') && (
+                    {(settled(i) || phase === 'done') && (external || project.id === 'coming-soon') && (
                       <a
                         href={project.url}
                         target={external ? '_blank' : undefined}
