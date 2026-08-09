@@ -15,6 +15,10 @@ const PROJECTS = [
   ['ChronoFlow', 'motor de workflows tipo DAG con paralelismo asíncrono real y Time-Travel Debugging, FastAPI + PostgreSQL + React Flow'],
   ['TuTienda', 'SaaS de e-commerce multi-tienda estilo Tienda Nube, microservicios en Go + MongoDB + Redis, frontend en SvelteKit'],
   ['Grúas InGlobal', 'sitio institucional con dashboard CMS, reescritura de legacy PHP a Next.js + Supabase'],
+  ['TV Pro Academy', 'sitio + dashboard admin para una academia de entrenamiento individual de fútbol, Next.js + Supabase'],
+  ['Vimet', 'plataforma de turnos y seguimiento clínico para un centro de nutrición y entrenamiento, migración de legacy PHP/MySQL a Next.js + Supabase con Row Level Security'],
+  ['Vimet App', 'app móvil (Expo/React Native) compañera de Vimet para pacientes y staff, en desarrollo'],
+  ['InGlobal Agenda', 'app móvil de gestión operativa para Grúas InGlobal, en desarrollo'],
   ['Chaos Playground', 'playground de Chaos Engineering estilo Gremlin/Chaos Monkey en Elixir + Phoenix LiveView; cada nodo del canvas es un GenServer real de OTP, matarlo desde la UI mata el proceso de verdad'],
   ['ClubCore', 'API REST en Java + Spring Boot para gestión de un club/instituto de salud, motor de estados de membresía on-demand, cupo de reservas cerrado bajo concurrencia real, resiliencia con Resilience4j'],
 ]

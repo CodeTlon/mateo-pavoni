@@ -48,11 +48,23 @@
       "inglobal": {
         "description": "Sitio institucional de Grúas InGlobal (alquiler de grúas y montajes industriales). Reescritura de un legacy PHP a Next.js con dashboard CMS para editar agenda, montajes, clientes y contenido sin tocar código."
       },
+      "tvproacademy": {
+        "description": "Sitio + dashboard admin para una academia de entrenamiento individual de fútbol. Next.js 15 y Supabase, con editor de contenido enriquecido y formulario de contacto vía Resend."
+      },
       "chaos_playground": {
         "description": "Playground de Chaos Engineering estilo Gremlin/Chaos Monkey: cada nodo del canvas (load balancer, API, DB, cache, queue) es un GenServer real de Erlang/OTP bajo un DynamicSupervisor — matar un nodo desde la UI es literalmente Process.exit(pid, :kill), no una animación. Motor de tráfico configurable, Chaos Monkey automático y canvas compartido en vivo entre visitantes vía Phoenix LiveView."
       },
       "clubcore": {
         "description": "API REST para la gestión de un instituto de salud/complejo deportivo: motor de estados de membresía on-demand (nunca cacheado), cupo mensual de reservas cerrado bajo concurrencia real con lock por cliente (verificado con 10 requests paralelas), JWT + RBAC de punta a punta y webhooks resilientes con retry + circuit breaker hacia n8n."
+      },
+      "vimet": {
+        "description": "Migración de un sistema legacy PHP/MySQL a Next.js 16 y Supabase para un centro de nutrición y entrenamiento: turnos con servicios combo, módulo clínico completo (fichas, mediciones, planes en PDF, chat de feedback semanal) y Row Level Security en más de 15 tablas."
+      },
+      "vimet_app": {
+        "description": "App móvil (Expo Router) compañera de Vimet para pacientes y staff: turnos, seguimiento clínico y progreso, reusando el mismo backend de la web vía API con JWT. En desarrollo."
+      },
+      "inglobal_agenda": {
+        "description": "App móvil de gestión operativa para Grúas InGlobal: agenda, catálogos y CMS del sitio desde el celular, con vinculación de pantallas TV por código QR. En desarrollo."
       },
       "coming_soon": {
         "name": "Próximo proyecto",
@@ -82,7 +94,7 @@
         "bullets": [
           "Marcovich Barbería (En producción): Plataforma integral con Next.js/Supabase, turnero automatizado vía WhatsApp API y n8n, despliegue en VPS (Docker/Coolify) con Cloudflare y Google Calendar.",
           "Automatización y QA: Flujos n8n para prospección B2B, testing con Playwright y Lighthouse (Performance/SEO).",
-          "Proyectos activos: E-commerce con pasarela de pagos, sistema Health-Tech para nutrición y Marketing Sites optimizados."
+          "Proyectos activos: E-commerce con pasarela de pagos y Marketing Sites optimizados."
         ]
       }
     ],
