@@ -384,7 +384,7 @@ export default function ProjectsGrid({ dict, lang }: { dict: ProjectsDict; lang:
                       <div
                         className={
                           project.mobile
-                            ? 'relative mx-auto w-full max-w-[260px] md:max-w-[320px] aspect-[690/1460]'
+                            ? 'relative mx-auto w-full max-w-[260px] md:max-w-[320px] aspect-[466/930]'
                             : 'panel shot relative aspect-[1920/1040] rounded overflow-hidden'
                         }
                         style={project.mobile ? undefined : { background: project.bgColor }}
