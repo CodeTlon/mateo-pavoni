@@ -25,6 +25,7 @@ type ProjectBase = {
 // shared stack mentioned in a group's Nova line (the common ground across its projects)
 const GROUP_STACKS: Record<string, string[]> = {
   'nextjs-ts': ['Next.js'],
+  'react-native': ['React Native', 'Expo'],
 }
 
 const projectBases: ProjectBase[] = [
@@ -83,6 +84,7 @@ const projectBases: ProjectBase[] = [
     accentColor: '#f5bf00',
     bgColor: '#071424',
     url: 'https://tvproacademy.com.ar',
+    screenshot: '/tvproacademy.png',
   },
   {
     id: 'vimet',
@@ -93,6 +95,7 @@ const projectBases: ProjectBase[] = [
     accentColor: '#E8611A',
     bgColor: '#1A1A1A',
     url: 'https://vimetsalud.com.ar',
+    screenshot: '/vimet.png',
     priority: true,
   },
   {
@@ -139,6 +142,7 @@ const projectBases: ProjectBase[] = [
     dictKey: 'vimet_app',
     name: 'Vimet App',
     stack: ['React Native', 'Expo Router', 'TypeScript', 'Supabase', 'Zustand'],
+    groupId: 'react-native',
     accentColor: '#f97316',
     bgColor: '#241511',
     url: '#contacto',
@@ -150,6 +154,7 @@ const projectBases: ProjectBase[] = [
     dictKey: 'inglobal_agenda',
     name: 'InGlobal Agenda',
     stack: ['React Native', 'Expo Router', 'TypeScript', 'Supabase', 'REST API'],
+    groupId: 'react-native',
     accentColor: '#f5a524',
     bgColor: '#241a0a',
     url: '#contacto',
@@ -385,10 +390,8 @@ export default function ProjectsGrid({ dict, lang }: { dict: ProjectsDict; lang:
                           onLoad={() =>
                             setLoadedImages((m) => (m[project.id] ? m : { ...m, [project.id]: true }))
                           }
-                          className={`object-cover transition-[opacity,transform] duration-700 ease-out group-hover:scale-[1.04] ${
-                            project.wip ? 'blur-[4px]' : ''
-                          }`}
-                          style={{ opacity: project.wip ? 0.7 : loadedImages[project.id] ? 1 : 0 }}
+                          className="object-cover transition-[opacity,transform] duration-700 ease-out group-hover:scale-[1.04]"
+                          style={{ opacity: loadedImages[project.id] ? 1 : 0 }}
                         />
                       </div>
                     </a>

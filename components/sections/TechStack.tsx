@@ -55,6 +55,14 @@ const categories: Category[] = [
     ],
   },
   {
+    label: 'Mobile',
+    items: [
+      { name: 'React Native', src: cdn('react', '61dafb') },
+      { name: 'Expo',         src: cdn('expo',  '000020'), invert: true },
+      { name: 'Zustand',      abbr: 'Z' },
+    ],
+  },
+  {
     label: 'Infra',
     items: [
       { name: 'Docker',     src: cdn('docker',     '2496ed') },
