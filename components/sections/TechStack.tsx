@@ -59,7 +59,7 @@ const categories: Category[] = [
     items: [
       { name: 'React Native', src: cdn('react', '61dafb') },
       { name: 'Expo',         src: cdn('expo',  '000020'), invert: true },
-      { name: 'Zustand',      abbr: 'Z' },
+      { name: 'Zustand',      src: '/zustand.svg', invert: true },
     ],
   },
   {
