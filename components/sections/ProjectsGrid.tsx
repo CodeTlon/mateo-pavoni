@@ -18,6 +18,8 @@ type ProjectBase = {
   bgColor: string
   url: string
   screenshot?: string
+  // screenshot is a phone mockup (portrait) instead of a landscape web capture
+  mobile?: boolean
   wip?: boolean
   priority?: boolean
 }
@@ -147,6 +149,7 @@ const projectBases: ProjectBase[] = [
     bgColor: '#241511',
     url: '#contacto',
     screenshot: '/vimet-app.png',
+    mobile: true,
     wip: true,
   },
   {
@@ -159,6 +162,7 @@ const projectBases: ProjectBase[] = [
     bgColor: '#241a0a',
     url: '#contacto',
     screenshot: '/inglobal-agenda.png',
+    mobile: true,
     wip: true,
   },
   {
@@ -375,17 +379,19 @@ export default function ProjectsGrid({ dict, lang }: { dict: ProjectsDict; lang:
                       target={external ? '_blank' : undefined}
                       rel={external ? 'noopener noreferrer' : undefined}
                       aria-label={`Ver ${project.name}`}
-                      className={`md:col-span-7 ${i % 2 === 1 ? 'md:order-2' : ''}`}
+                      className={`${project.mobile ? 'md:col-span-4' : 'md:col-span-7'} ${i % 2 === 1 ? 'md:order-2' : ''}`}
                     >
                       <div
-                        className="panel shot relative aspect-[1920/1040] rounded overflow-hidden"
+                        className={`panel shot relative mx-auto max-w-[280px] md:max-w-none rounded overflow-hidden ${
+                          project.mobile ? 'aspect-[742/1512]' : 'aspect-[1920/1040]'
+                        }`}
                         style={{ background: project.bgColor }}
                       >
                         <Image
                           src={project.screenshot as string}
                           alt={`Captura de ${project.name}`}
                           fill
-                          sizes="(max-width: 768px) 100vw, 58vw"
+                          sizes={project.mobile ? '(max-width: 768px) 60vw, 30vw' : '(max-width: 768px) 100vw, 58vw'}
                           priority={project.priority}
                           onLoad={() =>
                             setLoadedImages((m) => (m[project.id] ? m : { ...m, [project.id]: true }))
@@ -398,9 +404,9 @@ export default function ProjectsGrid({ dict, lang }: { dict: ProjectsDict; lang:
                   )}
 
                   <div
-                    className={`flex flex-col gap-4 ${hasScreenshot ? 'md:col-span-5' : 'md:col-span-12'} ${
-                      hasScreenshot && i % 2 === 1 ? 'md:order-1' : ''
-                    }`}
+                    className={`flex flex-col gap-4 ${
+                      !hasScreenshot ? 'md:col-span-12' : project.mobile ? 'md:col-span-8' : 'md:col-span-5'
+                    } ${hasScreenshot && i % 2 === 1 ? 'md:order-1' : ''}`}
                   >
                     <span className="micro text-[0.7rem] text-secondary-container">
                       {String(i + 1).padStart(2, '0')}
