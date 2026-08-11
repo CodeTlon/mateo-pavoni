@@ -137,7 +137,7 @@ const projectBases: ProjectBase[] = [
     stack: ['Java 21', 'Spring Boot', 'MySQL', 'Resilience4j', 'Docker'],
     accentColor: '#22c55e',
     bgColor: '#0f172a',
-    url: 'https://api.clubcore.mateopavoni.com.ar/swagger-ui.html',
+    url: 'https://clubcore-api.mateopavoni.com.ar/swagger-ui.html',
   },
   {
     id: 'vimet-app',
