@@ -11,6 +11,25 @@ const TTL_MS = 6 * 60 * 60 * 1000
 
 const CLOSE_ANIM_MS = 200
 
+function renderWithCvLink(text: string) {
+  const parts = text.split('/cv.pdf')
+  return parts.flatMap((part, i) =>
+    i === 0
+      ? [part]
+      : [
+          <a
+            key={i}
+            href="/cv.pdf"
+            download
+            className="underline underline-offset-2 hover:text-secondary"
+          >
+            /cv.pdf
+          </a>,
+          part,
+        ]
+  )
+}
+
 export default function NovaChat({ dict, lang }: { dict: ChatDict; lang: Locale }) {
   const [open, setOpen] = useState(false)
   const [rendered, setRendered] = useState(false)
@@ -188,7 +207,7 @@ export default function NovaChat({ dict, lang }: { dict: ChatDict; lang: Locale 
                 }`}
                 style={{ fontFamily: 'var(--font-inter)' }}
               >
-                {m.text || (pending && i === messages.length - 1 ? (
+                {(m.text && renderWithCvLink(m.text)) || (pending && i === messages.length - 1 ? (
                   <span className="inline-flex gap-1 py-1">
                     <span className="chat-dot h-1.5 w-1.5 rounded-full bg-current opacity-60" />
                     <span className="chat-dot h-1.5 w-1.5 rounded-full bg-current opacity-60" />
