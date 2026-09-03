@@ -1,3 +1,24 @@
+// CSP: no nonce middleware in this project (would need proxy.ts to generate one per
+// request), so script-src/style-src keep 'unsafe-inline' — Next's own inline bootstrap
+// script and the inline GA gtag Script both need it, as does React's inline `style=` attr
+// usage (e.g. components/ui/CookieConsent.tsx). connect-src 'self' covers same-origin
+// fetches, including the Nova SSE stream (/api/nova) — the actual Gemini call happens
+// server-side in the route handler, the browser never talks to generativelanguage.googleapis.com
+// directly, so it does NOT need to be listed here.
+const CSP = [
+  "default-src 'self'",
+  "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com",
+  "style-src 'self' 'unsafe-inline'",
+  "img-src 'self' data:",
+  "font-src 'self' data:",
+  "connect-src 'self' https://www.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com",
+  "frame-src 'none'",
+  "object-src 'none'",
+  "base-uri 'self'",
+  "form-action 'self'",
+  "frame-ancestors 'none'",
+].join('; ')
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
@@ -20,6 +41,7 @@ const nextConfig = {
           { key: 'X-Frame-Options', value: 'DENY' },
           { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
           { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=()' },
+          { key: 'Content-Security-Policy', value: CSP },
         ],
       },
     ]

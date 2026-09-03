@@ -317,7 +317,7 @@ export default function ProjectsGrid({ dict, lang }: { dict: ProjectsDict; lang:
         <button
           type="button"
           onClick={start}
-          className="micro relative text-xs bg-primary text-on-primary px-5 py-3.5 rounded-full shadow-lg hover:bg-secondary-container hover:scale-105 transition-[background-color,transform] duration-200"
+          className="micro relative text-xs bg-primary text-on-primary px-5 py-3.5 rounded-full shadow-lg hover:bg-secondary-container hover:scale-105 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary-container focus-visible:ring-offset-2 transition-[background-color,transform] duration-200"
         >
           {dict.nova_cta}
         </button>
@@ -378,7 +378,7 @@ export default function ProjectsGrid({ dict, lang }: { dict: ProjectsDict; lang:
                       href={project.url}
                       target={external ? '_blank' : undefined}
                       rel={external ? 'noopener noreferrer' : undefined}
-                      aria-label={`Ver ${project.name}`}
+                      aria-label={dict.view_project_aria.replace('{name}', project.name)}
                       className={`${project.mobile ? 'md:col-span-4' : 'md:col-span-7'} ${i % 2 === 1 ? 'md:order-2' : ''}`}
                     >
                       <div
@@ -391,7 +391,7 @@ export default function ProjectsGrid({ dict, lang }: { dict: ProjectsDict; lang:
                       >
                         <Image
                           src={project.screenshot as string}
-                          alt={`Captura de ${project.name}`}
+                          alt={dict.screenshot_alt.replace('{name}', project.name)}
                           fill
                           sizes={project.mobile ? '(max-width: 768px) 55vw, 28vw' : '(max-width: 768px) 100vw, 58vw'}
                           priority={project.priority}
@@ -434,9 +434,9 @@ export default function ProjectsGrid({ dict, lang }: { dict: ProjectsDict; lang:
                         href={project.url}
                         target={external ? '_blank' : undefined}
                         rel={external ? 'noopener noreferrer' : undefined}
-                        className="micro text-xs edit-link text-primary hover:text-secondary-container inline-flex items-center gap-2 w-max mt-1"
+                        className="micro text-xs edit-link text-primary hover:text-secondary-container active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary-container focus-visible:ring-offset-2 rounded inline-flex items-center gap-2 w-max mt-1"
                       >
-                        {external ? 'Ver proyecto' : 'Hablemos'}
+                        {external ? dict.view_project_label : dict.lets_talk_label}
                         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="transition-transform duration-200 group-hover:translate-x-1">
                           <path d="M5 12h14M13 6l6 6-6 6" />
                         </svg>

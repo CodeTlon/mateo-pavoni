@@ -4,9 +4,12 @@ import { useActionState } from 'react'
 import { useFormStatus } from 'react-dom'
 import SectionKicker from '@/components/SectionKicker'
 import { sendContact, type ContactState } from '@/app/actions/contact'
-import type { Dictionary } from '@/app/[lang]/dictionaries'
+import type { Dictionary, Locale } from '@/app/[lang]/dictionaries'
 
 type ContactDict = Dictionary['contact']
+
+const focusRing =
+  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary-container focus-visible:ring-offset-2'
 
 function SubmitButton({ dict }: { dict: ContactDict }) {
   const { pending } = useFormStatus()
@@ -14,7 +17,7 @@ function SubmitButton({ dict }: { dict: ContactDict }) {
     <button
       type="submit"
       disabled={pending}
-      className="micro text-xs w-full bg-primary text-on-primary py-4 rounded hover:bg-secondary-container transition-colors duration-150 flex justify-center items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+      className={`micro text-xs w-full bg-primary text-on-primary py-4 rounded hover:bg-secondary-container active:scale-[0.98] ${focusRing} transition-colors duration-150 flex justify-center items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100`}
     >
       {pending ? dict.sending : (
         <>
@@ -28,7 +31,7 @@ function SubmitButton({ dict }: { dict: ContactDict }) {
   )
 }
 
-export default function Contact({ dict }: { dict: ContactDict }) {
+export default function Contact({ dict, lang }: { dict: ContactDict; lang: Locale }) {
   const [state, action] = useActionState<ContactState, FormData>(sendContact, null)
 
   return (
@@ -58,9 +61,16 @@ export default function Contact({ dict }: { dict: ContactDict }) {
         </div>
       ) : (
         <form action={action} className="flex flex-col gap-3">
+          <input type="hidden" name="lang" value={lang} />
+
           {state?.error && (
-            <p className="text-xs text-red-500" style={{ fontFamily: 'var(--font-space-grotesk)' }}>
-              {dict.error}
+            <p
+              role="alert"
+              aria-live="polite"
+              className="text-xs text-red-500"
+              style={{ fontFamily: 'var(--font-space-grotesk)' }}
+            >
+              {state.error || dict.error}
             </p>
           )}
 
@@ -76,7 +86,8 @@ export default function Contact({ dict }: { dict: ContactDict }) {
               name="name"
               type="text"
               required
-              className="bg-transparent border-b border-outline-variant text-on-surface text-sm py-2 outline-none focus:border-secondary-container transition-colors placeholder:text-outline-variant"
+              minLength={2}
+              className={`bg-transparent border-b border-outline-variant text-on-surface text-sm py-2 outline-none focus:border-secondary-container ${focusRing} transition-colors placeholder:text-outline-variant`}
               style={{ fontFamily: 'var(--font-inter)' }}
               placeholder={dict.name_placeholder}
             />
@@ -94,7 +105,7 @@ export default function Contact({ dict }: { dict: ContactDict }) {
               name="email"
               type="email"
               required
-              className="bg-transparent border-b border-outline-variant text-on-surface text-sm py-2 outline-none focus:border-secondary-container transition-colors placeholder:text-outline-variant"
+              className={`bg-transparent border-b border-outline-variant text-on-surface text-sm py-2 outline-none focus:border-secondary-container ${focusRing} transition-colors placeholder:text-outline-variant`}
               style={{ fontFamily: 'var(--font-inter)' }}
               placeholder={dict.email_placeholder}
             />
@@ -111,8 +122,9 @@ export default function Contact({ dict }: { dict: ContactDict }) {
               id="message"
               name="message"
               required
+              minLength={10}
               rows={3}
-              className="bg-transparent border-b border-outline-variant text-on-surface text-sm py-2 outline-none focus:border-secondary-container transition-colors resize-none placeholder:text-outline-variant"
+              className={`bg-transparent border-b border-outline-variant text-on-surface text-sm py-2 outline-none focus:border-secondary-container ${focusRing} transition-colors resize-none placeholder:text-outline-variant`}
               style={{ fontFamily: 'var(--font-inter)' }}
               placeholder={dict.message_placeholder}
             />

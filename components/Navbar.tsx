@@ -37,7 +37,7 @@ function ThemeToggle() {
     <button
       onClick={toggle}
       aria-label="Toggle theme"
-      className="text-on-surface-variant hover:text-secondary-container transition-colors"
+      className="text-on-surface-variant hover:text-secondary-container active:scale-[0.9] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary-container focus-visible:ring-offset-2 rounded transition-[color,transform]"
     >
       {theme === 'dark' ? (
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -59,7 +59,7 @@ function LangSwitcher({ lang }: { lang: string }) {
   return (
     <button
       onClick={() => router.push(`/${other}`)}
-      className="text-xs font-bold uppercase tracking-widest text-on-surface-variant hover:text-secondary-container transition-colors border border-outline-variant rounded px-2 py-1"
+      className="text-xs font-bold uppercase tracking-widest text-on-surface-variant hover:text-secondary-container hover:border-secondary-container active:scale-[0.95] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary-container focus-visible:ring-offset-2 transition-[color,border-color,transform] border border-outline-variant rounded px-2 py-1"
       style={{ fontFamily: 'var(--font-space-grotesk)' }}
     >
       {other}
@@ -124,7 +124,7 @@ export default function Navbar({ dict, lang }: { dict: NavDict; lang: string }) 
           <LangSwitcher lang={lang} />
           <a
             href="#contacto"
-            className="inline-flex items-center gap-2 bg-primary-container text-on-primary text-xs font-bold uppercase tracking-widest px-4 py-2 rounded hover:bg-secondary-container transition-all duration-150"
+            className="inline-flex items-center gap-2 bg-primary-container text-on-primary text-xs font-bold uppercase tracking-widest px-4 py-2 rounded hover:bg-secondary-container active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary-container focus-visible:ring-offset-2 transition-all duration-150"
             style={{ fontFamily: 'var(--font-space-grotesk)' }}
           >
             {dict.cta}
@@ -137,7 +137,7 @@ export default function Navbar({ dict, lang }: { dict: NavDict; lang: string }) 
           <LangSwitcher lang={lang} />
           <button
             aria-label="Abrir menú"
-            className="text-on-surface"
+            className="text-on-surface active:scale-[0.9] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary-container focus-visible:ring-offset-2 rounded transition-transform"
             onClick={() => setMenuOpen(!menuOpen)}
           >
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -168,7 +168,7 @@ export default function Navbar({ dict, lang }: { dict: NavDict; lang: string }) 
           <a
             href="#contacto"
             onClick={() => setMenuOpen(false)}
-            className="inline-flex items-center justify-center gap-2 bg-primary-container text-on-primary text-xs font-bold uppercase tracking-widest px-4 py-2.5 rounded hover:bg-secondary-container transition-all duration-150 mt-2"
+            className="inline-flex items-center justify-center gap-2 bg-primary-container text-on-primary text-xs font-bold uppercase tracking-widest px-4 py-2.5 rounded hover:bg-secondary-container active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary-container focus-visible:ring-offset-2 transition-all duration-150 mt-2"
             style={{ fontFamily: 'var(--font-space-grotesk)' }}
           >
             {dict.cta}

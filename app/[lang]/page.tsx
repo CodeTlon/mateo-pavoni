@@ -17,7 +17,7 @@ export default async function Home({ params }: PageProps<'/[lang]'>) {
       <TechStack dict={dict.tech} />
       <ProjectsGrid dict={dict.projects} lang={lang} />
       <Experience dict={dict.experience} />
-      <Contact dict={dict.contact} />
+      <Contact dict={dict.contact} lang={lang} />
     </main>
   )
 }

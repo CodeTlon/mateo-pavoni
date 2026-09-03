@@ -34,7 +34,7 @@ export default function HeroCard({ dict }: { dict: HeroDict }) {
           <div className="rise rise-4 flex flex-wrap items-center gap-7 mt-2">
             <a
               href="#proyectos"
-              className="group micro text-xs inline-flex items-center gap-2 bg-primary text-on-primary px-5 py-3 rounded hover:bg-secondary-container transition-colors duration-150"
+              className="group micro text-xs inline-flex items-center gap-2 bg-primary text-on-primary px-5 py-3 rounded hover:bg-secondary-container active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary-container focus-visible:ring-offset-2 transition-colors duration-150"
             >
               {dict.cta_projects}
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="transition-transform duration-200 group-hover:translate-x-1">
@@ -43,7 +43,7 @@ export default function HeroCard({ dict }: { dict: HeroDict }) {
             </a>
             <a
               href="#contacto"
-              className="micro text-xs edit-link text-on-surface-variant hover:text-secondary-container"
+              className="micro text-xs edit-link text-on-surface-variant hover:text-secondary-container focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary-container focus-visible:ring-offset-2 rounded"
             >
               {dict.cta_contact}
             </a>

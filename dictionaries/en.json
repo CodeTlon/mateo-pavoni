@@ -29,6 +29,10 @@
     ],
     "nova_group_line": "These share {stack}, with a twist on each:",
     "wip_label": "In progress",
+    "screenshot_alt": "Screenshot of {name}",
+    "view_project_aria": "View {name}",
+    "view_project_label": "View project",
+    "lets_talk_label": "Let's talk",
     "items": {
       "marcovich": {
         "description": "Full platform for a premium barbershop: 5-step online booking system, client authentication, admin panel, and email + WhatsApp notifications."
@@ -148,6 +152,17 @@
   },
   "footer": {
     "copy": "Crafted with dedication by Mateo Pavoni"
+  },
+  "ui": {
+    "back_to_top": "Back to top",
+    "share": "Share",
+    "share_copied": "Link copied!",
+    "sticky_cta": "Contact me"
+  },
+  "cookies": {
+    "message": "I use analytics cookies to understand how the site is used and improve it. You can accept or decline.",
+    "accept": "Accept",
+    "reject": "Decline"
   },
   "meta": {
     "title": "Mateo Pavoni - Full Stack Developer",

@@ -1,0 +1,39 @@
+# Mateo Pavoni
+
+> Full Stack Developer based in Córdoba, Argentina, building end-to-end web and mobile products with Next.js, Supabase, and automation tooling (n8n). Portfolio site: single-page, bilingual (Spanish/English).
+
+Mateo works freelance and as a trainee/contract developer, shipping production sites and internal tools for small businesses (barbershops, training academies, crane rental, nutrition/health clinics) as well as personal engineering projects exploring distributed systems, workflow engines, and chaos engineering.
+
+## Site
+
+- [Portfolio (Spanish, default)](https://mateopavoni.com.ar/es): About, tech stack, projects, work experience, contact form.
+- [Portfolio (English)](https://mateopavoni.com.ar/en): Same content, translated.
+- [Resume/CV](https://mateopavoni.com.ar/cv.pdf): PDF resume.
+
+## Stack
+
+- Frontend: Next.js, React, TypeScript, Tailwind CSS, Svelte, Sass, Bootstrap.
+- Backend: Node.js, Go, FastAPI, Java/Spring Boot, Elixir/Phoenix, Supabase, .NET Core, PHP, PostgreSQL, MySQL, MongoDB, Redis.
+- Mobile: React Native, Expo, Zustand.
+- Infra: Docker, Cloudflare, Linux, Coolify, Vercel.
+- Automation/AI: n8n, Meta API, Google Cloud, Claude/Gemini.
+
+## Projects
+
+- [Marcovich Barbería](https://marcovichbarber.com.ar/): Booking platform for a premium barbershop — Next.js, Supabase, WhatsApp automation via n8n.
+- [CodeTlon](https://codetlon.com): Institutional site for CodeTlon, an autonomous software factory — Next.js, Resend, GA4.
+- [GC² Entrenamiento](https://gc2entrenamientoderesistencia.com.ar): Public site + CMS dashboard for a running/duathlon/triathlon coaching business — Next.js 16, Supabase.
+- [Grúas InGlobal](https://gruasinglobal.com): Institutional site for a crane rental company, rewritten from legacy PHP to Next.js with a CMS dashboard.
+- [TV Pro Academy](https://tvproacademy.com.ar): Site + admin dashboard for a one-on-one football training academy — Next.js, Supabase.
+- [Vimet](https://vimetsalud.com.ar): Nutrition/training clinic system migrated from legacy PHP/MySQL to Next.js 16 and Supabase, with clinical records, PDF plans, and Row Level Security.
+- [ChronoFlow](https://chronoflow.mateopavoni.com.ar): DAG-based workflow engine with async parallelism and Time-Travel Debugging — FastAPI, SQLAlchemy, PostgreSQL, React Flow, WebSockets.
+- [TuTienda](https://tutienda.mateopavoni.com.ar): Multi-store e-commerce SaaS with no-oversell guarantees under concurrency — Go microservices, MongoDB, Redis, SvelteKit.
+- [Chaos Playground](https://chaos-playground.mateopavoni.com.ar/): Chaos Engineering playground where each canvas node is a real Erlang/OTP GenServer — Elixir, Phoenix LiveView.
+- [ClubCore](https://clubcore-api.mateopavoni.com.ar/swagger-ui.html): REST API for managing a health/sports club, with concurrency-safe booking and resilient webhooks — Java, Spring Boot, Resilience4j.
+
+## Contact
+
+- Email: mateopavonint905@gmail.com
+- GitHub: https://github.com/mateopavoni
+- LinkedIn: https://www.linkedin.com/in/mateopavonidev
+- Contact form: https://mateopavoni.com.ar/es#contacto

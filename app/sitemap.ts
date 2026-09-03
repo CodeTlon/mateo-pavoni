@@ -1,12 +1,21 @@
 import type { MetadataRoute } from 'next'
+import { locales } from './[lang]/dictionaries'
+
+const baseUrl = 'https://mateopavoni.com.ar'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  return [
-    {
-      url: 'https://mateopavoni.com.ar',
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 1,
+  const lastModified = new Date()
+
+  return locales.map((locale) => ({
+    url: `${baseUrl}/${locale}`,
+    lastModified,
+    changeFrequency: 'monthly',
+    priority: locale === 'es' ? 1 : 0.9,
+    alternates: {
+      languages: {
+        es: `${baseUrl}/es`,
+        en: `${baseUrl}/en`,
+      },
     },
-  ]
+  }))
 }

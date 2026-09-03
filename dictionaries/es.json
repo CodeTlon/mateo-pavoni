@@ -29,6 +29,10 @@
     ],
     "nova_group_line": "Estos los armé con {stack}, con variantes en cada uno:",
     "wip_label": "En desarrollo",
+    "screenshot_alt": "Captura de {name}",
+    "view_project_aria": "Ver {name}",
+    "view_project_label": "Ver proyecto",
+    "lets_talk_label": "Hablemos",
     "items": {
       "marcovich": {
         "description": "Plataforma completa para barbería premium: sistema de reservas online en 5 pasos, autenticación de clientes, panel de administración y notificaciones por email y WhatsApp."
@@ -148,6 +152,17 @@
   },
   "footer": {
     "copy": "Hecho con dedicación por Mateo Pavoni"
+  },
+  "ui": {
+    "back_to_top": "Volver arriba",
+    "share": "Compartir",
+    "share_copied": "¡Link copiado!",
+    "sticky_cta": "Contactame"
+  },
+  "cookies": {
+    "message": "Uso cookies analíticas para entender cómo se usa el sitio y mejorarlo. Podés aceptarlas o rechazarlas.",
+    "accept": "Aceptar",
+    "reject": "Rechazar"
   },
   "meta": {
     "title": "Mateo Pavoni - Full Stack Developer",
