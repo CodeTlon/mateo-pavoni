@@ -140,6 +140,16 @@ const projectBases: ProjectBase[] = [
     url: 'https://clubcore-api.mateopavoni.com.ar/swagger-ui.html',
   },
   {
+    id: 'codesync',
+    dictKey: 'codesync',
+    name: 'CodeSync',
+    stack: ['.NET 8', 'Angular 20', 'Firebase', 'Docker', 'Gemini API'],
+    accentColor: '#adc6ff',
+    bgColor: '#0e1524',
+    url: 'https://codesync.mateopavoni.com.ar',
+    screenshot: '/codesync.png',
+  },
+  {
     id: 'vimet-app',
     dictKey: 'vimet_app',
     name: 'Vimet App',

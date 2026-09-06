@@ -61,6 +61,9 @@
       "clubcore": {
         "description": "API REST para la gestión de un instituto de salud/complejo deportivo: motor de estados de membresía on-demand (nunca cacheado), cupo mensual de reservas cerrado bajo concurrencia real con lock por cliente (verificado con 10 requests paralelas), JWT + RBAC de punta a punta y webhooks resilientes con retry + circuit breaker hacia n8n."
       },
+      "codesync": {
+        "description": "IDE colaborativo para aprender a programar: editor Monaco sincronizado en tiempo real, 34 desafíos en 7 lenguajes con ejecución sandboxed en Docker (sin red, sin disco, timeout), IA Coach (Gemini) que da feedback sin resolver el ejercicio, y salas de pair programming con chat y cursores en vivo. Race condition real en el cupo de sala detectada con un test de 2 joins concurrentes y resuelta con una transacción de Firestore."
+      },
       "vimet": {
         "description": "Migración de un sistema legacy PHP/MySQL a Next.js 16 y Supabase para un centro de nutrición y entrenamiento: turnos con servicios combo, módulo clínico completo (fichas, mediciones, planes en PDF, chat de feedback semanal) y Row Level Security en más de 15 tablas."
       },
