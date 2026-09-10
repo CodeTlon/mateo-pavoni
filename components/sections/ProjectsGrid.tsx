@@ -203,18 +203,18 @@ export default function ProjectsGrid({ dict, lang }: { dict: ProjectsDict; lang:
   const [typedLen, setTypedLen] = useState(0)
   const [loadedImages, setLoadedImages] = useState<Record<string, boolean>>({})
 
-  const projects = useMemo(
-    () =>
-      projectBases.map((base) => {
-        const item = dict.items[base.dictKey]
-        return {
-          ...base,
-          name: base.name ?? ('name' in item ? item.name : base.id),
-          description: item.description,
-        }
-      }),
-    [dict],
-  )
+  const projects = useMemo(() => {
+    const realIds = projectBases.filter((b) => b.id !== 'coming-soon').map((b) => b.id)
+    return projectBases.map((base) => {
+      const item = dict.items[base.dictKey]
+      return {
+        ...base,
+        name: base.name ?? ('name' in item ? item.name : base.id),
+        description: item.description,
+        displayIndex: base.id === 'coming-soon' ? null : realIds.indexOf(base.id) + 1,
+      }
+    })
+  }, [dict])
 
   const isGroupStart = useCallback(
     (i: number) =>
@@ -423,8 +423,8 @@ export default function ProjectsGrid({ dict, lang }: { dict: ProjectsDict; lang:
                     } ${hasScreenshot && i % 2 === 1 ? 'md:order-1' : ''}`}
                   >
                     <span className="micro text-[0.7rem] text-secondary-container">
-                      {String(i + 1).padStart(2, '0')}
-                      {project.wip ? ` · ${dict.wip_label}` : ''}
+                      {project.displayIndex !== null && String(project.displayIndex).padStart(2, '0')}
+                      {project.wip ? `${project.displayIndex !== null ? ' · ' : ''}${dict.wip_label}` : ''}
                     </span>
 
                     <h3 className="serif text-3xl md:text-4xl text-primary leading-tight">

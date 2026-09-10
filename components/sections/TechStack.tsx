@@ -24,6 +24,7 @@ const categories: Category[] = [
     label: 'Frontend',
     items: [
       { name: 'Next.js',    src: cdn('nextdotjs',   '091426'), invert: true },
+      { name: 'Angular',    src: cdn('angular',     '091426'), invert: true },
       { name: 'React',      src: cdn('react',       '61dafb') },
       { name: 'TypeScript', src: cdn('typescript',  '3178c6') },
       { name: 'Tailwind',   src: cdn('tailwindcss', '06b6d4') },
@@ -44,6 +45,7 @@ const categories: Category[] = [
       { name: 'Elixir',     src: cdn('elixir',    '4b275f') },
       { name: 'Phoenix',    src: cdn('phoenixframework', 'fd4f00') },
       { name: 'Supabase',   src: cdn('supabase',  '3fcf8e') },
+      { name: 'Firebase',   src: cdn('firebase',  'dd2c00') },
       { name: '.NET Core',  src: cdn('dotnet',    '512bd4') },
       { name: 'PHP',        src: cdn('php',       '777bb4') },
       { name: 'PostgreSQL', src: cdn('postgresql','4169e1') },
@@ -78,6 +80,7 @@ const categories: Category[] = [
       { name: 'Meta API',     src: cdn('meta',        '0082fb') },
       { name: 'Google Cloud', src: cdn('googlecloud', '4285f4') },
       { name: 'Claude',       src: '/claude.svg' },
+      { name: 'Gemini',       src: '/gemini.svg' },
     ],
   },
 ]

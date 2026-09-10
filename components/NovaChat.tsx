@@ -113,29 +113,47 @@ export default function NovaChat({ dict, lang }: { dict: ChatDict; lang: Locale 
 
         for (const line of lines) {
           if (!line.startsWith('data: ')) continue
-          const evt = JSON.parse(line.slice(6))
+          let evt: { type: string; value?: string; ok?: boolean }
+          try {
+            evt = JSON.parse(line.slice(6))
+          } catch {
+            continue
+          }
           if (evt.type === 'text') {
             setMessages((prev) => {
               const copy = [...prev]
               const last = copy[copy.length - 1]
-              copy[copy.length - 1] = { ...last, text: last.text + evt.value }
+              copy[copy.length - 1] = { ...last, text: last.text + (evt.value ?? '') }
               return copy
             })
           } else if (evt.type === 'scheduled') {
-            scheduledOk = evt.ok
+            scheduledOk = evt.ok ?? null
           }
         }
       }
 
       if (scheduledOk !== null) {
         const ok = scheduledOk
-        setMessages((prev) => [...prev, { role: 'model', text: ok ? dict.scheduled_ok : dict.scheduled_error }])
+        const confirmText = ok ? dict.scheduled_ok : dict.scheduled_error
+        setMessages((prev) => {
+          const last = prev[prev.length - 1]
+          if (last.role === 'model' && !last.text) {
+            const copy = [...prev]
+            copy[copy.length - 1] = { ...last, text: confirmText }
+            return copy
+          }
+          return [...prev, { role: 'model', text: confirmText }]
+        })
       }
     } catch {
       setMessages((prev) => {
-        const copy = [...prev]
-        copy[copy.length - 1] = { role: 'model', text: dict.error }
-        return copy
+        const last = prev[prev.length - 1]
+        if (last.role === 'model' && !last.text) {
+          const copy = [...prev]
+          copy[copy.length - 1] = { role: 'model', text: dict.error }
+          return copy
+        }
+        return [...prev, { role: 'model', text: dict.error }]
       })
     } finally {
       setPending(false)
