@@ -4,7 +4,8 @@
     "projects": "Projects",
     "experience": "Experience",
     "contact": "Contact",
-    "cta": "Contact me"
+    "cta": "Contact me",
+    "credentials": "Credentials"
   },
   "hero": {
     "bio_pre": "Full Stack Developer specialized in building scalable end-to-end products. Experienced in the ",
@@ -84,6 +85,24 @@
     "edu_label": "// Education",
     "work": [
       {
+        "period": "Sep 2026 — Present",
+        "role": "Junior Full Stack Developer",
+        "place": "AR IT Services (AR Consultores S.R.L)",
+        "bullets": [
+          "Full stack development as part of the AR IT Services team."
+        ]
+      },
+      {
+        "period": "Nov 2025 — Sep 2026",
+        "role": "Full Stack Developer & Automation",
+        "place": "Freelance · one-off projects",
+        "bullets": [
+          "Marcovich Barbería (Production): Full platform with Next.js/Supabase, automated booking via WhatsApp API & n8n, VPS deployment (Docker/Coolify) with Cloudflare and Google Calendar.",
+          "Automation & QA: n8n workflows for B2B prospecting, testing with Playwright and Lighthouse (Performance/SEO).",
+          "Active projects: E-commerce with payment gateway and optimized Marketing Sites."
+        ]
+      },
+      {
         "period": "Apr 2025 — Dec 2025",
         "role": ".NET Trainee Developer",
         "place": "Encode S.A. · Córdoba, Argentina",
@@ -92,16 +111,6 @@
           "Optimization of relational databases (SQL Server / MySQL) with efficient schemas and complex queries.",
           "Application of SOLID principles and design patterns in code refactoring.",
           "Collaboration in agile methodologies with shadowing and code review alongside senior developers."
-        ]
-      },
-      {
-        "period": "Nov 2025 — Present",
-        "role": "Full Stack Developer & Automation",
-        "place": "Freelance",
-        "bullets": [
-          "Marcovich Barbería (Production): Full platform with Next.js/Supabase, automated booking via WhatsApp API & n8n, VPS deployment (Docker/Coolify) with Cloudflare and Google Calendar.",
-          "Automation & QA: n8n workflows for B2B prospecting, testing with Playwright and Lighthouse (Performance/SEO).",
-          "Active projects: E-commerce with payment gateway and optimized Marketing Sites."
         ]
       }
     ],
@@ -146,7 +155,11 @@
     "subtitle": "Ask me about Mateo's profile",
     "placeholder": "Type your question...",
     "send": "Send",
-    "suggestions": ["What's your stack?", "Can you share your CV?", "I want to schedule an interview"],
+    "suggestions": [
+      "What's your stack?",
+      "Can you share your CV?",
+      "I want to schedule an interview"
+    ],
     "error": "Couldn't reply right now, try again.",
     "close": "Close chat",
     "clear": "Clear conversation",

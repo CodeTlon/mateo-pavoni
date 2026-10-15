@@ -4,7 +4,8 @@
     "projects": "Proyectos",
     "experience": "Experiencia",
     "contact": "Contacto",
-    "cta": "Contactar"
+    "cta": "Contactar",
+    "credentials": "Credenciales"
   },
   "hero": {
     "bio_pre": "Desarrollador Full Stack especializado en construir productos escalables de punta a punta. Experimentado en el ecosistema ",
@@ -84,6 +85,24 @@
     "edu_label": "// Educación",
     "work": [
       {
+        "period": "Sep 2026 — Presente",
+        "role": "Junior Full Stack Developer",
+        "place": "AR IT Services (AR Consultores S.R.L)",
+        "bullets": [
+          "Desarrollo full stack como parte del equipo de AR IT Services."
+        ]
+      },
+      {
+        "period": "Nov 2025 — Sep 2026",
+        "role": "Full Stack Developer & Automatización",
+        "place": "Freelance · proyectos puntuales",
+        "bullets": [
+          "Marcovich Barbería (En producción): Plataforma integral con Next.js/Supabase, turnero automatizado vía WhatsApp API y n8n, despliegue en VPS (Docker/Coolify) con Cloudflare y Google Calendar.",
+          "Automatización y QA: Flujos n8n para prospección B2B, testing con Playwright y Lighthouse (Performance/SEO).",
+          "Proyectos activos: E-commerce con pasarela de pagos y Marketing Sites optimizados."
+        ]
+      },
+      {
         "period": "Abr 2025 — Dic 2025",
         "role": "Desarrollador Trainee (.NET)",
         "place": "Encode S.A. · Córdoba, Argentina",
@@ -92,16 +111,6 @@
           "Optimización de bases de datos relacionales (SQL Server / MySQL) con esquemas eficientes y consultas complejas.",
           "Aplicación de principios SOLID y patrones de diseño en refactorización de código.",
           "Colaboración en metodologías ágiles con shadowing y code review junto a desarrolladores senior."
-        ]
-      },
-      {
-        "period": "Nov 2025 — Presente",
-        "role": "Full Stack Developer & Automatización",
-        "place": "Freelance",
-        "bullets": [
-          "Marcovich Barbería (En producción): Plataforma integral con Next.js/Supabase, turnero automatizado vía WhatsApp API y n8n, despliegue en VPS (Docker/Coolify) con Cloudflare y Google Calendar.",
-          "Automatización y QA: Flujos n8n para prospección B2B, testing con Playwright y Lighthouse (Performance/SEO).",
-          "Proyectos activos: E-commerce con pasarela de pagos y Marketing Sites optimizados."
         ]
       }
     ],
@@ -146,7 +155,11 @@
     "subtitle": "Preguntame sobre el perfil de Mateo",
     "placeholder": "Escribí tu pregunta...",
     "send": "Enviar",
-    "suggestions": ["¿Cuál es tu stack?", "¿Me compartís tu CV?", "Quiero agendar una entrevista"],
+    "suggestions": [
+      "¿Cuál es tu stack?",
+      "¿Me compartís tu CV?",
+      "Quiero agendar una entrevista"
+    ],
     "error": "No pude responder ahora, probá de nuevo.",
     "close": "Cerrar chat",
     "clear": "Borrar conversación",
