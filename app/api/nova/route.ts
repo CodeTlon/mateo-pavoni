@@ -1,6 +1,7 @@
 import { z } from 'zod'
 import { getDictionary, type Locale } from '@/app/[lang]/dictionaries'
 import { sendContactEmail } from '@/app/actions/contact'
+import { credentialItems } from '@/lib/credentials'
 import { ageOn, CONTACT, LOCATION, PROJECTS, STACK } from '@/lib/nova-context'
 
 const GEMINI_STREAM_URL =
@@ -98,7 +99,11 @@ export async function POST(req: Request) {
     const education = dict.experience.education
       .map((e) => `${e.degree} — ${e.institution} (${e.period})`)
       .join('\n')
-    systemPrompt = buildSystemPrompt(lang, work, education)
+    const credentials =
+      credentialItems(dict.credentials)
+        .map((c) => `${c.title} — ${c.issuer} (${c.date})`)
+        .join('\n') || 'Ninguna cargada todavía.'
+    systemPrompt = buildSystemPrompt(lang, work, education, credentials)
   } catch (err) {
     console.error('[Nova prompt]', err)
     return sseError(encoder, errorText)
@@ -211,7 +216,7 @@ export async function POST(req: Request) {
   })
 }
 
-function buildSystemPrompt(lang: Locale, work: string, education: string) {
+function buildSystemPrompt(lang: Locale, work: string, education: string, credentials: string) {
   const now = new Date()
   const today = now.toISOString().slice(0, 10)
   return `Sos "Nova", asistente conversacional del portfolio de Mateo Pavoni, Full Stack Developer.
@@ -232,6 +237,9 @@ ${work}
 
 Educación:
 ${education}
+
+Credenciales y diplomas (se ven en la sección Credenciales del sitio):
+${credentials}
 
 Proyectos:
 ${PROJECTS}

@@ -184,5 +184,11 @@
     "title": "Mateo Pavoni - Full Stack Developer",
     "description": "Portfolio de Mateo Pavoni - desarrollador full stack. Especializado en Next.js, TypeScript y Supabase.",
     "og_description": "Desarrollador full stack especializado en Next.js, TypeScript y Supabase."
+  },
+  "credentials": {
+    "heading": "Credenciales",
+    "view": "Ver credencial",
+    "alt_prefix": "Diploma:",
+    "items": []
   }
 }

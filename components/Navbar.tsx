@@ -8,7 +8,7 @@ import type { Dictionary } from '@/app/[lang]/dictionaries'
 
 type NavDict = Dictionary['nav']
 
-const sectionIds = ['about', 'proyectos', 'experiencia', 'contacto'] as const
+const sectionIds = ['about', 'proyectos', 'experiencia', 'credenciales', 'contacto'] as const
 
 // ponytail: 4 CSS-only wipe styles ported from theme-toggle.rdsx.dev; skipped the
 // gif/custom-asset ones (off-brand, extra weight). Picked at random per click.
@@ -67,7 +67,7 @@ function LangSwitcher({ lang }: { lang: string }) {
   )
 }
 
-export default function Navbar({ dict, lang }: { dict: NavDict; lang: string }) {
+export default function Navbar({ dict, lang, showCredentials = false }: { dict: NavDict; lang: string; showCredentials?: boolean }) {
   const [active, setActive] = useState('about')
   const [menuOpen, setMenuOpen] = useState(false)
 
@@ -75,6 +75,7 @@ export default function Navbar({ dict, lang }: { dict: NavDict; lang: string }) 
     { label: dict.about, href: '#about' },
     { label: dict.projects, href: '#proyectos' },
     { label: dict.experience, href: '#experiencia' },
+    ...(showCredentials ? [{ label: dict.credentials, href: '#credenciales' }] : []),
     { label: dict.contact, href: '#contacto' },
   ]
 

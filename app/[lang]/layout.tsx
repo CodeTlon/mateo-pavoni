@@ -93,7 +93,7 @@ export default async function LangLayout({
       <JsonLd data={personSchema(lang, dict)} />
       {gaId && <GoogleAnalytics gaId={gaId} />}
       <RainingLetters />
-      <Navbar dict={dict.nav} lang={lang} />
+      <Navbar dict={dict.nav} lang={lang} showCredentials={dict.credentials.items.length > 0} />
       {children}
       <Footer dict={dict.footer} ui={dict.ui} />
       <NovaChat dict={dict.chat} lang={lang} />
