@@ -67,7 +67,7 @@ function personSchema(lang: Locale, dict: Dictionary) {
     url: `${SITE_URL}/${lang}`,
     image: `${SITE_URL}/mateo.jpg`,
     jobTitle: 'Junior Full Stack Developer',
-    worksFor: { '@type': 'Organization', name: 'AR Consultores S.R.L', alternateName: 'AR IT Services' },
+    worksFor: { '@type': 'Organization', name: 'AR IT Services' },
     description: dict.meta.description,
     email: 'mailto:mateopavonint905@gmail.com',
     sameAs: ['https://github.com/mateopavoni', 'https://www.linkedin.com/in/mateopavonidev'],
