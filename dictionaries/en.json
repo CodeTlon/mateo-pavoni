@@ -188,7 +188,122 @@
   "credentials": {
     "heading": "Credentials",
     "view": "View credential",
-    "alt_prefix": "Certificate:",
-    "items": []
+    "items": [
+      {
+        "title": "Cybersecurity Fundamentals",
+        "issuer": "IBM",
+        "date": "Aug 2026"
+      },
+      {
+        "title": "Craft Precise Prompts for AI Models",
+        "issuer": "IBM",
+        "date": "Aug 2026"
+      },
+      {
+        "title": "Vibe Coding: De forma responsable",
+        "issuer": "Udemy",
+        "date": "May 2026"
+      },
+      {
+        "title": "Claude Code in Action",
+        "issuer": "Anthropic",
+        "date": "May 2026"
+      },
+      {
+        "title": "Docker - Guía práctica de uso para desarrolladores",
+        "issuer": "Udemy",
+        "date": "May 2026"
+      },
+      {
+        "title": "n8n + MCP: Automatización y agentes de IA inteligentes",
+        "issuer": "Udemy",
+        "date": "May 2026"
+      },
+      {
+        "title": "Carrera de Desarrollo Full Stack",
+        "issuer": "Coderhouse",
+        "date": "Apr 2026"
+      },
+      {
+        "title": "Programación Backend (III): Testing y Escalabilidad Flex",
+        "issuer": "Coderhouse",
+        "date": "Apr 2026"
+      },
+      {
+        "title": "Backend II: Diseño y Arquitectura Backend",
+        "issuer": "Coderhouse",
+        "date": "Apr 2026"
+      },
+      {
+        "title": "Claude Code Beginner Crash Course: Claude Code",
+        "issuer": "Udemy",
+        "date": "Apr 2026"
+      },
+      {
+        "title": "Curso n8n. Crea Agentes de IA Sin Programar",
+        "issuer": "Udemy",
+        "date": "Apr 2026"
+      },
+      {
+        "title": "Vibe Coding",
+        "issuer": "Udemy",
+        "date": "Apr 2026"
+      },
+      {
+        "title": "TypeScript: Tu completa guía y manual de mano.",
+        "issuer": "Udemy",
+        "date": "Feb 2026"
+      },
+      {
+        "title": "Máster en Identity .NET: Login, Autenticación y Autorización",
+        "issuer": "Udemy",
+        "date": "Feb 2026"
+      },
+      {
+        "title": "Construyendo Web APIs RESTful con ASP.NET Core 9",
+        "issuer": "Udemy",
+        "date": "Feb 2026"
+      },
+      {
+        "title": "Principios SOLID y Clean Code",
+        "issuer": "Udemy",
+        "date": "Feb 2026"
+      },
+      {
+        "title": "Programación Backend I: Desarrollo Avanzado de Backend",
+        "issuer": "Coderhouse",
+        "date": "Jan 2026"
+      },
+      {
+        "title": "React JS",
+        "issuer": "Coderhouse",
+        "date": "Nov 2025"
+      },
+      {
+        "title": "Javascript",
+        "issuer": "Coderhouse",
+        "date": "Sep 2025"
+      },
+      {
+        "title": "Desarrollo Web",
+        "issuer": "Coderhouse",
+        "date": "Jun 2025"
+      },
+      {
+        "title": "JavaScript Algorithms and Data Structures",
+        "issuer": "freeCodeCamp",
+        "date": "Feb 2025"
+      },
+      {
+        "title": "Responsive Web Design",
+        "issuer": "freeCodeCamp",
+        "date": "Dec 2024"
+      },
+      {
+        "title": "Foundational C# with Microsoft",
+        "issuer": "freeCodeCamp",
+        "date": "Nov 2024"
+      }
+    ]
   }
 }
