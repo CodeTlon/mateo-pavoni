@@ -66,7 +66,8 @@ function personSchema(lang: Locale, dict: Dictionary) {
     name: 'Mateo Pavoni',
     url: `${SITE_URL}/${lang}`,
     image: `${SITE_URL}/mateo.jpg`,
-    jobTitle: 'Full Stack Developer',
+    jobTitle: 'Junior Full Stack Developer',
+    worksFor: { '@type': 'Organization', name: 'AR IT Services' },
     description: dict.meta.description,
     email: 'mailto:mateopavonint905@gmail.com',
     sameAs: ['https://github.com/mateopavoni', 'https://www.linkedin.com/in/mateopavonidev'],
@@ -92,7 +93,7 @@ export default async function LangLayout({
       <JsonLd data={personSchema(lang, dict)} />
       {gaId && <GoogleAnalytics gaId={gaId} />}
       <RainingLetters />
-      <Navbar dict={dict.nav} lang={lang} />
+      <Navbar dict={dict.nav} lang={lang} showCredentials={dict.credentials.items.length > 0} />
       {children}
       <Footer dict={dict.footer} ui={dict.ui} />
       <NovaChat dict={dict.chat} lang={lang} />

@@ -4,7 +4,8 @@
     "projects": "Projects",
     "experience": "Experience",
     "contact": "Contact",
-    "cta": "Contact me"
+    "cta": "Contact me",
+    "credentials": "Credentials"
   },
   "hero": {
     "bio_pre": "Full Stack Developer specialized in building scalable end-to-end products. Experienced in the ",
@@ -84,6 +85,25 @@
     "edu_label": "// Education",
     "work": [
       {
+        "period": "Sep 2026 — Present",
+        "role": "Junior Full Stack Developer",
+        "place": "AR IT Services · Córdoba City, on-site",
+        "bullets": [
+          "Full stack development with React and .NET.",
+          "Projects for clients under confidentiality: clients and products are not disclosed."
+        ]
+      },
+      {
+        "period": "Nov 2025 — Sep 2026",
+        "role": "Full Stack Developer & Automation",
+        "place": "Freelance · one-off projects",
+        "bullets": [
+          "Marcovich Barbería (Production): Full platform with Next.js/Supabase, automated booking via WhatsApp API & n8n, VPS deployment (Docker/Coolify) with Cloudflare and Google Calendar.",
+          "Automation & QA: n8n workflows for B2B prospecting, testing with Playwright and Lighthouse (Performance/SEO).",
+          "Active projects: E-commerce with payment gateway and optimized Marketing Sites."
+        ]
+      },
+      {
         "period": "Apr 2025 — Dec 2025",
         "role": ".NET Trainee Developer",
         "place": "Encode S.A. · Córdoba, Argentina",
@@ -92,16 +112,6 @@
           "Optimization of relational databases (SQL Server / MySQL) with efficient schemas and complex queries.",
           "Application of SOLID principles and design patterns in code refactoring.",
           "Collaboration in agile methodologies with shadowing and code review alongside senior developers."
-        ]
-      },
-      {
-        "period": "Nov 2025 — Present",
-        "role": "Full Stack Developer & Automation",
-        "place": "Freelance",
-        "bullets": [
-          "Marcovich Barbería (Production): Full platform with Next.js/Supabase, automated booking via WhatsApp API & n8n, VPS deployment (Docker/Coolify) with Cloudflare and Google Calendar.",
-          "Automation & QA: n8n workflows for B2B prospecting, testing with Playwright and Lighthouse (Performance/SEO).",
-          "Active projects: E-commerce with payment gateway and optimized Marketing Sites."
         ]
       }
     ],
@@ -146,7 +156,11 @@
     "subtitle": "Ask me about Mateo's profile",
     "placeholder": "Type your question...",
     "send": "Send",
-    "suggestions": ["What's your stack?", "Can you share your CV?", "I want to schedule an interview"],
+    "suggestions": [
+      "What's your stack?",
+      "Can you share your CV?",
+      "I want to schedule an interview"
+    ],
     "error": "Couldn't reply right now, try again.",
     "close": "Close chat",
     "clear": "Clear conversation",
@@ -171,5 +185,126 @@
     "title": "Mateo Pavoni - Full Stack Developer",
     "description": "Portfolio of Mateo Pavoni - full stack developer. Specialized in Next.js, TypeScript, and Supabase.",
     "og_description": "Full stack developer specialized in Next.js, TypeScript, and Supabase."
+  },
+  "credentials": {
+    "heading": "Credentials",
+    "view": "View credential",
+    "items": [
+      {
+        "title": "Cybersecurity Fundamentals",
+        "issuer": "IBM",
+        "date": "Aug 2026"
+      },
+      {
+        "title": "Craft Precise Prompts for AI Models",
+        "issuer": "IBM",
+        "date": "Aug 2026"
+      },
+      {
+        "title": "Vibe Coding: De forma responsable",
+        "issuer": "Udemy",
+        "date": "May 2026"
+      },
+      {
+        "title": "Claude Code in Action",
+        "issuer": "Anthropic",
+        "date": "May 2026"
+      },
+      {
+        "title": "Docker - Guía práctica de uso para desarrolladores",
+        "issuer": "Udemy",
+        "date": "May 2026"
+      },
+      {
+        "title": "n8n + MCP: Automatización y agentes de IA inteligentes",
+        "issuer": "Udemy",
+        "date": "May 2026"
+      },
+      {
+        "title": "Carrera de Desarrollo Full Stack",
+        "issuer": "Coderhouse",
+        "date": "Apr 2026"
+      },
+      {
+        "title": "Programación Backend (III): Testing y Escalabilidad Flex",
+        "issuer": "Coderhouse",
+        "date": "Apr 2026"
+      },
+      {
+        "title": "Backend II: Diseño y Arquitectura Backend",
+        "issuer": "Coderhouse",
+        "date": "Apr 2026"
+      },
+      {
+        "title": "Claude Code Beginner Crash Course: Claude Code",
+        "issuer": "Udemy",
+        "date": "Apr 2026"
+      },
+      {
+        "title": "Curso n8n. Crea Agentes de IA Sin Programar",
+        "issuer": "Udemy",
+        "date": "Apr 2026"
+      },
+      {
+        "title": "Vibe Coding",
+        "issuer": "Udemy",
+        "date": "Apr 2026"
+      },
+      {
+        "title": "TypeScript: Tu completa guía y manual de mano.",
+        "issuer": "Udemy",
+        "date": "Feb 2026"
+      },
+      {
+        "title": "Máster en Identity .NET: Login, Autenticación y Autorización",
+        "issuer": "Udemy",
+        "date": "Feb 2026"
+      },
+      {
+        "title": "Construyendo Web APIs RESTful con ASP.NET Core 9",
+        "issuer": "Udemy",
+        "date": "Feb 2026"
+      },
+      {
+        "title": "Principios SOLID y Clean Code",
+        "issuer": "Udemy",
+        "date": "Feb 2026"
+      },
+      {
+        "title": "Programación Backend I: Desarrollo Avanzado de Backend",
+        "issuer": "Coderhouse",
+        "date": "Jan 2026"
+      },
+      {
+        "title": "React JS",
+        "issuer": "Coderhouse",
+        "date": "Nov 2025"
+      },
+      {
+        "title": "Javascript",
+        "issuer": "Coderhouse",
+        "date": "Sep 2025"
+      },
+      {
+        "title": "Desarrollo Web",
+        "issuer": "Coderhouse",
+        "date": "Jun 2025"
+      },
+      {
+        "title": "JavaScript Algorithms and Data Structures",
+        "issuer": "freeCodeCamp",
+        "date": "Feb 2025"
+      },
+      {
+        "title": "Responsive Web Design",
+        "issuer": "freeCodeCamp",
+        "date": "Dec 2024"
+      },
+      {
+        "title": "Foundational C# with Microsoft",
+        "issuer": "freeCodeCamp",
+        "date": "Nov 2024"
+      }
+    ]
   }
 }

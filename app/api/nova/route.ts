@@ -1,30 +1,11 @@
 import { z } from 'zod'
 import { getDictionary, type Locale } from '@/app/[lang]/dictionaries'
 import { sendContactEmail } from '@/app/actions/contact'
+import { credentialItems } from '@/lib/credentials'
+import { ageOn, CONTACT, LOCATION, PROJECTS, STACK } from '@/lib/nova-context'
 
 const GEMINI_STREAM_URL =
   'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:streamGenerateContent'
-
-const STACK =
-  'Next.js, React, TypeScript, Tailwind, Svelte, Sass, Bootstrap, Node.js, Go, FastAPI, Java, Spring Boot, Elixir, Phoenix LiveView, Supabase, .NET Core, PHP, PostgreSQL, MySQL, MongoDB, Redis, Docker, Angular, Firebase, React Native, Expo, Gemini API'
-
-const PROJECTS = [
-  ['Marcovich Barbería', 'gestión de turnos de barbería, migración de legacy PHP/MySQL a Next.js + Supabase, turnero automatizado vía WhatsApp API + n8n'],
-  ['CodeTlon', 'sitio institucional de su software factory, Next.js + Resend + GA4'],
-  ['GC² Entrenamiento', 'sitio + dashboard CMS para un equipo de coaching deportivo, Next.js + Supabase con Row Level Security'],
-  ['ChronoFlow', 'motor de workflows tipo DAG con paralelismo asíncrono real y Time-Travel Debugging, FastAPI + PostgreSQL + React Flow'],
-  ['TuTienda', 'SaaS de e-commerce multi-tienda estilo Tienda Nube, microservicios en Go + MongoDB + Redis, frontend en SvelteKit'],
-  ['Grúas InGlobal', 'sitio institucional con dashboard CMS, reescritura de legacy PHP a Next.js + Supabase'],
-  ['TV Pro Academy', 'sitio + dashboard admin para una academia de entrenamiento individual de fútbol, Next.js + Supabase'],
-  ['Vimet', 'plataforma de turnos y seguimiento clínico para un centro de nutrición y entrenamiento, migración de legacy PHP/MySQL a Next.js + Supabase con Row Level Security'],
-  ['CodeSync', 'IDE colaborativo para aprender a programar: editor Monaco sincronizado en tiempo real, 34 desafíos en 7 lenguajes con ejecución sandboxed en Docker, IA Coach vía Gemini API que da feedback sin resolver el ejercicio, y salas de pair programming en vivo, .NET 8 + Angular 20 + Firebase'],
-  ['Vimet App', 'app móvil (Expo/React Native) compañera de Vimet para pacientes y staff, en desarrollo'],
-  ['InGlobal Agenda', 'app móvil de gestión operativa para Grúas InGlobal, en desarrollo'],
-  ['Chaos Playground', 'playground de Chaos Engineering estilo Gremlin/Chaos Monkey en Elixir + Phoenix LiveView; cada nodo del canvas es un GenServer real de OTP, matarlo desde la UI mata el proceso de verdad'],
-  ['ClubCore', 'API REST en Java + Spring Boot para gestión de un club/instituto de salud, motor de estados de membresía on-demand, cupo de reservas cerrado bajo concurrencia real, resiliencia con Resilience4j'],
-]
-  .map(([name, blurb]) => `${name}: ${blurb}`)
-  .join('\n')
 
 const scheduleArgsSchema = z.object({
   name: z.string().min(2),
@@ -51,7 +32,13 @@ const SCHEDULE_TOOL = {
   ],
 }
 
-type ChatMessage = { role: 'user' | 'model'; text: string }
+const bodySchema = z.object({
+  lang: z.enum(['es', 'en']),
+  history: z
+    .array(z.object({ role: z.enum(['user', 'model']), text: z.string().max(4000) }))
+    .min(1)
+    .max(50),
+})
 
 const RATE_LIMIT = 15
 const RATE_WINDOW_MS = 10 * 60 * 1000
@@ -62,6 +49,12 @@ const hits = new Map<string, number[]>()
 
 function isRateLimited(ip: string) {
   const now = Date.now()
+  // purga ips inactivas para que el Map no crezca sin limite en una instancia longeva
+  if (hits.size > 500) {
+    for (const [key, times] of hits) {
+      if (times.every((t) => now - t >= RATE_WINDOW_MS)) hits.delete(key)
+    }
+  }
   const recent = (hits.get(ip) ?? []).filter((t) => now - t < RATE_WINDOW_MS)
   recent.push(now)
   hits.set(ip, recent)
@@ -69,7 +62,17 @@ function isRateLimited(ip: string) {
 }
 
 export async function POST(req: Request) {
-  const { history, lang } = (await req.json()) as { history: ChatMessage[]; lang: Locale }
+  let body: unknown
+  try {
+    body = await req.json()
+  } catch {
+    return Response.json({ error: 'invalid_json' }, { status: 400 })
+  }
+  const parsedBody = bodySchema.safeParse(body)
+  if (!parsedBody.success) {
+    return Response.json({ error: 'invalid_body' }, { status: 400 })
+  }
+  const { history, lang } = parsedBody.data
   const apiKey = process.env.GEMINI_API_KEY
   const encoder = new TextEncoder()
   const errorText = lang === 'en' ? "Couldn't reply right now, try again." : 'No pude responder ahora, probá de nuevo.'
@@ -96,45 +99,45 @@ export async function POST(req: Request) {
     const education = dict.experience.education
       .map((e) => `${e.degree} — ${e.institution} (${e.period})`)
       .join('\n')
-    systemPrompt = buildSystemPrompt(lang, work, education)
+    const credentials =
+      credentialItems(dict.credentials)
+        .map((c) => `${c.title} — ${c.issuer} (${c.date})`)
+        .join('\n') || 'Ninguna cargada todavía.'
+    systemPrompt = buildSystemPrompt(lang, work, education, credentials)
   } catch (err) {
     console.error('[Nova prompt]', err)
     return sseError(encoder, errorText)
   }
 
-  const contents = [
-    { role: 'user', parts: [{ text: systemPrompt }] },
-    {
-      role: 'model',
-      parts: [{ text: lang === 'en' ? 'Got it, ready to help.' : 'Entendido, lista para ayudar.' }],
-    },
-    // cap turns + per-message length: history persists in the client's localStorage and grows
-    // unbounded across visits, this keeps token cost per request predictable regardless
-    ...history.slice(-12).map((m) => ({ role: m.role, parts: [{ text: m.text.slice(0, 2000) }] })),
-  ]
+  // cap turns + per-message length: history persists in the client's localStorage and grows
+  // unbounded across visits, this keeps token cost per request predictable regardless
+  const contents = history.slice(-12).map((m) => ({ role: m.role, parts: [{ text: m.text.slice(0, 2000) }] }))
 
   const controller = new AbortController()
   const timeout = setTimeout(() => controller.abort(), 20_000)
   let upstream: Response
   try {
-    upstream = await fetch(`${GEMINI_STREAM_URL}?alt=sse&key=${apiKey}`, {
+    upstream = await fetch(`${GEMINI_STREAM_URL}?alt=sse`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', 'x-goog-api-key': apiKey },
       body: JSON.stringify({
+        systemInstruction: { parts: [{ text: systemPrompt }] },
         contents,
         tools: [SCHEDULE_TOOL],
-        generationConfig: { maxOutputTokens: 300 },
+        // temperatura baja: Nova debe ceñirse a los datos del prompt, no improvisar.
+        // thinkingBudget 0: en 2.5 Flash el "thinking" consume maxOutputTokens y cortaba las respuestas.
+        generationConfig: { temperature: 0.3, maxOutputTokens: 600, thinkingConfig: { thinkingBudget: 0 } },
       }),
       signal: controller.signal,
     })
   } catch (err) {
     console.error('[Gemini fetch]', err)
-    return sseError(encoder, errorText)
-  } finally {
     clearTimeout(timeout)
+    return sseError(encoder, errorText)
   }
 
   if (!upstream.ok || !upstream.body) {
+    clearTimeout(timeout)
     console.error('[Gemini]', await upstream.text())
     return sseError(encoder, errorText)
   }
@@ -147,6 +150,7 @@ export async function POST(req: Request) {
       const reader = upstream.body!.getReader()
       const decoder = new TextDecoder()
       let buffer = ''
+      let gotOutput = false
 
       try {
         while (true) {
@@ -158,39 +162,49 @@ export async function POST(req: Request) {
 
           for (const line of lines) {
             if (!line.startsWith('data: ')) continue
-            let chunk: { candidates?: Array<{ content?: { parts?: Array<{ text?: string; functionCall?: { name: string; args: unknown } }> } }> }
+            let chunk: { candidates?: Array<{ finishReason?: string; content?: { parts?: Array<{ text?: string; functionCall?: { name: string; args: unknown } }> } }> }
             try {
               chunk = JSON.parse(line.slice(6))
             } catch (err) {
               console.error('[Nova stream] malformed line', err)
               continue
             }
-            const part = chunk.candidates?.[0]?.content?.parts?.[0]
-
-            if (part?.text) {
-              send({ type: 'text', value: part.text })
+            const candidate = chunk.candidates?.[0]
+            if (candidate?.finishReason && candidate.finishReason !== 'STOP') {
+              console.error('[Nova finishReason]', candidate.finishReason)
             }
 
-            if (part?.functionCall?.name === 'schedule_interview') {
-              const parsed = scheduleArgsSchema.safeParse(part.functionCall.args)
-              if (parsed.success) {
-                const { name, email, reason } = parsed.data
-                const { error } = await sendContactEmail({
-                  name,
-                  email,
-                  message: `[Vía Nova] ${reason}`,
-                  subject: `Pedido de entrevista vía Nova — ${name}`,
-                })
-                send({ type: 'scheduled', ok: !error })
-              } else {
-                send({ type: 'scheduled', ok: false })
+            for (const part of candidate?.content?.parts ?? []) {
+              if (part.text) {
+                gotOutput = true
+                send({ type: 'text', value: part.text })
+              }
+
+              if (part.functionCall?.name === 'schedule_interview') {
+                gotOutput = true
+                const parsed = scheduleArgsSchema.safeParse(part.functionCall.args)
+                if (parsed.success) {
+                  const { name, email, reason } = parsed.data
+                  const { error } = await sendContactEmail({
+                    name,
+                    email,
+                    message: `[Vía Nova] ${reason}`,
+                    subject: `Pedido de entrevista vía Nova — ${name}`,
+                  })
+                  send({ type: 'scheduled', ok: !error })
+                } else {
+                  send({ type: 'scheduled', ok: false })
+                }
               }
             }
           }
         }
+        if (!gotOutput) send({ type: 'error', value: errorText })
       } catch (err) {
         console.error('[Nova stream]', err)
+        send({ type: 'error', value: errorText })
       } finally {
+        clearTimeout(timeout)
         send({ type: 'done' })
         controller.close()
       }
@@ -202,15 +216,21 @@ export async function POST(req: Request) {
   })
 }
 
-function buildSystemPrompt(lang: Locale, work: string, education: string) {
+function buildSystemPrompt(lang: Locale, work: string, education: string, credentials: string) {
+  const now = new Date()
+  const today = now.toISOString().slice(0, 10)
   return `Sos "Nova", asistente conversacional del portfolio de Mateo Pavoni, Full Stack Developer.
+BASE DE CONOCIMIENTO CERRADA (obligatoria): tu única fuente de verdad es la información de este prompt (datos personales, stack, experiencia, educación, proyectos y contacto). Respondé únicamente con lo que figura acá. Si preguntan algo sobre Mateo que NO está en este prompt (sueldo, expectativas, vida privada, opiniones, empresas, tecnologías, proyectos, certificados, fechas o links que no estén listados), decí que no tenés ese dato y sugerí contactarlo por email o formulario. Nunca inventes, deduzcas ni completes datos con conocimiento general, y no agregues links que no estén listados acá.
+
 Respondé SOLO sobre su perfil profesional, tono cercano y breve (2-4 frases). Texto plano, sin markdown (nada de **, *, #, listas).
 
 REGLA DE IDIOMA (obligatoria, prioridad máxima, aplica también a los rechazos de temas fuera de perfil): detectá el idioma del ÚLTIMO mensaje del usuario y respondé en ESE idioma, así el resto de este prompt esté en español — un mensaje en inglés se responde en inglés, uno en español se responde en español, sin excepción. Recién si todavía no escribió ningún mensaje, usá el idioma de la página (${lang === 'en' ? 'inglés' : 'español'}) como default.
 
-Datos personales: nació el 20/03/2006 (20 años). Si preguntan la edad o fecha de nacimiento, usá este dato exacto — nunca lo inventes ni lo calcules de otra forma.
+Datos personales: nació el 20/03/2006 (hoy tiene ${ageOn(now)} años). Vive en ${LOCATION}. Fecha de hoy: ${today} (usala para interpretar "Presente" en períodos). Si preguntan la edad o fecha de nacimiento, usá este dato exacto — nunca lo inventes.
 
 Stack: ${STACK}
+
+Contacto (únicos datos de contacto válidos): email ${CONTACT.email} · GitHub ${CONTACT.github} · LinkedIn ${CONTACT.linkedin} · formulario ${CONTACT.contactForm}
 
 Experiencia:
 ${work}
@@ -218,8 +238,13 @@ ${work}
 Educación:
 ${education}
 
+Credenciales y diplomas (se ven en la sección Credenciales del sitio):
+${credentials}
+
 Proyectos:
 ${PROJECTS}
+
+Los proyectos de Mateo en AR IT Services son confidenciales: si preguntan por clientes, productos o detalles de esos proyectos, decí que están bajo confidencialidad y que no los conocés; no especules.
 
 Si piden el CV, decí que pueden descargarlo en /cv.pdf.
 Si piden agendar una entrevista o contacto real, pedile nombre, email y motivo (de a uno si hace falta) y cuando tengas los tres llamá a la función schedule_interview — no la llames sin datos confirmados.
@@ -238,7 +263,7 @@ Si el mensaje es insulto, spam, texto sin sentido o busca confundirte/trolearte:
 }
 
 function sseError(encoder: TextEncoder, message: string) {
-  const body = `data: ${JSON.stringify({ type: 'text', value: message })}\n\ndata: ${JSON.stringify({ type: 'done' })}\n\n`
+  const body = `data: ${JSON.stringify({ type: 'error', value: message })}\n\ndata: ${JSON.stringify({ type: 'done' })}\n\n`
   return new Response(encoder.encode(body), {
     headers: { 'Content-Type': 'text/event-stream' },
   })

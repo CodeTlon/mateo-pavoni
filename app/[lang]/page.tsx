@@ -3,6 +3,7 @@ import HeroCard from '@/components/sections/HeroCard'
 import TechStack from '@/components/sections/TechStack'
 import ProjectsGrid from '@/components/sections/ProjectsGrid'
 import Experience from '@/components/sections/Experience'
+import Credentials from '@/components/sections/Credentials'
 import Contact from '@/components/sections/Contact'
 import { getDictionary, hasLocale } from './dictionaries'
 
@@ -17,6 +18,7 @@ export default async function Home({ params }: PageProps<'/[lang]'>) {
       <TechStack dict={dict.tech} />
       <ProjectsGrid dict={dict.projects} lang={lang} />
       <Experience dict={dict.experience} />
+      <Credentials dict={dict.credentials} />
       <Contact dict={dict.contact} lang={lang} />
     </main>
   )
