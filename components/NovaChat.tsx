@@ -4,7 +4,8 @@ import { useState, useRef, useEffect } from 'react'
 import type { Dictionary, Locale } from '@/app/[lang]/dictionaries'
 
 type ChatDict = Dictionary['chat']
-type ChatMessage = { role: 'user' | 'model'; text: string }
+// error: mensaje de fallo (rate limit, red) que se muestra pero NO se reenvia al modelo como turno suyo
+type ChatMessage = { role: 'user' | 'model'; text: string; error?: boolean }
 
 const STORAGE_KEY = 'nova-chat-history'
 const TTL_MS = 6 * 60 * 60 * 1000
@@ -37,6 +38,7 @@ export default function NovaChat({ dict, lang }: { dict: ChatDict; lang: Locale 
   const [input, setInput] = useState('')
   const [pending, setPending] = useState(false)
   const endRef = useRef<HTMLDivElement>(null)
+  const inputRef = useRef<HTMLInputElement>(null)
   const loadedRef = useRef(false)
   const closeTimerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
   const [everOpened, setEverOpened] = useState(false)
@@ -77,8 +79,24 @@ export default function NovaChat({ dict, lang }: { dict: ChatDict; lang: Locale 
       localStorage.removeItem(STORAGE_KEY)
       return
     }
-    localStorage.setItem(STORAGE_KEY, JSON.stringify({ messages, savedAt: Date.now() }))
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({ messages, savedAt: Date.now() }))
+    } catch {
+      // storage bloqueado (modo privado, cuota): el chat sigue andando sin persistir
+    }
   }, [messages])
+
+  useEffect(() => {
+    if (!open) return
+    inputRef.current?.focus()
+    function onKey(e: KeyboardEvent) {
+      if (e.key === 'Escape') toggleOpen()
+    }
+    document.addEventListener('keydown', onKey)
+    return () => document.removeEventListener('keydown', onKey)
+    // toggleOpen solo cambia cuando cambia `open`
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open])
 
   useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -87,6 +105,7 @@ export default function NovaChat({ dict, lang }: { dict: ChatDict; lang: Locale 
   async function send(text: string) {
     if (!text.trim() || pending) return
     const next: ChatMessage[] = [...messages, { role: 'user', text }]
+    const history = next.filter((m) => !m.error && m.text)
     setMessages([...next, { role: 'model', text: '' }])
     setInput('')
     setPending(true)
@@ -95,9 +114,9 @@ export default function NovaChat({ dict, lang }: { dict: ChatDict; lang: Locale 
       const res = await fetch('/api/nova', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ history: next, lang }),
+        body: JSON.stringify({ history, lang }),
       })
-      if (!res.body) throw new Error('no body')
+      if (!res.ok || !res.body) throw new Error('bad response')
 
       const reader = res.body.getReader()
       const decoder = new TextDecoder()
@@ -126,6 +145,12 @@ export default function NovaChat({ dict, lang }: { dict: ChatDict; lang: Locale 
               copy[copy.length - 1] = { ...last, text: last.text + (evt.value ?? '') }
               return copy
             })
+          } else if (evt.type === 'error') {
+            setMessages((prev) => {
+              const copy = [...prev]
+              copy[copy.length - 1] = { role: 'model', text: evt.value || dict.error, error: true }
+              return copy
+            })
           } else if (evt.type === 'scheduled') {
             scheduledOk = evt.ok ?? null
           }
@@ -150,10 +175,10 @@ export default function NovaChat({ dict, lang }: { dict: ChatDict; lang: Locale 
         const last = prev[prev.length - 1]
         if (last.role === 'model' && !last.text) {
           const copy = [...prev]
-          copy[copy.length - 1] = { role: 'model', text: dict.error }
+          copy[copy.length - 1] = { role: 'model', text: dict.error, error: true }
           return copy
         }
-        return [...prev, { role: 'model', text: dict.error }]
+        return [...prev, { role: 'model', text: dict.error, error: true }]
       })
     } finally {
       setPending(false)
@@ -199,7 +224,7 @@ export default function NovaChat({ dict, lang }: { dict: ChatDict; lang: Locale 
             </div>
           </div>
 
-          <div className="flex-1 overflow-y-auto px-4 py-3 flex flex-col gap-3">
+          <div role="log" aria-live="polite" className="flex-1 overflow-y-auto px-4 py-3 flex flex-col gap-3">
             {messages.length === 0 && (
               <div className="flex flex-col gap-2">
                 {dict.suggestions.map((s) => (
@@ -245,6 +270,9 @@ export default function NovaChat({ dict, lang }: { dict: ChatDict; lang: Locale 
             className="flex items-center gap-2 px-3 py-3 border-t hairline"
           >
             <input
+              ref={inputRef}
+              maxLength={500}
+              aria-label={dict.placeholder}
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder={dict.placeholder}
