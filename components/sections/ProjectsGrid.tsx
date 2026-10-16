@@ -32,6 +32,25 @@ const GROUP_STACKS: Record<string, string[]> = {
 
 const projectBases: ProjectBase[] = [
   {
+    id: 'clubcore',
+    dictKey: 'clubcore',
+    name: 'ClubCore',
+    stack: ['Java 21', 'Spring Boot', 'MySQL', 'Resilience4j', 'Docker'],
+    accentColor: '#22c55e',
+    bgColor: '#0f172a',
+    url: 'https://clubcore-api.mateopavoni.com.ar/swagger-ui.html',
+  },
+  {
+    id: 'codesync',
+    dictKey: 'codesync',
+    name: 'CodeSync',
+    stack: ['.NET 8', 'Angular 20', 'Firebase', 'Docker', 'Gemini API'],
+    accentColor: '#adc6ff',
+    bgColor: '#0e1524',
+    url: 'https://codesync.mateopavoni.com.ar',
+    screenshot: '/codesync.png',
+  },
+  {
     id: 'marcovich',
     dictKey: 'marcovich',
     name: 'Marcovich Barbería',
@@ -129,25 +148,6 @@ const projectBases: ProjectBase[] = [
     bgColor: '#f5f5f7',
     url: 'https://chaos-playground.mateopavoni.com.ar/',
     screenshot: '/chaos-playground.png',
-  },
-  {
-    id: 'clubcore',
-    dictKey: 'clubcore',
-    name: 'ClubCore',
-    stack: ['Java 21', 'Spring Boot', 'MySQL', 'Resilience4j', 'Docker'],
-    accentColor: '#22c55e',
-    bgColor: '#0f172a',
-    url: 'https://clubcore-api.mateopavoni.com.ar/swagger-ui.html',
-  },
-  {
-    id: 'codesync',
-    dictKey: 'codesync',
-    name: 'CodeSync',
-    stack: ['.NET 8', 'Angular 20', 'Firebase', 'Docker', 'Gemini API'],
-    accentColor: '#adc6ff',
-    bgColor: '#0e1524',
-    url: 'https://codesync.mateopavoni.com.ar',
-    screenshot: '/codesync.png',
   },
   {
     id: 'vimet-app',

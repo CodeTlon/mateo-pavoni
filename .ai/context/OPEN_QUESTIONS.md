@@ -19,8 +19,7 @@ Cosas que quedaron como UNKNOWN tras la auditoría, o decisiones que quedan expl
 
 ## Pendientes de la rama feature/dev2-portfolio-update (2026-10-15)
 
-- `public/cv.pdf` está desactualizado (no incluye AR IT Services ni las credenciales). Mateo lo actualizará y lo pasará; hasta entonces Nova sigue linkeando el CV viejo.
+- CV: `public/cv.pdf` regenerado el 2026-10-16 desde `docs/cv/cv.html` (HTML -> PDF con Chromium/Playwright; editar el HTML y re-renderizar). Ojo: el CV usa el email `mateopavoni6@gmail.com` y el sitio/Nova `mateopavonint905@gmail.com`; Mateo debe confirmar cuál va dónde.
 - Links de verificación de las 23 credenciales (Credly, Udemy, Coderhouse): Mateo los pasará; se cargan como `url` en `credentials.items` de ambos JSON.
 - Probar Nova contra Gemini real con una key propia antes de llevar a `main` (no verificado en esta cuenta).
 - Disponibilidad laboral de Mateo para Nova: sin definir, Nova no la menciona.
-- CV: Mateo dio la ruta `C:\Users\mateo\Documents\CV_Mateo_Pavoni_IT.pdf` (su PC); la VPS no puede leerla. Hay que subir el PDF al repo (o pegarlo) para que se le agregue la experiencia en AR IT Services y reemplazar `public/cv.pdf`.

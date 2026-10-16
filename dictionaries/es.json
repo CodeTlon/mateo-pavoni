@@ -9,7 +9,7 @@
   },
   "hero": {
     "bio_pre": "Desarrollador Full Stack especializado en construir productos escalables de punta a punta. Experimentado en el ecosistema ",
-    "bio_highlight": "Next.js, Supabase y n8n",
+    "bio_highlight": "React, .NET y Java",
     "bio_post": ", con conocimientos sólidos sobre la infraestructura y el despliegue en la nube.",
     "cta_projects": "Ver proyectos",
     "cta_contact": "Contactar"
@@ -180,8 +180,8 @@
   },
   "meta": {
     "title": "Mateo Pavoni - Full Stack Developer",
-    "description": "Portfolio de Mateo Pavoni - desarrollador full stack. Especializado en Next.js, TypeScript y Supabase.",
-    "og_description": "Desarrollador full stack especializado en Next.js, TypeScript y Supabase."
+    "description": "Portfolio de Mateo Pavoni - desarrollador full stack. Especializado en React, .NET y Java.",
+    "og_description": "Desarrollador full stack especializado en React, .NET y Java."
   },
   "credentials": {
     "heading": "Credenciales",

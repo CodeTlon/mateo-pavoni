@@ -71,7 +71,7 @@ function personSchema(lang: Locale, dict: Dictionary) {
     description: dict.meta.description,
     email: 'mailto:mateopavonint905@gmail.com',
     sameAs: ['https://github.com/mateopavoni', 'https://www.linkedin.com/in/mateopavonidev'],
-    knowsAbout: ['Next.js', 'TypeScript', 'React', 'Supabase', 'Node.js', 'n8n'],
+    knowsAbout: ['React', '.NET', 'C#', 'Java', 'Spring Boot', 'TypeScript', 'SQL Server'],
   }
 }
 
