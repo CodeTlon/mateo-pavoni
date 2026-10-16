@@ -23,3 +23,4 @@ Cosas que quedaron como UNKNOWN tras la auditoría, o decisiones que quedan expl
 - Links de verificación de las 23 credenciales (Credly, Udemy, Coderhouse): Mateo los pasará; se cargan como `url` en `credentials.items` de ambos JSON.
 - Probar Nova contra Gemini real con una key propia antes de llevar a `main` (no verificado en esta cuenta).
 - Disponibilidad laboral de Mateo para Nova: sin definir, Nova no la menciona.
+- CV: Mateo dio la ruta `C:\Users\mateo\Documents\CV_Mateo_Pavoni_IT.pdf` (su PC); la VPS no puede leerla. Hay que subir el PDF al repo (o pegarlo) para que se le agregue la experiencia en AR IT Services y reemplazar `public/cv.pdf`.

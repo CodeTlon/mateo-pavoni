@@ -2,7 +2,7 @@
 
 > Full Stack Developer based in Córdoba, Argentina, building end-to-end web and mobile products with Next.js, Supabase, and automation tooling (n8n). Portfolio site: single-page, bilingual (Spanish/English).
 
-Since September 2026 Mateo works as a Junior Full Stack Developer at AR IT Services (on-site in Córdoba, React and .NET), and keeps taking on freelance projects. Previously he was a .NET trainee developer at Encode S.A. and shipped production sites and internal tools for small businesses (barbershops, training academies, crane rental, nutrition/health clinics) as well as personal engineering projects exploring distributed systems, workflow engines, and chaos engineering.
+Since September 2026 Mateo works as a Junior Full Stack Developer at AR IT Services (on-site in Córdoba, Scrum team, React, .NET and Supabase), and keeps taking on freelance projects. Previously he was a .NET trainee developer at Encode S.A. and shipped production sites and internal tools for small businesses (barbershops, training academies, crane rental, nutrition/health clinics) as well as personal engineering projects exploring distributed systems, workflow engines, and chaos engineering.
 
 ## Site
 
@@ -15,8 +15,8 @@ Since September 2026 Mateo works as a Junior Full Stack Developer at AR IT Servi
 - Frontend: Next.js, React, TypeScript, Tailwind CSS, Svelte, Sass, Bootstrap.
 - Backend: Node.js, Go, FastAPI, Java/Spring Boot, Elixir/Phoenix, Supabase, .NET Core, PHP, PostgreSQL, MySQL, MongoDB, Redis.
 - Mobile: React Native, Expo, Zustand.
-- Infra: Docker, Cloudflare, Linux, Coolify, Vercel.
-- Automation/AI: n8n, Meta API, Google Cloud, Claude/Gemini.
+- Infra: Docker, Cloudflare, Linux, Coolify, Dokku, Vercel.
+- Automation/AI: n8n, Meta API, Google Cloud, Claude, Gemini, Codex, OpenCode, OpenRouter, Grok.
 
 ## Projects
 

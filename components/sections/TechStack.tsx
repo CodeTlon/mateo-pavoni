@@ -71,6 +71,7 @@ const categories: Category[] = [
       { name: 'Cloudflare', src: cdn('cloudflare', 'f38020') },
       { name: 'Linux',      src: cdn('linux',      'fcc624') },
       { name: 'Coolify',    src: '/coolify.svg' },
+      { name: 'Dokku',      src: '/dokku.svg' },
     ],
   },
   {
@@ -81,6 +82,10 @@ const categories: Category[] = [
       { name: 'Google Cloud', src: cdn('googlecloud', '4285f4') },
       { name: 'Claude',       src: '/claude.svg' },
       { name: 'Gemini',       src: '/gemini.svg' },
+      { name: 'Codex',        src: '/codex.svg', invert: true },
+      { name: 'OpenCode',     src: '/opencode.svg', invert: true },
+      { name: 'OpenRouter',   src: '/openrouter.svg', invert: true },
+      { name: 'Grok',         src: '/grok.svg', invert: true },
     ],
   },
 ]

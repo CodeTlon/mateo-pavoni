@@ -22,7 +22,7 @@ export const CONTACT = {
 }
 
 export const STACK =
-  'Next.js, React, TypeScript, Tailwind, Svelte, Sass, Bootstrap, Node.js, Go, FastAPI, Java, Spring Boot, Elixir, Phoenix LiveView, Supabase, .NET Core, PHP, PostgreSQL, MySQL, MongoDB, Redis, Docker, Angular, Firebase, React Native, Expo, Gemini API'
+  'Next.js, React, TypeScript, Tailwind, Svelte, Sass, Bootstrap, Node.js, Go, FastAPI, Java, Spring Boot, Elixir, Phoenix LiveView, Supabase, .NET Core, PHP, PostgreSQL, MySQL, MongoDB, Redis, Docker, Coolify, Dokku, Angular, Firebase, React Native, Expo, Gemini API, herramientas de IA (Claude, Gemini, Codex, OpenCode, OpenRouter, Grok)'
 
 const PROJECT_LIST: Array<[string, string]> = [
   ['Marcovich Barbería', 'gestión de turnos de barbería, migración de legacy PHP/MySQL a Next.js + Supabase, turnero automatizado vía WhatsApp API + n8n'],
