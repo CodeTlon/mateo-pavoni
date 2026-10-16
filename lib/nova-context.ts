@@ -26,7 +26,6 @@ export const STACK =
 
 // Mateo orienta su perfil a estas tecnologias; Nova las pone primero cuando le preguntan por su especialidad.
 export const FOCUS = 'React, .NET (C#) y Java (Spring Boot)'
-  'Next.js, React, TypeScript, Tailwind, Svelte, Sass, Bootstrap, Node.js, Go, FastAPI, Java, Spring Boot, Elixir, Phoenix LiveView, Supabase, .NET Core, PHP, PostgreSQL, MySQL, MongoDB, Redis, Docker, Coolify, Dokku, Angular, Firebase, React Native, Expo, Gemini API, herramientas de IA (Claude, Gemini, Codex, OpenCode, OpenRouter, Grok)'
 
 // Vimet App e InGlobal Agenda estan "tapados" (ver HIDDEN_IDS en ProjectsGrid.tsx): Nova no los menciona.
 const PROJECT_LIST: Array<[string, string]> = [
