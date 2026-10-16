@@ -18,8 +18,8 @@ Portfolio personal (L1, single-page) de Mateo Pavoni, bilingüe es/en. Sin base 
 
 ## Stack
 
-- **Next.js 16** (App Router) + React 19 + TypeScript
-- Tailwind CSS + Lucide React
+- **Next.js 16.4.2** (App Router) + React 19.3.1 + TypeScript 6
+- Tailwind CSS 4 (tokens en `@theme`, sin `tailwind.config`) + Lucide React. Versiones de la flota: `codetlon-cloud/.claude/modules/stack-versions.md`
 - i18n propio vía `app/[lang]/` (`es` default, `en`) + `proxy.ts` (Next 16 usa `proxy.ts`, **no** `middleware.ts`)
 - Dark mode: `ThemeProvider` (patrón next-themes)
 - Sin Supabase / sin DB
@@ -32,7 +32,7 @@ Portfolio personal (L1, single-page) de Mateo Pavoni, bilingüe es/en. Sin base 
 npm run dev      # dev server
 npm run build    # build de producción
 npm start        # serve del build (para Lighthouse)
-npm run lint     # ESLint
+npm run lint     # ESLint 10 (config plana; las reglas nuevas de React estan como aviso)
 npx tsc --noEmit # chequeo de tipos sin emitir
 ```
 

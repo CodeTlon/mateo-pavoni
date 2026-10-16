@@ -3,7 +3,7 @@
 Mapa para mantenimiento. **No releas el repo entero**: buscá tu tipo de cambio acá y abrí solo esos archivos.
 
 ## Stack
-**Next.js 16.2** (App Router) · React 19 · TS · Tailwind · Lucide · Resend · Vercel. i18n propio (`app/[lang]/`, locales `es`/`en`) + `proxy.ts`. Single-page bento portfolio con dark mode.
+**Next.js 16.4.2** (App Router) · React 19.3.1 · TS 6 · Tailwind 4 · Lucide · Resend · Vercel. i18n propio (`app/[lang]/`, locales `es`/`en`) + `proxy.ts`. Single-page bento portfolio con dark mode.
 
 ## Para cambios comunes, leé solo esto
 
@@ -17,7 +17,7 @@ Mapa para mantenimiento. **No releas el repo entero**: buscá tu tipo de cambio 
 | Formulario de contacto (envío) | `app/actions/contact.ts` (Resend) + `components/sections/Contact.tsx` |
 | Metadata / SEO | `metadata` export en `app/[lang]/layout.tsx` + `app/sitemap.ts` / `app/robots.ts` |
 | Config de imágenes / dominios remotos / headers de seguridad | `next.config.mjs` (único archivo de config) |
-| Paleta / fuentes / grain | `tailwind.config.*` + `globals.css` + `app/[lang]/layout.tsx` (`next/font`) |
+| Paleta / fuentes / grain | `app/globals.css` (`@theme`; no hay `tailwind.config`) + `app/[lang]/layout.tsx` (`next/font`) |
 | Estado de carga de la página | `app/[lang]/loading.tsx` (skeleton bento-shaped, usa `components/ui/skeleton.tsx`) |
 | Fallback de error de la ruta | `app/[lang]/error.tsx` (branded, bilingüe) · `app/global-error.tsx` (solo si falla `app/layout.tsx`) |
 | Nuevo componente shadcn | `components/ui/` + `cn()` de `lib/utils.ts` (patrón sembrado con `skeleton.tsx`) |
