@@ -24,6 +24,7 @@ export const CONTACT = {
 export const STACK =
   'Next.js, React, TypeScript, Tailwind, Svelte, Sass, Bootstrap, Node.js, Go, FastAPI, Java, Spring Boot, Elixir, Phoenix LiveView, Supabase, .NET Core, PHP, PostgreSQL, MySQL, MongoDB, Redis, Docker, Coolify, Dokku, Angular, Firebase, React Native, Expo, Gemini API, herramientas de IA (Claude, Gemini, Codex, OpenCode, OpenRouter, Grok)'
 
+// Vimet App e InGlobal Agenda estan "tapados" (ver HIDDEN_IDS en ProjectsGrid.tsx): Nova no los menciona.
 const PROJECT_LIST: Array<[string, string]> = [
   ['Marcovich Barbería', 'gestión de turnos de barbería, migración de legacy PHP/MySQL a Next.js + Supabase, turnero automatizado vía WhatsApp API + n8n'],
   ['CodeTlon', 'sitio institucional de su software factory, Next.js + Resend + GA4'],
@@ -34,8 +35,6 @@ const PROJECT_LIST: Array<[string, string]> = [
   ['TV Pro Academy', 'sitio + dashboard admin para una academia de entrenamiento individual de fútbol, Next.js + Supabase'],
   ['Vimet', 'plataforma de turnos y seguimiento clínico para un centro de nutrición y entrenamiento, migración de legacy PHP/MySQL a Next.js + Supabase con Row Level Security'],
   ['CodeSync', 'IDE colaborativo para aprender a programar: editor Monaco sincronizado en tiempo real, 34 desafíos en 7 lenguajes con ejecución sandboxed en Docker, IA Coach vía Gemini API que da feedback sin resolver el ejercicio, y salas de pair programming en vivo, .NET 8 + Angular 20 + Firebase'],
-  ['Vimet App', 'app móvil (Expo/React Native) compañera de Vimet para pacientes y staff, en desarrollo'],
-  ['InGlobal Agenda', 'app móvil de gestión operativa para Grúas InGlobal, en desarrollo'],
   ['Chaos Playground', 'playground de Chaos Engineering estilo Gremlin/Chaos Monkey en Elixir + Phoenix LiveView; cada nodo del canvas es un GenServer real de OTP, matarlo desde la UI mata el proceso de verdad'],
   ['ClubCore', 'API REST en Java + Spring Boot para gestión de un club/instituto de salud, motor de estados de membresía on-demand, cupo de reservas cerrado bajo concurrencia real, resiliencia con Resilience4j'],
 ]
