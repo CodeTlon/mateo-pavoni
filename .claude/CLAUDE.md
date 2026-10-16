@@ -13,11 +13,11 @@
 - **Generado:** 2026-05-05
 - **URL Producción:** pendiente
 - **Repo GitHub:** CodeTlon/mateo-pavoni
-- **Deploy:** Vercel
+- **Deploy:** Vercel (solo porque no tiene backend; los proyectos con backend van a Coolify)
 
 ## Stack
-- **Next.js 16.2** (App Router) + React 19 + TypeScript
-- Tailwind CSS + Lucide React
+- **Next.js 16.4.2** (App Router) + React 19.3.1 + TypeScript 6
+- Tailwind CSS 4 (tokens en `@theme`) + Lucide React
 - **i18n propio** vía `app/[lang]/` (locales `es` default + `en`) + `proxy.ts` (redirect por Accept-Language)
 - Dark mode vía `ThemeProvider` (next-themes pattern)
 - Supabase: **no**
@@ -114,3 +114,4 @@ npx playwright test  # Tests E2E
 | 2026-10-15 | feature/dev2-portfolio-update | feat: puesto actual en AR IT Services + freelance cerrado; Nova: contexto único en `lib/nova-context.ts`, `systemInstruction`, base de conocimiento cerrada, validación zod del body, `thinkingBudget: 0`, key por header `x-goog-api-key`, evento SSE `error` (el cliente no lo reenvía al modelo); `NovaChat.tsx` con Esc, foco, `aria-live`, `maxLength`; sección Credenciales (`components/sections/Credentials.tsx`, `lib/credentials.ts`, 23 items en dictionaries), link en Navbar solo si hay items |
 | 2026-10-16 | feature/dev2-portfolio-update | feat: Dokku, Codex, OpenCode, OpenRouter y Grok en `TechStack.tsx` (SVG en `public/`); el puesto en AR IT Services se muestra solo con título más grande, sin bullets (`Experience.tsx` agranda el título de toda entrada sin bullets); Vimet App e InGlobal Agenda "tapados" vía `HIDDEN_IDS` en `ProjectsGrid.tsx` y fuera del contexto de Nova |
 | 2026-10-16 | feature/dev2-portfolio-update | feat: perfil reenfocado a React, .NET y Java (hero, meta, JSON-LD, llms.txt, contexto de Nova; Next.js/Supabase siguen en stack y proyectos pero salen de la descripción principal; `TechStack.tsx` y `ProjectsGrid.tsx` reordenados); `public/cv.pdf` regenerado desde `docs/cv/cv.html` con AR IT Services |
+| 2026-10-16 | feature/dev2-estandar-2026 | chore: estandar de versiones de la flota (Next 16.4.2, React 19.3.1, ESLint 10, Zod 4.6.7). `set-state-in-effect` como aviso. |

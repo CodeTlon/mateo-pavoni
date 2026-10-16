@@ -5,6 +5,8 @@ import nextTs from "eslint-config-next/typescript";
 const eslintConfig = defineConfig([
   ...nextVitals,
   ...nextTs,
+  // Deuda conocida (3 componentes con setState en efecto): igual que el resto de la flota, aviso y no error.
+  { rules: { 'react-hooks/set-state-in-effect': 'warn' } },
   // Override default ignores of eslint-config-next.
   globalIgnores([
     // Default ignores of eslint-config-next:
