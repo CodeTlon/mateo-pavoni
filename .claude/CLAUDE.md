@@ -57,7 +57,7 @@
 ```
 RESEND_API_KEY=
 RESEND_FROM_EMAIL=
-COMPANY_EMAIL=mateopavonint905@gmail.com
+COMPANY_EMAIL=mateopavoni6@gmail.com
 GEMINI_API_KEY=
 ```
 Ver `.env.example` para el listado completo.

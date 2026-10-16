@@ -69,7 +69,7 @@ function personSchema(lang: Locale, dict: Dictionary) {
     jobTitle: 'Junior Full Stack Developer',
     worksFor: { '@type': 'Organization', name: 'AR IT Services' },
     description: dict.meta.description,
-    email: 'mailto:mateopavonint905@gmail.com',
+    email: 'mailto:mateopavoni6@gmail.com',
     sameAs: ['https://github.com/mateopavoni', 'https://www.linkedin.com/in/mateopavonidev'],
     knowsAbout: ['React', '.NET', 'C#', 'Java', 'Spring Boot', 'TypeScript', 'SQL Server'],
   }

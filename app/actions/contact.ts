@@ -55,7 +55,7 @@ export async function sendContactEmail({
 
   return resend.emails.send({
     from: process.env.RESEND_FROM_EMAIL ?? 'onboarding@resend.dev',
-    to: process.env.COMPANY_EMAIL ?? 'mateopavonint905@gmail.com',
+    to: process.env.COMPANY_EMAIL ?? 'mateopavoni6@gmail.com',
     subject: subject ?? `Nuevo mensaje de ${name} — Portfolio`,
     html,
   })

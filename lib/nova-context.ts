@@ -14,7 +14,7 @@ export function ageOn(now: Date, birth = BIRTH_DATE) {
 export const LOCATION = 'Córdoba, Argentina'
 
 export const CONTACT = {
-  email: 'mateopavonint905@gmail.com',
+  email: 'mateopavoni6@gmail.com',
   github: 'https://github.com/mateopavoni',
   linkedin: 'https://www.linkedin.com/in/mateopavonidev',
   site: 'https://www.mateopavoni.com.ar',
