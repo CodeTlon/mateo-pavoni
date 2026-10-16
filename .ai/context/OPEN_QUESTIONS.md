@@ -19,7 +19,7 @@ Cosas que quedaron como UNKNOWN tras la auditoría, o decisiones que quedan expl
 
 ## Pendientes de la rama feature/dev2-portfolio-update (2026-10-15)
 
-- `public/cv.pdf` está desactualizado (no incluye AR IT Services ni las credenciales). Mateo lo actualizará y lo pasará; hasta entonces Nova sigue linkeando el CV viejo.
+- CV: `public/cv.pdf` regenerado el 2026-10-16 desde `docs/cv/cv.html` (HTML -> PDF con Chromium/Playwright; editar el HTML y re-renderizar). Email unificado en `mateopavoni6@gmail.com` (CV, sitio, Nova, JSON-LD, footer). `COMPANY_EMAIL` en Vercel se debe revisar a mano: define a dónde llegan los mails del formulario y de Nova.
 - Links de verificación de las 23 credenciales (Credly, Udemy, Coderhouse): Mateo los pasará; se cargan como `url` en `credentials.items` de ambos JSON.
 - Probar Nova contra Gemini real con una key propia antes de llevar a `main` (no verificado en esta cuenta).
 - Disponibilidad laboral de Mateo para Nova: sin definir, Nova no la menciona.

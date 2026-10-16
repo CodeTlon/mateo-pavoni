@@ -19,7 +19,11 @@ export default function Experience({ dict }: { dict: ExperienceDict }) {
               {period}
             </div>
             <div className="flex-1 min-w-0">
-              <h3 className="serif text-xl text-primary group-hover:text-secondary-container transition-colors">
+              <h3
+                className={`serif text-primary group-hover:text-secondary-container transition-colors ${
+                  bullets.length === 0 ? 'text-3xl md:text-4xl' : 'text-xl'
+                }`}
+              >
                 {role}
               </h3>
               <p
@@ -28,18 +32,20 @@ export default function Experience({ dict }: { dict: ExperienceDict }) {
               >
                 {place}
               </p>
-              <ul className="flex flex-col gap-1.5">
-                {bullets.map((bullet, i) => (
-                  <li
-                    key={i}
-                    className="flex gap-2 text-sm text-on-surface-variant leading-relaxed"
-                    style={{ fontFamily: 'var(--font-inter)' }}
-                  >
-                    <span className="text-secondary-container shrink-0 mt-0.5 select-none">›</span>
-                    <span>{bullet}</span>
-                  </li>
-                ))}
-              </ul>
+              {bullets.length > 0 && (
+                <ul className="flex flex-col gap-1.5">
+                  {bullets.map((bullet, i) => (
+                    <li
+                      key={i}
+                      className="flex gap-2 text-sm text-on-surface-variant leading-relaxed"
+                      style={{ fontFamily: 'var(--font-inter)' }}
+                    >
+                      <span className="text-secondary-container shrink-0 mt-0.5 select-none">›</span>
+                      <span>{bullet}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
           </div>
         ))}

@@ -32,6 +32,25 @@ const GROUP_STACKS: Record<string, string[]> = {
 
 const projectBases: ProjectBase[] = [
   {
+    id: 'clubcore',
+    dictKey: 'clubcore',
+    name: 'ClubCore',
+    stack: ['Java 21', 'Spring Boot', 'MySQL', 'Resilience4j', 'Docker'],
+    accentColor: '#22c55e',
+    bgColor: '#0f172a',
+    url: 'https://clubcore-api.mateopavoni.com.ar/swagger-ui.html',
+  },
+  {
+    id: 'codesync',
+    dictKey: 'codesync',
+    name: 'CodeSync',
+    stack: ['.NET 8', 'Angular 20', 'Firebase', 'Docker', 'Gemini API'],
+    accentColor: '#adc6ff',
+    bgColor: '#0e1524',
+    url: 'https://codesync.mateopavoni.com.ar',
+    screenshot: '/codesync.png',
+  },
+  {
     id: 'marcovich',
     dictKey: 'marcovich',
     name: 'Marcovich Barbería',
@@ -131,25 +150,6 @@ const projectBases: ProjectBase[] = [
     screenshot: '/chaos-playground.png',
   },
   {
-    id: 'clubcore',
-    dictKey: 'clubcore',
-    name: 'ClubCore',
-    stack: ['Java 21', 'Spring Boot', 'MySQL', 'Resilience4j', 'Docker'],
-    accentColor: '#22c55e',
-    bgColor: '#0f172a',
-    url: 'https://clubcore-api.mateopavoni.com.ar/swagger-ui.html',
-  },
-  {
-    id: 'codesync',
-    dictKey: 'codesync',
-    name: 'CodeSync',
-    stack: ['.NET 8', 'Angular 20', 'Firebase', 'Docker', 'Gemini API'],
-    accentColor: '#adc6ff',
-    bgColor: '#0e1524',
-    url: 'https://codesync.mateopavoni.com.ar',
-    screenshot: '/codesync.png',
-  },
-  {
     id: 'vimet-app',
     dictKey: 'vimet_app',
     name: 'Vimet App',
@@ -186,6 +186,11 @@ const projectBases: ProjectBase[] = [
   },
 ]
 
+// Proyectos "tapados": siguen definidos arriba pero no se muestran ni se narran.
+// Para destaparlos, sacar su id de este set.
+const HIDDEN_IDS = new Set(['vimet-app', 'inglobal-agenda'])
+const visibleBases = projectBases.filter((b) => !HIDDEN_IDS.has(b.id))
+
 const THINKING_MS = 600
 const TYPE_SPEED_MS = 15
 const GAP_MS = 450
@@ -204,8 +209,8 @@ export default function ProjectsGrid({ dict, lang }: { dict: ProjectsDict; lang:
   const [loadedImages, setLoadedImages] = useState<Record<string, boolean>>({})
 
   const projects = useMemo(() => {
-    const realIds = projectBases.filter((b) => b.id !== 'coming-soon').map((b) => b.id)
-    return projectBases.map((base) => {
+    const realIds = visibleBases.filter((b) => b.id !== 'coming-soon').map((b) => b.id)
+    return visibleBases.map((base) => {
       const item = dict.items[base.dictKey]
       return {
         ...base,

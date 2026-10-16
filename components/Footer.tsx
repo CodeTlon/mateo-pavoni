@@ -38,7 +38,7 @@ export default function Footer({ dict, ui }: { dict: FooterDict; ui: UiDict }) {
             LinkedIn
           </a>
           <a
-            href="https://mail.google.com/mail/?view=cm&fs=1&to=mateopavonint905@gmail.com"
+            href="https://mail.google.com/mail/?view=cm&fs=1&to=mateopavoni6@gmail.com"
             target="_blank"
             rel="noopener noreferrer"
             className={linkClass}

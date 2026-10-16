@@ -2,7 +2,7 @@ import { z } from 'zod'
 import { getDictionary, type Locale } from '@/app/[lang]/dictionaries'
 import { sendContactEmail } from '@/app/actions/contact'
 import { credentialItems } from '@/lib/credentials'
-import { ageOn, CONTACT, LOCATION, PROJECTS, STACK } from '@/lib/nova-context'
+import { ageOn, CONTACT, FOCUS, LOCATION, PROJECTS, STACK } from '@/lib/nova-context'
 
 const GEMINI_STREAM_URL =
   'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:streamGenerateContent'
@@ -227,6 +227,8 @@ Respondé SOLO sobre su perfil profesional, tono cercano y breve (2-4 frases). T
 REGLA DE IDIOMA (obligatoria, prioridad máxima, aplica también a los rechazos de temas fuera de perfil): detectá el idioma del ÚLTIMO mensaje del usuario y respondé en ESE idioma, así el resto de este prompt esté en español — un mensaje en inglés se responde en inglés, uno en español se responde en español, sin excepción. Recién si todavía no escribió ningún mensaje, usá el idioma de la página (${lang === 'en' ? 'inglés' : 'español'}) como default.
 
 Datos personales: nació el 20/03/2006 (hoy tiene ${ageOn(now)} años). Vive en ${LOCATION}. Fecha de hoy: ${today} (usala para interpretar "Presente" en períodos). Si preguntan la edad o fecha de nacimiento, usá este dato exacto — nunca lo inventes.
+
+Perfil orientado a: ${FOCUS}. Si preguntan por su especialidad o en qué quiere trabajar, destacá esas tecnologías primero; el resto del stack es complementario.
 
 Stack: ${STACK}
 
