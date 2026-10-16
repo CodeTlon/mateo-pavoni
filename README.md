@@ -1,39 +1,27 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Portfolio de Mateo Pavoni
 
-## Getting Started
+Portfolio bilingue (es/en) de Mateo Pavoni, desarrollador full stack: https://www.mateopavoni.com.ar. Incluye el widget de chat "Nova" (Gemini, con base de conocimiento cerrada) y un formulario de contacto por Resend.
 
-First, run the development server:
+## Stack
+Next.js 16.4.2 (App Router) · React 19.3.1 · TypeScript 6 · Tailwind CSS 4.3.3 (tokens en `@theme` de `app/globals.css`, sin `tailwind.config`) · Resend + React Email · Zod 4. i18n propio en `app/[lang]/` con `proxy.ts` (Next 16). Versiones de la flota: `codetlon-cloud/.claude/modules/stack-versions.md`.
 
+**Deploy: Vercel.** Es de los pocos proyectos que van a Vercel porque **no tiene backend propio** (sin base de datos ni archivos): los proyectos con backend van a Coolify. Auto-deploy en push a `main`.
+
+## Desarrollo
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev        # http://localhost:3000
+npm run lint       # ESLint 10 (config plana)
+npx tsc --noEmit
+npm run build
 ```
+Variables de entorno (Resend y Gemini) solo en Vercel y en `.env.local`; nunca en el repo.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Ramas
+`feature/*` -> `dev` -> `test` (merge directo) -> PR a `main` (produccion, con OK de Mateo).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Documentacion para sesiones de IA
+[`AGENTS.md`](AGENTS.md), [`ARCHITECTURE.md`](ARCHITECTURE.md) y [`.ai/context/`](.ai/context/00_INDEX.md).
 
 ## Changelog
 
@@ -48,3 +36,4 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 | 2026-07-29 | fix: borde negro real en screenshots de proyectos (era el hairline del panel, no un tema de aspect ratio) + feat: Nova ahora responde en streaming, agenda entrevistas de verdad (manda mail real) y recuerda la charla entre visitas |
 | 2026-07-31 | feat: agrego Chaos Playground y ClubCore al grid de proyectos (descripciones es/en, tags de stack) |
 | 2026-10-15 | feat: puesto actual Junior Full Stack en AR IT Services (es/en, JSON-LD `worksFor`, llms.txt), freelance cerrado en Sep 2026; Nova con base de conocimiento cerrada (`lib/nova-context.ts`), `systemInstruction`, validación de body, `thinkingBudget: 0`, API key por header y evento `error`; sección Credenciales (`components/sections/Credentials.tsx`, 23 credenciales como lista; oculta si `credentials.items` queda vacío) |
+| 2026-10-16 | chore: estandar de versiones de la flota (Next 16.4.2, React 19.3.1, Zod 4.6.7, Resend 6.33, ESLint 10.13.0, `@types/node` 22, Tailwind 4.3.3 exacto). `react-hooks/set-state-in-effect` pasa de error a aviso (3 componentes con el patron de hidratacion; el lint ya estaba rojo antes del cambio). `npm audit --omit=dev` en 0; el audit completo conserva solo `braces` (cadena de `eslint-config-next`, sin parche publicado). Verificado: `tsc`, lint (0 errores, 3 avisos) y build. **Sin verificar:** comparacion visual en navegador ni deploy de Vercel con esta version. |
