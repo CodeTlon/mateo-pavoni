@@ -1,5 +1,9 @@
 # KNOWN_ISSUES.md — mateo-pavoni
 
+## Vigente (2026-10-16)
+- El lint estaba rojo antes de esta alineacion (3 errores `react-hooks/set-state-in-effect` en `Navbar`, `NovaChat` y `RainingLetters`). Se bajo la regla a aviso, igual que en el resto de la flota; el patron de hidratacion es intencional.
+- `npm audit` completo conserva 5 altas de herramientas de desarrollo: `braces` <= 3.0.3 via `eslint-config-next` -> `fast-glob` -> `micromatch`. Sin version corregida publicada; no entra al runtime.
+
 Auditoría del 2026-09-18, solo lectura (git, `npm audit`, `vercel`/`gh api` read-only, lectura de código). **No se encontró ningún hallazgo de severidad CRÍTICA** — se buscó explícitamente (RCE, exfiltración de datos, bypass de auth, secret leakeado en git, inyección SQL/NoSQL) y no apareció ninguno. El hallazgo de mayor severidad real es ALTA (#1).
 
 ## ALTA

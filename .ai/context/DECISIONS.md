@@ -25,3 +25,7 @@ Decisión explícita y auto-documentada en el propio código (`route.ts`, coment
 ## Dominio: `.dev` → `.com.ar`
 
 El proyecto migró de dominio (`mateopavoni.dev` → `mateopavoni.com.ar`) en algún momento; `sitemap.ts`/`robots.ts` tuvieron que corregirse porque quedaron apuntando al dominio viejo. Si se vuelve a migrar de dominio, esos dos archivos son el punto de falla conocido (están hardcodeados, no leen de una env var de "site URL").
+
+## Estandar de versiones de la flota (2026-10-16)
+**Decision**: seguir el conjunto de `codetlon-cloud/.claude/modules/stack-versions.md` (versiones exactas). El portfolio se queda en Vercel porque no tiene backend (la regla de la flota es Vercel solo para proyectos sin backend).
+**Por que**: reducir vulnerabilidades y tener todos los proyectos en el mismo conjunto de versiones.
