@@ -16,7 +16,7 @@
 - **Deploy:** Vercel (solo porque no tiene backend; los proyectos con backend van a Coolify)
 
 ## Stack
-- **Next.js 16.4.2** (App Router) + React 19.3.1 + TypeScript 6
+- **Next.js 16.4.6** (App Router) + React 19.3.1 + TypeScript 6
 - Tailwind CSS 4 (tokens en `@theme`) + Lucide React
 - **i18n propio** vía `app/[lang]/` (locales `es` default + `en`) + `proxy.ts` (redirect por Accept-Language)
 - Dark mode vía `ThemeProvider` (next-themes pattern)

@@ -3,7 +3,7 @@
 Mapa para mantenimiento. **No releas el repo entero**: buscá tu tipo de cambio acá y abrí solo esos archivos.
 
 ## Stack
-**Next.js 16.4.2** (App Router) · React 19.3.1 · TS 6 · Tailwind 4 · Lucide · Resend · Vercel. i18n propio (`app/[lang]/`, locales `es`/`en`) + `proxy.ts`. Single-page bento portfolio con dark mode.
+**Next.js 16.4.6** (App Router) · React 19.3.1 · TS 6 · Tailwind 4 · Lucide · Resend · Vercel. i18n propio (`app/[lang]/`, locales `es`/`en`) + `proxy.ts`. Single-page bento portfolio con dark mode.
 
 ## Para cambios comunes, leé solo esto
 
