@@ -1,5 +1,7 @@
 # CURRENT_STATE.md — mateo-pavoni
 
+**Actualizacion 2026-11-26:** Next 16.4.2 → 16.4.6 por advisories de seguridad (rama `feature/dev1-next-16-4-6`, promovida a `dev` y `test`; `main` sin tocar). Verificado: tsc, lint (3 avisos) y build; `npm audit fix` (`fast-uri` 3.1.9) y `npm audit --omit=dev` en 0. No tiene E2E ni CI.
+
 **Actualizacion 2026-10-16:** la rama `feature/dev2-estandar-2026` (integrada en `dev` y `test`) alinea las versiones al estandar de la flota (Next 16.4.2, React 19.3.1, Zod 4.6.7, ESLint 10.13.0, `@types/node` 22, Tailwind 4.3.3 exacto). Verificado: `tsc`, lint (0 errores, 3 avisos), build, `npm audit --omit=dev` en 0. **Sin verificar:** comparacion visual en navegador y el deploy de Vercel con esta version. `main` (produccion en Vercel) no se toco: se actualiza con el PR de promocion.
 
 Estado verificado el 2026-09-18 (HEAD `1a5d140`), no inferido de documentación previa.
